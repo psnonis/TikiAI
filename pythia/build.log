@@ -1,0 +1,205 @@
+Sending build context to Docker daemon  99.84kB
+Step 1/48 : FROM nvidia/cuda:10.1-devel-ubuntu18.04
+ ---> 010a71dc59db
+Step 2/48 : RUN mkdir -p /final
+ ---> Using cache
+ ---> c5f17f789492
+Step 3/48 : WORKDIR /final
+ ---> Using cache
+ ---> 87b2d37af95f
+Step 4/48 : RUN mkdir -p /final/data
+ ---> Using cache
+ ---> 40de7d1b2ba5
+Step 5/48 : RUN mkdir -p /final/pack
+ ---> Using cache
+ ---> b4912e583f02
+Step 6/48 : RUN mkdir -p /final/work
+ ---> Using cache
+ ---> da2ed6b7368b
+Step 7/48 : ENV LANG=C.UTF-8
+ ---> Using cache
+ ---> a26a834a1114
+Step 8/48 : ENV DEBIAN_FRONTEND=noninteractive
+ ---> Using cache
+ ---> 61f00dd565a2
+Step 9/48 : RUN apt update
+ ---> Using cache
+ ---> a68735e81942
+Step 10/48 : RUN apt install -yq apt-utils
+ ---> Using cache
+ ---> 5e0c23eedb87
+Step 11/48 : RUN apt install -yq wget git
+ ---> Using cache
+ ---> 659218db9431
+Step 12/48 : RUN apt install -yq python3-pip python3-dev
+ ---> Using cache
+ ---> b607b9c4af88
+Step 13/48 : RUN ln -s /usr/bin/python3 /usr/local/bin/python
+ ---> Using cache
+ ---> cacf519418bb
+Step 14/48 : RUN ln -s /usr/bin/pip3 /usr/local/bin/pip
+ ---> Using cache
+ ---> 3bee263526c3
+Step 15/48 : RUN pip install --upgrade pip
+ ---> Using cache
+ ---> 8b10fd35c810
+Step 16/48 : RUN mkdir -p /final/data
+ ---> Using cache
+ ---> b39cb221b5f2
+Step 17/48 : RUN wget -qO /final/data/vocabulary_100k.txt      https://dl.fbaipublicfiles.com/pythia/data/vocabulary_100k.txt
+ ---> Using cache
+ ---> 6e3bddb1186b
+Step 18/48 : RUN wget -qO /final/data/answers_vqa.txt          https://dl.fbaipublicfiles.com/pythia/data/answers_vqa.txt
+ ---> Using cache
+ ---> 799c9565bd1f
+Step 19/48 : RUN wget -qO /final/data/pythia.pth               https://dl.fbaipublicfiles.com/pythia/pretrained_models/vqa2/pythia_train_val.pth
+ ---> Using cache
+ ---> 2b6df02a72ee
+Step 20/48 : RUN wget -qO /final/data/pythia.yaml              https://dl.fbaipublicfiles.com/pythia/pretrained_models/vqa2/pythia_train_val.yml
+ ---> Using cache
+ ---> db102582aa0c
+Step 21/48 : RUN wget -qO /final/data/detectron_model.pth      https://dl.fbaipublicfiles.com/pythia/detectron_model/detectron_model.pth
+ ---> Using cache
+ ---> 02311c080167
+Step 22/48 : RUN wget -qO /final/data/detectron_model.yaml     https://dl.fbaipublicfiles.com/pythia/detectron_model/detectron_model.yaml
+ ---> Using cache
+ ---> 8dcc7b0adc44
+Step 23/48 : RUN wget -qO /final/data/detectron_weights.tar.gz https://dl.fbaipublicfiles.com/pythia/data/detectron_weights.tar.gz
+ ---> Using cache
+ ---> cde164d57303
+Step 24/48 : RUN tar   xf /final/data/detectron_weights.tar.gz -C /final/data
+ ---> Using cache
+ ---> 8e3f1fd87a25
+Step 25/48 : RUN apt install -yq libsm6 libxext6 libxrender-dev
+ ---> Using cache
+ ---> 74972e04d1f3
+Step 26/48 : RUN pip install torch
+ ---> Using cache
+ ---> e3acaecd9e12
+Step 27/48 : RUN pip install opencv-python torchvision torchtext
+ ---> Using cache
+ ---> cc95c9a5aedb
+Step 28/48 : RUN pip install ninja yacs cython matplotlib demjson click
+ ---> Using cache
+ ---> dd3d451867f4
+Step 29/48 : RUN pip install git+https://github.com/cocodataset/cocoapi.git#subdirectory=PythonAPI
+ ---> Using cache
+ ---> 2054ea0bcf36
+Step 30/48 : RUN git clone https://github.com/facebookresearch/fastText.git /final/pack/fastText
+ ---> Using cache
+ ---> 817abf280d59
+Step 31/48 : RUN pip install -e /final/pack/fastText
+ ---> Using cache
+ ---> f2a79021631b
+Step 32/48 : RUN git clone https://github.com/facebookresearch/pythia.git /final/pack/pythia
+ ---> Using cache
+ ---> dc73aa5ba422
+Step 33/48 : RUN sed -i '/torch/d' /final/pack/pythia/requirements.txt
+ ---> Using cache
+ ---> 9d4d0dcc7fbd
+Step 34/48 : RUN pip install -e /final/pack/pythia
+ ---> Using cache
+ ---> e8a344312c27
+Step 35/48 : RUN git clone https://gitlab.com/meetshah1995/vqa-maskrcnn-benchmark.git /final/pack/vqa-maskrcnn-benchmark
+ ---> Using cache
+ ---> 366cd2ea5a73
+Step 36/48 : WORKDIR /final/pack/vqa-maskrcnn-benchmark
+ ---> Using cache
+ ---> 8ef560638a0f
+Step 37/48 : RUN python setup.py build
+ ---> Using cache
+ ---> 682b71d43b6e
+Step 38/48 : RUN python setup.py develop
+ ---> Using cache
+ ---> 9913af896f64
+Step 39/48 : WORKDIR /final
+ ---> Using cache
+ ---> da8fbf9b2550
+Step 40/48 : WORKDIR /final/work
+ ---> Using cache
+ ---> 3286c65abeb7
+Step 41/48 : COPY cache.py .
+ ---> Using cache
+ ---> 1d3cf9bd0429
+Step 42/48 : RUN /final/work/cache.py .
+ ---> Using cache
+ ---> c0b5d96e1a45
+Step 43/48 : COPY entry.py .
+ ---> ea90711abff1
+Step 44/48 : RUN /final/work/entry.py
+ ---> Running in a1ad8cef9ff8
+Oracle : Initializing : Device Type is cpu
+Oracle : Initializing : Building - Text Processors
+Oracle : Initializing : Building - ResNet152
+Oracle : Initializing : Building - Detectron
+Oracle : Initializing : Building - PythiaVQA
+Oracle : Initializing : Finished in  10.749 Seconds
+Removing intermediate container a1ad8cef9ff8
+ ---> b2161f19f2b0
+Step 45/48 : COPY africa.jpg .
+ ---> b18bc4e34392
+Step 46/48 : RUN /final/work/entry.py --image africa.jpg --question 'where is this place ?' --mode cpu
+ ---> Running in 84f4628b231a
+Oracle : Initializing : Device Type is cpu
+Oracle : Initializing : Building - Text Processors
+Oracle : Initializing : Building - ResNet152
+Oracle : Initializing : Building - Detectron
+Oracle : Initializing : Building - PythiaVQA
+Oracle : Initializing : Finished in  10.763 Seconds
+Oracle : Divining Answers : africa.jpg, where is this place ?
+Oracle : Getting Features : Detectron - Finished in  16.040 Seconds
+Oracle : Getting Features : ResNet152 - Finished in   2.087 Seconds
+Oracle : Divining Answers : PythiaVQA - Finished in   3.296 Seconds
+Oracle : Divining Answers : End-2-End - Finished in  21.464 Seconds
+Oracle : RANK | CONFIDENCE | ANSWER
+       : 1    | 97.865%    | africa
+       : 2    | 00.448%    | safari
+       : 3    | 00.439%    | savannah
+       : 4    | 00.439%    | outside
+       : 5    | 00.331%    | desert
+Removing intermediate container 84f4628b231a
+ ---> 4322f71b8cc2
+Step 47/48 : RUN /final/work/entry.py --image africa.jpg --question 'how many zebras are there ?' --mode cpu
+ ---> Running in 541fb02a8aef
+Oracle : Initializing : Device Type is cpu
+Oracle : Initializing : Building - Text Processors
+Oracle : Initializing : Building - ResNet152
+Oracle : Initializing : Building - Detectron
+Oracle : Initializing : Building - PythiaVQA
+Oracle : Initializing : Finished in  10.622 Seconds
+Oracle : Divining Answers : africa.jpg, how many zebras are there ?
+Oracle : Getting Features : Detectron - Finished in  15.865 Seconds
+Oracle : Getting Features : ResNet152 - Finished in   2.364 Seconds
+Oracle : Divining Answers : PythiaVQA - Finished in   3.378 Seconds
+Oracle : Divining Answers : End-2-End - Finished in  21.641 Seconds
+Oracle : RANK | CONFIDENCE | ANSWER
+       : 1    | 99.851%    | 2
+       : 2    | 00.123%    | 3
+       : 3    | 00.016%    | 0
+       : 4    | 00.009%    | 1
+       : 5    | 00.001%    | no
+Removing intermediate container 541fb02a8aef
+ ---> 54982a8ed2da
+Step 48/48 : RUN /final/work/entry.py --image africa.jpg --question 'what is the tall animal ?' --mode cpu
+ ---> Running in f588f6d30261
+Oracle : Initializing : Device Type is cpu
+Oracle : Initializing : Building - Text Processors
+Oracle : Initializing : Building - ResNet152
+Oracle : Initializing : Building - Detectron
+Oracle : Initializing : Building - PythiaVQA
+Oracle : Initializing : Finished in  12.549 Seconds
+Oracle : Divining Answers : africa.jpg, what is the tall animal ?
+Oracle : Getting Features : Detectron - Finished in  17.493 Seconds
+Oracle : Getting Features : ResNet152 - Finished in   2.206 Seconds
+Oracle : Divining Answers : PythiaVQA - Finished in   3.523 Seconds
+Oracle : Divining Answers : End-2-End - Finished in  23.263 Seconds
+Oracle : RANK | CONFIDENCE | ANSWER
+       : 1    | 99.766%    | giraffe
+       : 2    | 00.040%    | tall
+       : 3    | 00.032%    | 10 feet
+       : 4    | 00.024%    | yes
+       : 5    | 00.023%    | zebra
+Removing intermediate container f588f6d30261
+ ---> b1b9decc7ccb
+Successfully built b1b9decc7ccb
+Successfully tagged w251-final/pythia:latest

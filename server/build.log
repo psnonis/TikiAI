@@ -1,0 +1,54 @@
+Sending build context to Docker daemon   2.56kB
+Step 1/6 : FROM node:lts
+ ---> e05cbde47b8f
+Step 2/6 : RUN mkdir -p /final
+ ---> Using cache
+ ---> e29369133e87
+Step 3/6 : WORKDIR /final
+ ---> Using cache
+ ---> cea765ce0473
+Step 4/6 : RUN npm init --yes
+ ---> Running in 919988e1b0c0
+Wrote to /final/package.json:
+
+{
+  "name": "final",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
+
+
+Removing intermediate container 919988e1b0c0
+ ---> 30814b76e363
+Step 5/6 : RUN npm install express
+ ---> Running in 13f1ae56ed59
+[91mnpm notice created a lockfile as package-lock.json. You should commit this file.
+[0m[91mnpm WARN final@1.0.0 No description
+[0m[91mnpm WARN[0m[91m final@1.0.0 No repository field.
+[0m[91m
+[0m+ express@4.17.1
+added 50 packages from 37 contributors and audited 126 packages in 2.387s
+found 0 vulnerabilities
+
+Removing intermediate container 13f1ae56ed59
+ ---> e33a56f6a2c3
+Step 6/6 : RUN npm install vue
+ ---> Running in 35b7ab683f81
+[91mnpm WARN final@1.0.0 No description
+[0m[91mnpm WARN final@1.0.0 No repository field.
+[0m[91m
+[0m+ vue@2.6.10
+added 1 package from 1 contributor and audited 127 packages in 1.047s
+found 0 vulnerabilities
+
+Removing intermediate container 35b7ab683f81
+ ---> a762e8b5f0fa
+Successfully built a762e8b5f0fa
+Successfully tagged w251-final/server:latest
