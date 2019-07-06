@@ -19,187 +19,1201 @@ Step 6/48 : RUN mkdir -p /final/work
 Step 7/48 : ENV LANG=C.UTF-8
  ---> Using cache
  ---> a26a834a1114
-Step 8/48 : ENV DEBIAN_FRONTEND=noninteractive
- ---> Using cache
- ---> 61f00dd565a2
+Step 8/48 : ARG DEBIAN_FRONTEND=noninteractive
+ ---> Running in f889a64e3310
+Removing intermediate container f889a64e3310
+ ---> 0d69936ea6cc
 Step 9/48 : RUN apt update
- ---> Using cache
- ---> a68735e81942
+ ---> Running in 05a6502fb056
+[91m
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+[0mIgn:1 https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64  InRelease
+Ign:2 https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64  InRelease
+Get:3 https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64  Release [564 B]
+Get:4 https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64  Release [564 B]
+Get:5 https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64  Release.gpg [801 B]
+Get:6 https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64  Release.gpg [801 B]
+Get:7 https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64  Packages [85.5 kB]
+Get:8 http://security.ubuntu.com/ubuntu bionic-security InRelease [88.7 kB]
+Get:9 https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64  Packages [10.8 kB]
+Get:10 http://archive.ubuntu.com/ubuntu bionic InRelease [242 kB]
+Get:11 http://security.ubuntu.com/ubuntu bionic-security/universe amd64 Packages [721 kB]
+Get:12 http://archive.ubuntu.com/ubuntu bionic-updates InRelease [88.7 kB]
+Get:13 http://security.ubuntu.com/ubuntu bionic-security/main amd64 Packages [576 kB]
+Get:14 http://archive.ubuntu.com/ubuntu bionic-backports InRelease [74.6 kB]
+Get:15 http://security.ubuntu.com/ubuntu bionic-security/multiverse amd64 Packages [4169 B]
+Get:16 http://security.ubuntu.com/ubuntu bionic-security/restricted amd64 Packages [5436 B]
+Get:17 http://archive.ubuntu.com/ubuntu bionic/restricted amd64 Packages [13.5 kB]
+Get:18 http://archive.ubuntu.com/ubuntu bionic/multiverse amd64 Packages [186 kB]
+Get:19 http://archive.ubuntu.com/ubuntu bionic/main amd64 Packages [1344 kB]
+Get:20 http://archive.ubuntu.com/ubuntu bionic/universe amd64 Packages [11.3 MB]
+Get:21 http://archive.ubuntu.com/ubuntu bionic-updates/restricted amd64 Packages [10.8 kB]
+Get:22 http://archive.ubuntu.com/ubuntu bionic-updates/multiverse amd64 Packages [7239 B]
+Get:23 http://archive.ubuntu.com/ubuntu bionic-updates/universe amd64 Packages [1238 kB]
+Get:24 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 Packages [882 kB]
+Get:25 http://archive.ubuntu.com/ubuntu bionic-backports/universe amd64 Packages [3927 B]
+Get:26 http://archive.ubuntu.com/ubuntu bionic-backports/main amd64 Packages [2496 B]
+Fetched 16.9 MB in 41s (417 kB/s)
+Reading package lists...
+Building dependency tree...
+Reading state information...
+6 packages can be upgraded. Run 'apt list --upgradable' to see them.
+Removing intermediate container 05a6502fb056
+ ---> 37f17f9fe6c9
 Step 10/48 : RUN apt install -yq apt-utils
- ---> Using cache
- ---> 5e0c23eedb87
+ ---> Running in bf2989788d75
+[91m
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+[0mReading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  libapt-inst2.0
+The following NEW packages will be installed:
+  apt-utils libapt-inst2.0
+0 upgraded, 2 newly installed, 0 to remove and 6 not upgraded.
+Need to get 262 kB of archives.
+After this operation, 1276 kB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libapt-inst2.0 amd64 1.6.11 [55.6 kB]
+Get:2 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 apt-utils amd64 1.6.11 [206 kB]
+[91mdebconf: delaying package configuration, since apt-utils is not installed
+[0mFetched 262 kB in 1s (200 kB/s)
+Selecting previously unselected package libapt-inst2.0:amd64.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 11713 files and directories currently installed.)
+Preparing to unpack .../libapt-inst2.0_1.6.11_amd64.deb ...
+Unpacking libapt-inst2.0:amd64 (1.6.11) ...
+Selecting previously unselected package apt-utils.
+Preparing to unpack .../apt-utils_1.6.11_amd64.deb ...
+Unpacking apt-utils (1.6.11) ...
+Setting up libapt-inst2.0:amd64 (1.6.11) ...
+Setting up apt-utils (1.6.11) ...
+Processing triggers for libc-bin (2.27-3ubuntu1) ...
+Removing intermediate container bf2989788d75
+ ---> e926987bfda4
 Step 11/48 : RUN apt install -yq wget git
- ---> Using cache
- ---> 659218db9431
+ ---> Running in 7376ce38609d
+[91m
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+[0mReading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  git-man krb5-locales less libbsd0 libcurl3-gnutls libedit2 liberror-perl
+  libexpat1 libgssapi-krb5-2 libk5crypto3 libkeyutils1 libkrb5-3
+  libkrb5support0 libnghttp2-14 libpsl5 librtmp1 libssl1.0.0 libx11-6
+  libx11-data libxau6 libxcb1 libxdmcp6 libxext6 libxmuu1 multiarch-support
+  openssh-client publicsuffix xauth
+Suggested packages:
+  gettext-base git-daemon-run | git-daemon-sysvinit git-doc git-el git-email
+  git-gui gitk gitweb git-cvs git-mediawiki git-svn krb5-doc krb5-user
+  keychain libpam-ssh monkeysphere ssh-askpass
+The following NEW packages will be installed:
+  git git-man krb5-locales less libbsd0 libcurl3-gnutls libedit2 liberror-perl
+  libexpat1 libgssapi-krb5-2 libk5crypto3 libkeyutils1 libkrb5-3
+  libkrb5support0 libnghttp2-14 libpsl5 librtmp1 libssl1.0.0 libx11-6
+  libx11-data libxau6 libxcb1 libxdmcp6 libxext6 libxmuu1 multiarch-support
+  openssh-client publicsuffix wget xauth
+0 upgraded, 30 newly installed, 0 to remove and 6 not upgraded.
+Need to get 8902 kB of archives.
+After this operation, 50.8 MB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu bionic/main amd64 multiarch-support amd64 2.27-3ubuntu1 [6916 B]
+Get:2 http://archive.ubuntu.com/ubuntu bionic/main amd64 libxau6 amd64 1:1.0.8-1 [8376 B]
+Get:3 http://archive.ubuntu.com/ubuntu bionic/main amd64 libbsd0 amd64 0.8.7-1 [41.5 kB]
+Get:4 http://archive.ubuntu.com/ubuntu bionic/main amd64 libxdmcp6 amd64 1:1.1.2-3 [10.7 kB]
+Get:5 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libxcb1 amd64 1.13-2~ubuntu18.04 [45.5 kB]
+Get:6 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libx11-data all 2:1.6.4-3ubuntu0.2 [113 kB]
+Get:7 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libx11-6 amd64 2:1.6.4-3ubuntu0.2 [569 kB]
+Get:8 http://archive.ubuntu.com/ubuntu bionic/main amd64 libxext6 amd64 2:1.3.3-1 [29.4 kB]
+Get:9 http://archive.ubuntu.com/ubuntu bionic/main amd64 less amd64 487-0.1 [112 kB]
+Get:10 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libexpat1 amd64 2.2.5-3ubuntu0.1 [80.5 kB]
+Get:11 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 krb5-locales all 1.16-2ubuntu0.1 [13.5 kB]
+Get:12 http://archive.ubuntu.com/ubuntu bionic/main amd64 libedit2 amd64 3.1-20170329-1 [76.9 kB]
+Get:13 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libkrb5support0 amd64 1.16-2ubuntu0.1 [30.9 kB]
+Get:14 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libk5crypto3 amd64 1.16-2ubuntu0.1 [85.6 kB]
+Get:15 http://archive.ubuntu.com/ubuntu bionic/main amd64 libkeyutils1 amd64 1.5.9-9.2ubuntu2 [8720 B]
+Get:16 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libkrb5-3 amd64 1.16-2ubuntu0.1 [279 kB]
+Get:17 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libgssapi-krb5-2 amd64 1.16-2ubuntu0.1 [122 kB]
+Get:18 http://archive.ubuntu.com/ubuntu bionic/main amd64 libpsl5 amd64 0.19.1-5build1 [41.8 kB]
+Get:19 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libssl1.0.0 amd64 1.0.2n-1ubuntu5.3 [1088 kB]
+Get:20 http://archive.ubuntu.com/ubuntu bionic/main amd64 libxmuu1 amd64 2:1.1.2-2 [9674 B]
+Get:21 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 openssh-client amd64 1:7.6p1-4ubuntu0.3 [614 kB]
+Get:22 http://archive.ubuntu.com/ubuntu bionic/main amd64 publicsuffix all 20180223.1310-1 [97.6 kB]
+Get:23 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 wget amd64 1.19.4-1ubuntu2.2 [316 kB]
+Get:24 http://archive.ubuntu.com/ubuntu bionic/main amd64 xauth amd64 1:1.0.10-1 [24.6 kB]
+Get:25 http://archive.ubuntu.com/ubuntu bionic/main amd64 libnghttp2-14 amd64 1.30.0-1ubuntu1 [77.8 kB]
+Get:26 http://archive.ubuntu.com/ubuntu bionic/main amd64 librtmp1 amd64 2.4+20151223.gitfa8646d.1-1 [54.2 kB]
+Get:27 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libcurl3-gnutls amd64 7.58.0-2ubuntu3.7 [212 kB]
+Get:28 http://archive.ubuntu.com/ubuntu bionic/main amd64 liberror-perl all 0.17025-1 [22.8 kB]
+Get:29 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 git-man all 1:2.17.1-1ubuntu0.4 [803 kB]
+Get:30 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 git amd64 1:2.17.1-1ubuntu0.4 [3907 kB]
+Preconfiguring packages ...
+Fetched 8902 kB in 23s (386 kB/s)
+Selecting previously unselected package multiarch-support.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 11800 files and directories currently installed.)
+Preparing to unpack .../multiarch-support_2.27-3ubuntu1_amd64.deb ...
+Unpacking multiarch-support (2.27-3ubuntu1) ...
+Setting up multiarch-support (2.27-3ubuntu1) ...
+Selecting previously unselected package libxau6:amd64.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 11803 files and directories currently installed.)
+Preparing to unpack .../00-libxau6_1%3a1.0.8-1_amd64.deb ...
+Unpacking libxau6:amd64 (1:1.0.8-1) ...
+Selecting previously unselected package libbsd0:amd64.
+Preparing to unpack .../01-libbsd0_0.8.7-1_amd64.deb ...
+Unpacking libbsd0:amd64 (0.8.7-1) ...
+Selecting previously unselected package libxdmcp6:amd64.
+Preparing to unpack .../02-libxdmcp6_1%3a1.1.2-3_amd64.deb ...
+Unpacking libxdmcp6:amd64 (1:1.1.2-3) ...
+Selecting previously unselected package libxcb1:amd64.
+Preparing to unpack .../03-libxcb1_1.13-2~ubuntu18.04_amd64.deb ...
+Unpacking libxcb1:amd64 (1.13-2~ubuntu18.04) ...
+Selecting previously unselected package libx11-data.
+Preparing to unpack .../04-libx11-data_2%3a1.6.4-3ubuntu0.2_all.deb ...
+Unpacking libx11-data (2:1.6.4-3ubuntu0.2) ...
+Selecting previously unselected package libx11-6:amd64.
+Preparing to unpack .../05-libx11-6_2%3a1.6.4-3ubuntu0.2_amd64.deb ...
+Unpacking libx11-6:amd64 (2:1.6.4-3ubuntu0.2) ...
+Selecting previously unselected package libxext6:amd64.
+Preparing to unpack .../06-libxext6_2%3a1.3.3-1_amd64.deb ...
+Unpacking libxext6:amd64 (2:1.3.3-1) ...
+Selecting previously unselected package less.
+Preparing to unpack .../07-less_487-0.1_amd64.deb ...
+Unpacking less (487-0.1) ...
+Selecting previously unselected package libexpat1:amd64.
+Preparing to unpack .../08-libexpat1_2.2.5-3ubuntu0.1_amd64.deb ...
+Unpacking libexpat1:amd64 (2.2.5-3ubuntu0.1) ...
+Selecting previously unselected package krb5-locales.
+Preparing to unpack .../09-krb5-locales_1.16-2ubuntu0.1_all.deb ...
+Unpacking krb5-locales (1.16-2ubuntu0.1) ...
+Selecting previously unselected package libedit2:amd64.
+Preparing to unpack .../10-libedit2_3.1-20170329-1_amd64.deb ...
+Unpacking libedit2:amd64 (3.1-20170329-1) ...
+Selecting previously unselected package libkrb5support0:amd64.
+Preparing to unpack .../11-libkrb5support0_1.16-2ubuntu0.1_amd64.deb ...
+Unpacking libkrb5support0:amd64 (1.16-2ubuntu0.1) ...
+Selecting previously unselected package libk5crypto3:amd64.
+Preparing to unpack .../12-libk5crypto3_1.16-2ubuntu0.1_amd64.deb ...
+Unpacking libk5crypto3:amd64 (1.16-2ubuntu0.1) ...
+Selecting previously unselected package libkeyutils1:amd64.
+Preparing to unpack .../13-libkeyutils1_1.5.9-9.2ubuntu2_amd64.deb ...
+Unpacking libkeyutils1:amd64 (1.5.9-9.2ubuntu2) ...
+Selecting previously unselected package libkrb5-3:amd64.
+Preparing to unpack .../14-libkrb5-3_1.16-2ubuntu0.1_amd64.deb ...
+Unpacking libkrb5-3:amd64 (1.16-2ubuntu0.1) ...
+Selecting previously unselected package libgssapi-krb5-2:amd64.
+Preparing to unpack .../15-libgssapi-krb5-2_1.16-2ubuntu0.1_amd64.deb ...
+Unpacking libgssapi-krb5-2:amd64 (1.16-2ubuntu0.1) ...
+Selecting previously unselected package libpsl5:amd64.
+Preparing to unpack .../16-libpsl5_0.19.1-5build1_amd64.deb ...
+Unpacking libpsl5:amd64 (0.19.1-5build1) ...
+Selecting previously unselected package libssl1.0.0:amd64.
+Preparing to unpack .../17-libssl1.0.0_1.0.2n-1ubuntu5.3_amd64.deb ...
+Unpacking libssl1.0.0:amd64 (1.0.2n-1ubuntu5.3) ...
+Selecting previously unselected package libxmuu1:amd64.
+Preparing to unpack .../18-libxmuu1_2%3a1.1.2-2_amd64.deb ...
+Unpacking libxmuu1:amd64 (2:1.1.2-2) ...
+Selecting previously unselected package openssh-client.
+Preparing to unpack .../19-openssh-client_1%3a7.6p1-4ubuntu0.3_amd64.deb ...
+Unpacking openssh-client (1:7.6p1-4ubuntu0.3) ...
+Selecting previously unselected package publicsuffix.
+Preparing to unpack .../20-publicsuffix_20180223.1310-1_all.deb ...
+Unpacking publicsuffix (20180223.1310-1) ...
+Selecting previously unselected package wget.
+Preparing to unpack .../21-wget_1.19.4-1ubuntu2.2_amd64.deb ...
+Unpacking wget (1.19.4-1ubuntu2.2) ...
+Selecting previously unselected package xauth.
+Preparing to unpack .../22-xauth_1%3a1.0.10-1_amd64.deb ...
+Unpacking xauth (1:1.0.10-1) ...
+Selecting previously unselected package libnghttp2-14:amd64.
+Preparing to unpack .../23-libnghttp2-14_1.30.0-1ubuntu1_amd64.deb ...
+Unpacking libnghttp2-14:amd64 (1.30.0-1ubuntu1) ...
+Selecting previously unselected package librtmp1:amd64.
+Preparing to unpack .../24-librtmp1_2.4+20151223.gitfa8646d.1-1_amd64.deb ...
+Unpacking librtmp1:amd64 (2.4+20151223.gitfa8646d.1-1) ...
+Selecting previously unselected package libcurl3-gnutls:amd64.
+Preparing to unpack .../25-libcurl3-gnutls_7.58.0-2ubuntu3.7_amd64.deb ...
+Unpacking libcurl3-gnutls:amd64 (7.58.0-2ubuntu3.7) ...
+Selecting previously unselected package liberror-perl.
+Preparing to unpack .../26-liberror-perl_0.17025-1_all.deb ...
+Unpacking liberror-perl (0.17025-1) ...
+Selecting previously unselected package git-man.
+Preparing to unpack .../27-git-man_1%3a2.17.1-1ubuntu0.4_all.deb ...
+Unpacking git-man (1:2.17.1-1ubuntu0.4) ...
+Selecting previously unselected package git.
+Preparing to unpack .../28-git_1%3a2.17.1-1ubuntu0.4_amd64.deb ...
+Unpacking git (1:2.17.1-1ubuntu0.4) ...
+Setting up libedit2:amd64 (3.1-20170329-1) ...
+Setting up git-man (1:2.17.1-1ubuntu0.4) ...
+Setting up libexpat1:amd64 (2.2.5-3ubuntu0.1) ...
+Setting up less (487-0.1) ...
+Setting up libssl1.0.0:amd64 (1.0.2n-1ubuntu5.3) ...
+Setting up libnghttp2-14:amd64 (1.30.0-1ubuntu1) ...
+Setting up liberror-perl (0.17025-1) ...
+Setting up libpsl5:amd64 (0.19.1-5build1) ...
+Setting up librtmp1:amd64 (2.4+20151223.gitfa8646d.1-1) ...
+Setting up libbsd0:amd64 (0.8.7-1) ...
+Setting up libkrb5support0:amd64 (1.16-2ubuntu0.1) ...
+Setting up krb5-locales (1.16-2ubuntu0.1) ...
+Processing triggers for libc-bin (2.27-3ubuntu1) ...
+Setting up publicsuffix (20180223.1310-1) ...
+Setting up wget (1.19.4-1ubuntu2.2) ...
+Setting up libxdmcp6:amd64 (1:1.1.2-3) ...
+Setting up libkeyutils1:amd64 (1.5.9-9.2ubuntu2) ...
+Setting up libx11-data (2:1.6.4-3ubuntu0.2) ...
+Setting up libxau6:amd64 (1:1.0.8-1) ...
+Setting up libk5crypto3:amd64 (1.16-2ubuntu0.1) ...
+Setting up libkrb5-3:amd64 (1.16-2ubuntu0.1) ...
+Setting up libxcb1:amd64 (1.13-2~ubuntu18.04) ...
+Setting up libx11-6:amd64 (2:1.6.4-3ubuntu0.2) ...
+Setting up libxmuu1:amd64 (2:1.1.2-2) ...
+Setting up libgssapi-krb5-2:amd64 (1.16-2ubuntu0.1) ...
+Setting up openssh-client (1:7.6p1-4ubuntu0.3) ...
+Setting up libxext6:amd64 (2:1.3.3-1) ...
+Setting up libcurl3-gnutls:amd64 (7.58.0-2ubuntu3.7) ...
+Setting up xauth (1:1.0.10-1) ...
+Setting up git (1:2.17.1-1ubuntu0.4) ...
+Processing triggers for libc-bin (2.27-3ubuntu1) ...
+Removing intermediate container 7376ce38609d
+ ---> 5ac0828aa9df
 Step 12/48 : RUN apt install -yq python3-pip python3-dev
- ---> Using cache
- ---> b607b9c4af88
+ ---> Running in de810e4fd5da
+[91m
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+[0mReading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  dbus dh-python file gir1.2-glib-2.0 libapparmor1 libdbus-1-3 libexpat1-dev
+  libgirepository-1.0-1 libglib2.0-0 libglib2.0-data libicu60 libmagic-mgc
+  libmagic1 libmpdec2 libpython3-dev libpython3-stdlib libpython3.6
+  libpython3.6-dev libpython3.6-minimal libpython3.6-stdlib libxml2
+  mime-support python-pip-whl python3 python3-asn1crypto python3-cffi-backend
+  python3-crypto python3-cryptography python3-dbus python3-distutils
+  python3-gi python3-idna python3-keyring python3-keyrings.alt python3-lib2to3
+  python3-minimal python3-pkg-resources python3-secretstorage
+  python3-setuptools python3-six python3-wheel python3-xdg python3.6
+  python3.6-dev python3.6-minimal shared-mime-info xdg-user-dirs
+Suggested packages:
+  default-dbus-session-bus | dbus-session-bus python3-doc python3-tk
+  python3-venv python-crypto-doc python-cryptography-doc
+  python3-cryptography-vectors python-dbus-doc python3-dbus-dbg gnome-keyring
+  libkf5wallet-bin gir1.2-gnomekeyring-1.0 python-secretstorage-doc
+  python-setuptools-doc python3.6-venv python3.6-doc binfmt-support
+The following NEW packages will be installed:
+  dbus dh-python file gir1.2-glib-2.0 libapparmor1 libdbus-1-3 libexpat1-dev
+  libgirepository-1.0-1 libglib2.0-0 libglib2.0-data libicu60 libmagic-mgc
+  libmagic1 libmpdec2 libpython3-dev libpython3-stdlib libpython3.6
+  libpython3.6-dev libpython3.6-minimal libpython3.6-stdlib libxml2
+  mime-support python-pip-whl python3 python3-asn1crypto python3-cffi-backend
+  python3-crypto python3-cryptography python3-dbus python3-dev
+  python3-distutils python3-gi python3-idna python3-keyring
+  python3-keyrings.alt python3-lib2to3 python3-minimal python3-pip
+  python3-pkg-resources python3-secretstorage python3-setuptools python3-six
+  python3-wheel python3-xdg python3.6 python3.6-dev python3.6-minimal
+  shared-mime-info xdg-user-dirs
+0 upgraded, 49 newly installed, 0 to remove and 6 not upgraded.
+Need to get 65.8 MB of archives.
+After this operation, 166 MB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libpython3.6-minimal amd64 3.6.8-1~18.04.1 [533 kB]
+Get:2 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 python3.6-minimal amd64 3.6.8-1~18.04.1 [1620 kB]
+Get:3 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 python3-minimal amd64 3.6.7-1~18.04 [23.7 kB]
+Get:4 http://archive.ubuntu.com/ubuntu bionic/main amd64 mime-support all 3.60ubuntu1 [30.1 kB]
+Get:5 http://archive.ubuntu.com/ubuntu bionic/main amd64 libmpdec2 amd64 2.4.2-1ubuntu1 [84.1 kB]
+Get:6 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libpython3.6-stdlib amd64 3.6.8-1~18.04.1 [1715 kB]
+Get:7 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 python3.6 amd64 3.6.8-1~18.04.1 [202 kB]
+Get:8 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libpython3-stdlib amd64 3.6.7-1~18.04 [7240 B]
+Get:9 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 python3 amd64 3.6.7-1~18.04 [47.2 kB]
+Get:10 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libapparmor1 amd64 2.12-4ubuntu5.1 [31.3 kB]
+Get:11 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libdbus-1-3 amd64 1.12.2-1ubuntu1.1 [175 kB]
+Get:12 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 dbus amd64 1.12.2-1ubuntu1.1 [150 kB]
+Get:13 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libmagic-mgc amd64 1:5.32-2ubuntu0.2 [184 kB]
+Get:14 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libmagic1 amd64 1:5.32-2ubuntu0.2 [68.5 kB]
+Get:15 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 file amd64 1:5.32-2ubuntu0.2 [22.1 kB]
+Get:16 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libglib2.0-0 amd64 2.56.4-0ubuntu0.18.04.3 [1169 kB]
+Get:17 http://archive.ubuntu.com/ubuntu bionic/main amd64 libgirepository-1.0-1 amd64 1.56.1-1 [82.0 kB]
+Get:18 http://archive.ubuntu.com/ubuntu bionic/main amd64 gir1.2-glib-2.0 amd64 1.56.1-1 [131 kB]
+Get:19 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libglib2.0-data all 2.56.4-0ubuntu0.18.04.3 [4608 B]
+Get:20 http://archive.ubuntu.com/ubuntu bionic/main amd64 libicu60 amd64 60.2-3ubuntu3 [8054 kB]
+Get:21 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libxml2 amd64 2.9.4+dfsg1-6.1ubuntu1.2 [663 kB]
+Get:22 http://archive.ubuntu.com/ubuntu bionic/main amd64 python3-dbus amd64 1.2.6-1 [89.9 kB]
+Get:23 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 python3-gi amd64 3.26.1-2ubuntu1 [153 kB]
+Get:24 http://archive.ubuntu.com/ubuntu bionic/main amd64 shared-mime-info amd64 1.9-2 [426 kB]
+Get:25 http://archive.ubuntu.com/ubuntu bionic/main amd64 xdg-user-dirs amd64 0.17-1ubuntu1 [48.0 kB]
+Get:26 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 python3-lib2to3 all 3.6.8-1~18.04 [76.5 kB]
+Get:27 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 python3-distutils all 3.6.8-1~18.04 [141 kB]
+Get:28 http://archive.ubuntu.com/ubuntu bionic/main amd64 dh-python all 3.20180325ubuntu2 [89.2 kB]
+Get:29 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libexpat1-dev amd64 2.2.5-3ubuntu0.1 [122 kB]
+Get:30 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libpython3.6 amd64 3.6.8-1~18.04.1 [1418 kB]
+Get:31 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libpython3.6-dev amd64 3.6.8-1~18.04.1 [44.8 MB]
+Get:32 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libpython3-dev amd64 3.6.7-1~18.04 [7328 B]
+Get:33 http://archive.ubuntu.com/ubuntu bionic-updates/universe amd64 python-pip-whl all 9.0.1-2.3~ubuntu1.18.04.1 [1653 kB]
+Get:34 http://archive.ubuntu.com/ubuntu bionic/main amd64 python3-asn1crypto all 0.24.0-1 [72.8 kB]
+Get:35 http://archive.ubuntu.com/ubuntu bionic/main amd64 python3-cffi-backend amd64 1.11.5-1 [64.6 kB]
+Get:36 http://archive.ubuntu.com/ubuntu bionic/main amd64 python3-crypto amd64 2.6.1-8ubuntu2 [244 kB]
+Get:37 http://archive.ubuntu.com/ubuntu bionic/main amd64 python3-idna all 2.6-1 [32.5 kB]
+Get:38 http://archive.ubuntu.com/ubuntu bionic/main amd64 python3-six all 1.11.0-2 [11.4 kB]
+Get:39 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 python3-cryptography amd64 2.1.4-1ubuntu1.3 [221 kB]
+Get:40 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 python3.6-dev amd64 3.6.8-1~18.04.1 [508 kB]
+Get:41 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 python3-dev amd64 3.6.7-1~18.04 [1288 B]
+Get:42 http://archive.ubuntu.com/ubuntu bionic/main amd64 python3-secretstorage all 2.3.1-2 [12.1 kB]
+Get:43 http://archive.ubuntu.com/ubuntu bionic/main amd64 python3-keyring all 10.6.0-1 [26.7 kB]
+Get:44 http://archive.ubuntu.com/ubuntu bionic/main amd64 python3-keyrings.alt all 3.0-1 [16.6 kB]
+Get:45 http://archive.ubuntu.com/ubuntu bionic-updates/universe amd64 python3-pip all 9.0.1-2.3~ubuntu1.18.04.1 [114 kB]
+Get:46 http://archive.ubuntu.com/ubuntu bionic/main amd64 python3-pkg-resources all 39.0.1-2 [98.8 kB]
+Get:47 http://archive.ubuntu.com/ubuntu bionic/main amd64 python3-setuptools all 39.0.1-2 [248 kB]
+Get:48 http://archive.ubuntu.com/ubuntu bionic/universe amd64 python3-wheel all 0.30.0-0.2 [36.5 kB]
+Get:49 http://archive.ubuntu.com/ubuntu bionic/main amd64 python3-xdg all 0.25-4ubuntu1 [31.4 kB]
+Fetched 65.8 MB in 6s (11.4 MB/s)
+Selecting previously unselected package libpython3.6-minimal:amd64.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 13198 files and directories currently installed.)
+Preparing to unpack .../libpython3.6-minimal_3.6.8-1~18.04.1_amd64.deb ...
+Unpacking libpython3.6-minimal:amd64 (3.6.8-1~18.04.1) ...
+Selecting previously unselected package python3.6-minimal.
+Preparing to unpack .../python3.6-minimal_3.6.8-1~18.04.1_amd64.deb ...
+Unpacking python3.6-minimal (3.6.8-1~18.04.1) ...
+Setting up libpython3.6-minimal:amd64 (3.6.8-1~18.04.1) ...
+Setting up python3.6-minimal (3.6.8-1~18.04.1) ...
+Selecting previously unselected package python3-minimal.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 13437 files and directories currently installed.)
+Preparing to unpack .../0-python3-minimal_3.6.7-1~18.04_amd64.deb ...
+Unpacking python3-minimal (3.6.7-1~18.04) ...
+Selecting previously unselected package mime-support.
+Preparing to unpack .../1-mime-support_3.60ubuntu1_all.deb ...
+Unpacking mime-support (3.60ubuntu1) ...
+Selecting previously unselected package libmpdec2:amd64.
+Preparing to unpack .../2-libmpdec2_2.4.2-1ubuntu1_amd64.deb ...
+Unpacking libmpdec2:amd64 (2.4.2-1ubuntu1) ...
+Selecting previously unselected package libpython3.6-stdlib:amd64.
+Preparing to unpack .../3-libpython3.6-stdlib_3.6.8-1~18.04.1_amd64.deb ...
+Unpacking libpython3.6-stdlib:amd64 (3.6.8-1~18.04.1) ...
+Selecting previously unselected package python3.6.
+Preparing to unpack .../4-python3.6_3.6.8-1~18.04.1_amd64.deb ...
+Unpacking python3.6 (3.6.8-1~18.04.1) ...
+Selecting previously unselected package libpython3-stdlib:amd64.
+Preparing to unpack .../5-libpython3-stdlib_3.6.7-1~18.04_amd64.deb ...
+Unpacking libpython3-stdlib:amd64 (3.6.7-1~18.04) ...
+Setting up python3-minimal (3.6.7-1~18.04) ...
+Selecting previously unselected package python3.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 13867 files and directories currently installed.)
+Preparing to unpack .../00-python3_3.6.7-1~18.04_amd64.deb ...
+Unpacking python3 (3.6.7-1~18.04) ...
+Selecting previously unselected package libapparmor1:amd64.
+Preparing to unpack .../01-libapparmor1_2.12-4ubuntu5.1_amd64.deb ...
+Unpacking libapparmor1:amd64 (2.12-4ubuntu5.1) ...
+Selecting previously unselected package libdbus-1-3:amd64.
+Preparing to unpack .../02-libdbus-1-3_1.12.2-1ubuntu1.1_amd64.deb ...
+Unpacking libdbus-1-3:amd64 (1.12.2-1ubuntu1.1) ...
+Selecting previously unselected package dbus.
+Preparing to unpack .../03-dbus_1.12.2-1ubuntu1.1_amd64.deb ...
+Unpacking dbus (1.12.2-1ubuntu1.1) ...
+Selecting previously unselected package libmagic-mgc.
+Preparing to unpack .../04-libmagic-mgc_1%3a5.32-2ubuntu0.2_amd64.deb ...
+Unpacking libmagic-mgc (1:5.32-2ubuntu0.2) ...
+Selecting previously unselected package libmagic1:amd64.
+Preparing to unpack .../05-libmagic1_1%3a5.32-2ubuntu0.2_amd64.deb ...
+Unpacking libmagic1:amd64 (1:5.32-2ubuntu0.2) ...
+Selecting previously unselected package file.
+Preparing to unpack .../06-file_1%3a5.32-2ubuntu0.2_amd64.deb ...
+Unpacking file (1:5.32-2ubuntu0.2) ...
+Selecting previously unselected package libglib2.0-0:amd64.
+Preparing to unpack .../07-libglib2.0-0_2.56.4-0ubuntu0.18.04.3_amd64.deb ...
+Unpacking libglib2.0-0:amd64 (2.56.4-0ubuntu0.18.04.3) ...
+Selecting previously unselected package libgirepository-1.0-1:amd64.
+Preparing to unpack .../08-libgirepository-1.0-1_1.56.1-1_amd64.deb ...
+Unpacking libgirepository-1.0-1:amd64 (1.56.1-1) ...
+Selecting previously unselected package gir1.2-glib-2.0:amd64.
+Preparing to unpack .../09-gir1.2-glib-2.0_1.56.1-1_amd64.deb ...
+Unpacking gir1.2-glib-2.0:amd64 (1.56.1-1) ...
+Selecting previously unselected package libglib2.0-data.
+Preparing to unpack .../10-libglib2.0-data_2.56.4-0ubuntu0.18.04.3_all.deb ...
+Unpacking libglib2.0-data (2.56.4-0ubuntu0.18.04.3) ...
+Selecting previously unselected package libicu60:amd64.
+Preparing to unpack .../11-libicu60_60.2-3ubuntu3_amd64.deb ...
+Unpacking libicu60:amd64 (60.2-3ubuntu3) ...
+Selecting previously unselected package libxml2:amd64.
+Preparing to unpack .../12-libxml2_2.9.4+dfsg1-6.1ubuntu1.2_amd64.deb ...
+Unpacking libxml2:amd64 (2.9.4+dfsg1-6.1ubuntu1.2) ...
+Selecting previously unselected package python3-dbus.
+Preparing to unpack .../13-python3-dbus_1.2.6-1_amd64.deb ...
+Unpacking python3-dbus (1.2.6-1) ...
+Selecting previously unselected package python3-gi.
+Preparing to unpack .../14-python3-gi_3.26.1-2ubuntu1_amd64.deb ...
+Unpacking python3-gi (3.26.1-2ubuntu1) ...
+Selecting previously unselected package shared-mime-info.
+Preparing to unpack .../15-shared-mime-info_1.9-2_amd64.deb ...
+Unpacking shared-mime-info (1.9-2) ...
+Selecting previously unselected package xdg-user-dirs.
+Preparing to unpack .../16-xdg-user-dirs_0.17-1ubuntu1_amd64.deb ...
+Unpacking xdg-user-dirs (0.17-1ubuntu1) ...
+Selecting previously unselected package python3-lib2to3.
+Preparing to unpack .../17-python3-lib2to3_3.6.8-1~18.04_all.deb ...
+Unpacking python3-lib2to3 (3.6.8-1~18.04) ...
+Selecting previously unselected package python3-distutils.
+Preparing to unpack .../18-python3-distutils_3.6.8-1~18.04_all.deb ...
+Unpacking python3-distutils (3.6.8-1~18.04) ...
+Selecting previously unselected package dh-python.
+Preparing to unpack .../19-dh-python_3.20180325ubuntu2_all.deb ...
+Unpacking dh-python (3.20180325ubuntu2) ...
+Selecting previously unselected package libexpat1-dev:amd64.
+Preparing to unpack .../20-libexpat1-dev_2.2.5-3ubuntu0.1_amd64.deb ...
+Unpacking libexpat1-dev:amd64 (2.2.5-3ubuntu0.1) ...
+Selecting previously unselected package libpython3.6:amd64.
+Preparing to unpack .../21-libpython3.6_3.6.8-1~18.04.1_amd64.deb ...
+Unpacking libpython3.6:amd64 (3.6.8-1~18.04.1) ...
+Selecting previously unselected package libpython3.6-dev:amd64.
+Preparing to unpack .../22-libpython3.6-dev_3.6.8-1~18.04.1_amd64.deb ...
+Unpacking libpython3.6-dev:amd64 (3.6.8-1~18.04.1) ...
+Selecting previously unselected package libpython3-dev:amd64.
+Preparing to unpack .../23-libpython3-dev_3.6.7-1~18.04_amd64.deb ...
+Unpacking libpython3-dev:amd64 (3.6.7-1~18.04) ...
+Selecting previously unselected package python-pip-whl.
+Preparing to unpack .../24-python-pip-whl_9.0.1-2.3~ubuntu1.18.04.1_all.deb ...
+Unpacking python-pip-whl (9.0.1-2.3~ubuntu1.18.04.1) ...
+Selecting previously unselected package python3-asn1crypto.
+Preparing to unpack .../25-python3-asn1crypto_0.24.0-1_all.deb ...
+Unpacking python3-asn1crypto (0.24.0-1) ...
+Selecting previously unselected package python3-cffi-backend.
+Preparing to unpack .../26-python3-cffi-backend_1.11.5-1_amd64.deb ...
+Unpacking python3-cffi-backend (1.11.5-1) ...
+Selecting previously unselected package python3-crypto.
+Preparing to unpack .../27-python3-crypto_2.6.1-8ubuntu2_amd64.deb ...
+Unpacking python3-crypto (2.6.1-8ubuntu2) ...
+Selecting previously unselected package python3-idna.
+Preparing to unpack .../28-python3-idna_2.6-1_all.deb ...
+Unpacking python3-idna (2.6-1) ...
+Selecting previously unselected package python3-six.
+Preparing to unpack .../29-python3-six_1.11.0-2_all.deb ...
+Unpacking python3-six (1.11.0-2) ...
+Selecting previously unselected package python3-cryptography.
+Preparing to unpack .../30-python3-cryptography_2.1.4-1ubuntu1.3_amd64.deb ...
+Unpacking python3-cryptography (2.1.4-1ubuntu1.3) ...
+Selecting previously unselected package python3.6-dev.
+Preparing to unpack .../31-python3.6-dev_3.6.8-1~18.04.1_amd64.deb ...
+Unpacking python3.6-dev (3.6.8-1~18.04.1) ...
+Selecting previously unselected package python3-dev.
+Preparing to unpack .../32-python3-dev_3.6.7-1~18.04_amd64.deb ...
+Unpacking python3-dev (3.6.7-1~18.04) ...
+Selecting previously unselected package python3-secretstorage.
+Preparing to unpack .../33-python3-secretstorage_2.3.1-2_all.deb ...
+Unpacking python3-secretstorage (2.3.1-2) ...
+Selecting previously unselected package python3-keyring.
+Preparing to unpack .../34-python3-keyring_10.6.0-1_all.deb ...
+Unpacking python3-keyring (10.6.0-1) ...
+Selecting previously unselected package python3-keyrings.alt.
+Preparing to unpack .../35-python3-keyrings.alt_3.0-1_all.deb ...
+Unpacking python3-keyrings.alt (3.0-1) ...
+Selecting previously unselected package python3-pip.
+Preparing to unpack .../36-python3-pip_9.0.1-2.3~ubuntu1.18.04.1_all.deb ...
+Unpacking python3-pip (9.0.1-2.3~ubuntu1.18.04.1) ...
+Selecting previously unselected package python3-pkg-resources.
+Preparing to unpack .../37-python3-pkg-resources_39.0.1-2_all.deb ...
+Unpacking python3-pkg-resources (39.0.1-2) ...
+Selecting previously unselected package python3-setuptools.
+Preparing to unpack .../38-python3-setuptools_39.0.1-2_all.deb ...
+Unpacking python3-setuptools (39.0.1-2) ...
+Selecting previously unselected package python3-wheel.
+Preparing to unpack .../39-python3-wheel_0.30.0-0.2_all.deb ...
+Unpacking python3-wheel (0.30.0-0.2) ...
+Selecting previously unselected package python3-xdg.
+Preparing to unpack .../40-python3-xdg_0.25-4ubuntu1_all.deb ...
+Unpacking python3-xdg (0.25-4ubuntu1) ...
+Setting up python-pip-whl (9.0.1-2.3~ubuntu1.18.04.1) ...
+Setting up libicu60:amd64 (60.2-3ubuntu3) ...
+Setting up mime-support (3.60ubuntu1) ...
+Setting up libglib2.0-0:amd64 (2.56.4-0ubuntu0.18.04.3) ...
+No schema files found: doing nothing.
+Setting up libgirepository-1.0-1:amd64 (1.56.1-1) ...
+Setting up libxml2:amd64 (2.9.4+dfsg1-6.1ubuntu1.2) ...
+Setting up libmagic-mgc (1:5.32-2ubuntu0.2) ...
+Setting up libmagic1:amd64 (1:5.32-2ubuntu0.2) ...
+Setting up gir1.2-glib-2.0:amd64 (1.56.1-1) ...
+Setting up libglib2.0-data (2.56.4-0ubuntu0.18.04.3) ...
+Processing triggers for libc-bin (2.27-3ubuntu1) ...
+Setting up libapparmor1:amd64 (2.12-4ubuntu5.1) ...
+Setting up libexpat1-dev:amd64 (2.2.5-3ubuntu0.1) ...
+Setting up shared-mime-info (1.9-2) ...
+Setting up xdg-user-dirs (0.17-1ubuntu1) ...
+Setting up libmpdec2:amd64 (2.4.2-1ubuntu1) ...
+Setting up libdbus-1-3:amd64 (1.12.2-1ubuntu1.1) ...
+Setting up libpython3.6-stdlib:amd64 (3.6.8-1~18.04.1) ...
+Setting up python3.6 (3.6.8-1~18.04.1) ...
+Setting up file (1:5.32-2ubuntu0.2) ...
+Setting up dbus (1.12.2-1ubuntu1.1) ...
+Setting up libpython3.6:amd64 (3.6.8-1~18.04.1) ...
+Setting up libpython3-stdlib:amd64 (3.6.7-1~18.04) ...
+Setting up python3 (3.6.7-1~18.04) ...
+Setting up python3-cffi-backend (1.11.5-1) ...
+Setting up python3-crypto (2.6.1-8ubuntu2) ...
+Setting up python3-idna (2.6-1) ...
+Setting up python3-xdg (0.25-4ubuntu1) ...
+Setting up python3-six (1.11.0-2) ...
+Setting up python3-wheel (0.30.0-0.2) ...
+Setting up python3-pkg-resources (39.0.1-2) ...
+Setting up python3-gi (3.26.1-2ubuntu1) ...
+Setting up libpython3.6-dev:amd64 (3.6.8-1~18.04.1) ...
+Setting up python3-asn1crypto (0.24.0-1) ...
+Setting up python3.6-dev (3.6.8-1~18.04.1) ...
+Setting up python3-lib2to3 (3.6.8-1~18.04) ...
+Setting up python3-distutils (3.6.8-1~18.04) ...
+Setting up libpython3-dev:amd64 (3.6.7-1~18.04) ...
+Setting up python3-cryptography (2.1.4-1ubuntu1.3) ...
+Setting up python3-dbus (1.2.6-1) ...
+Setting up python3-keyrings.alt (3.0-1) ...
+Setting up python3-pip (9.0.1-2.3~ubuntu1.18.04.1) ...
+Setting up python3-setuptools (39.0.1-2) ...
+Setting up python3-secretstorage (2.3.1-2) ...
+Setting up dh-python (3.20180325ubuntu2) ...
+Setting up python3-keyring (10.6.0-1) ...
+Setting up python3-dev (3.6.7-1~18.04) ...
+Processing triggers for libc-bin (2.27-3ubuntu1) ...
+Removing intermediate container de810e4fd5da
+ ---> 6f10c4d1e242
 Step 13/48 : RUN ln -s /usr/bin/python3 /usr/local/bin/python
- ---> Using cache
- ---> cacf519418bb
+ ---> Running in ef48e3bab962
+Removing intermediate container ef48e3bab962
+ ---> 2b31bc7bbdde
 Step 14/48 : RUN ln -s /usr/bin/pip3 /usr/local/bin/pip
- ---> Using cache
- ---> 3bee263526c3
+ ---> Running in 86c45f216272
+Removing intermediate container 86c45f216272
+ ---> 1411032fae95
 Step 15/48 : RUN pip install --upgrade pip
- ---> Using cache
- ---> 8b10fd35c810
+ ---> Running in 164d504960fb
+Collecting pip
+  Downloading https://files.pythonhosted.org/packages/5c/e0/be401c003291b56efc55aeba6a80ab790d3d4cece2778288d65323009420/pip-19.1.1-py2.py3-none-any.whl (1.4MB)
+Installing collected packages: pip
+  Found existing installation: pip 9.0.1
+    Not uninstalling pip at /usr/lib/python3/dist-packages, outside environment /usr
+Successfully installed pip-19.1.1
+Removing intermediate container 164d504960fb
+ ---> 7ce0844db8b4
 Step 16/48 : RUN mkdir -p /final/data
- ---> Using cache
- ---> b39cb221b5f2
+ ---> Running in b9499227f36a
+Removing intermediate container b9499227f36a
+ ---> 806d34ac0622
 Step 17/48 : RUN wget -qO /final/data/vocabulary_100k.txt      https://dl.fbaipublicfiles.com/pythia/data/vocabulary_100k.txt
- ---> Using cache
- ---> 6e3bddb1186b
+ ---> Running in cd4d111f04b5
+Removing intermediate container cd4d111f04b5
+ ---> ece6f10ed423
 Step 18/48 : RUN wget -qO /final/data/answers_vqa.txt          https://dl.fbaipublicfiles.com/pythia/data/answers_vqa.txt
- ---> Using cache
- ---> 799c9565bd1f
+ ---> Running in 812ddfdd9282
+Removing intermediate container 812ddfdd9282
+ ---> d2cb6c70a83a
 Step 19/48 : RUN wget -qO /final/data/pythia.pth               https://dl.fbaipublicfiles.com/pythia/pretrained_models/vqa2/pythia_train_val.pth
- ---> Using cache
- ---> 2b6df02a72ee
+ ---> Running in 6fff4eb7e268
+Removing intermediate container 6fff4eb7e268
+ ---> f2c790741ce9
 Step 20/48 : RUN wget -qO /final/data/pythia.yaml              https://dl.fbaipublicfiles.com/pythia/pretrained_models/vqa2/pythia_train_val.yml
- ---> Using cache
- ---> db102582aa0c
+ ---> Running in 70bab24808fd
+Removing intermediate container 70bab24808fd
+ ---> c051483f157d
 Step 21/48 : RUN wget -qO /final/data/detectron_model.pth      https://dl.fbaipublicfiles.com/pythia/detectron_model/detectron_model.pth
- ---> Using cache
- ---> 02311c080167
+ ---> Running in b12ff02ba348
+Removing intermediate container b12ff02ba348
+ ---> 4765d7139e3e
 Step 22/48 : RUN wget -qO /final/data/detectron_model.yaml     https://dl.fbaipublicfiles.com/pythia/detectron_model/detectron_model.yaml
- ---> Using cache
- ---> 8dcc7b0adc44
+ ---> Running in 7bdbf25bc2cf
+Removing intermediate container 7bdbf25bc2cf
+ ---> 6b401b68d93a
 Step 23/48 : RUN wget -qO /final/data/detectron_weights.tar.gz https://dl.fbaipublicfiles.com/pythia/data/detectron_weights.tar.gz
- ---> Using cache
- ---> cde164d57303
+ ---> Running in acb192f36b41
+Removing intermediate container acb192f36b41
+ ---> 449ed0f58046
 Step 24/48 : RUN tar   xf /final/data/detectron_weights.tar.gz -C /final/data
- ---> Using cache
- ---> 8e3f1fd87a25
+ ---> Running in 2ea59e344bf9
+Removing intermediate container 2ea59e344bf9
+ ---> f860f0a9093e
 Step 25/48 : RUN apt install -yq libsm6 libxext6 libxrender-dev
- ---> Using cache
- ---> 74972e04d1f3
+ ---> Running in 4b86374e1028
+[91m
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+[0mReading package lists...
+Building dependency tree...
+Reading state information...
+libxext6 is already the newest version (2:1.3.3-1).
+libxext6 set to manually installed.
+The following additional packages will be installed:
+  libice6 libpthread-stubs0-dev libx11-dev libx11-doc libxau-dev libxcb1-dev
+  libxdmcp-dev libxrender1 x11-common x11proto-core-dev x11proto-dev
+  xorg-sgml-doctools xtrans-dev
+Suggested packages:
+  libxcb-doc
+The following NEW packages will be installed:
+  libice6 libpthread-stubs0-dev libsm6 libx11-dev libx11-doc libxau-dev
+  libxcb1-dev libxdmcp-dev libxrender-dev libxrender1 x11-common
+  x11proto-core-dev x11proto-dev xorg-sgml-doctools xtrans-dev
+0 upgraded, 15 newly installed, 0 to remove and 6 not upgraded.
+Need to get 3284 kB of archives.
+After this operation, 16.4 MB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 x11-common all 1:7.7+19ubuntu7.1 [22.5 kB]
+Get:2 http://archive.ubuntu.com/ubuntu bionic/main amd64 libice6 amd64 2:1.0.9-2 [40.2 kB]
+Get:3 http://archive.ubuntu.com/ubuntu bionic/main amd64 libsm6 amd64 2:1.2.2-1 [15.8 kB]
+Get:4 http://archive.ubuntu.com/ubuntu bionic/main amd64 libpthread-stubs0-dev amd64 0.3-4 [4068 B]
+Get:5 http://archive.ubuntu.com/ubuntu bionic/main amd64 xorg-sgml-doctools all 1:1.11-1 [12.9 kB]
+Get:6 http://archive.ubuntu.com/ubuntu bionic/main amd64 x11proto-dev all 2018.4-4 [251 kB]
+Get:7 http://archive.ubuntu.com/ubuntu bionic/main amd64 x11proto-core-dev all 2018.4-4 [2620 B]
+Get:8 http://archive.ubuntu.com/ubuntu bionic/main amd64 libxau-dev amd64 1:1.0.8-1 [11.1 kB]
+Get:9 http://archive.ubuntu.com/ubuntu bionic/main amd64 libxdmcp-dev amd64 1:1.1.2-3 [25.1 kB]
+Get:10 http://archive.ubuntu.com/ubuntu bionic/main amd64 xtrans-dev all 1.3.5-1 [70.5 kB]
+Get:11 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libxcb1-dev amd64 1.13-2~ubuntu18.04 [80.0 kB]
+Get:12 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libx11-dev amd64 2:1.6.4-3ubuntu0.2 [640 kB]
+Get:13 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libx11-doc all 2:1.6.4-3ubuntu0.2 [2065 kB]
+Get:14 http://archive.ubuntu.com/ubuntu bionic/main amd64 libxrender1 amd64 1:0.9.10-1 [18.7 kB]
+Get:15 http://archive.ubuntu.com/ubuntu bionic/main amd64 libxrender-dev amd64 1:0.9.10-1 [24.9 kB]
+Fetched 3284 kB in 9s (378 kB/s)
+Selecting previously unselected package x11-common.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 15610 files and directories currently installed.)
+Preparing to unpack .../00-x11-common_1%3a7.7+19ubuntu7.1_all.deb ...
+dpkg-query: no packages found matching nux-tools
+Unpacking x11-common (1:7.7+19ubuntu7.1) ...
+Selecting previously unselected package libice6:amd64.
+Preparing to unpack .../01-libice6_2%3a1.0.9-2_amd64.deb ...
+Unpacking libice6:amd64 (2:1.0.9-2) ...
+Selecting previously unselected package libsm6:amd64.
+Preparing to unpack .../02-libsm6_2%3a1.2.2-1_amd64.deb ...
+Unpacking libsm6:amd64 (2:1.2.2-1) ...
+Selecting previously unselected package libpthread-stubs0-dev:amd64.
+Preparing to unpack .../03-libpthread-stubs0-dev_0.3-4_amd64.deb ...
+Unpacking libpthread-stubs0-dev:amd64 (0.3-4) ...
+Selecting previously unselected package xorg-sgml-doctools.
+Preparing to unpack .../04-xorg-sgml-doctools_1%3a1.11-1_all.deb ...
+Unpacking xorg-sgml-doctools (1:1.11-1) ...
+Selecting previously unselected package x11proto-dev.
+Preparing to unpack .../05-x11proto-dev_2018.4-4_all.deb ...
+Unpacking x11proto-dev (2018.4-4) ...
+Selecting previously unselected package x11proto-core-dev.
+Preparing to unpack .../06-x11proto-core-dev_2018.4-4_all.deb ...
+Unpacking x11proto-core-dev (2018.4-4) ...
+Selecting previously unselected package libxau-dev:amd64.
+Preparing to unpack .../07-libxau-dev_1%3a1.0.8-1_amd64.deb ...
+Unpacking libxau-dev:amd64 (1:1.0.8-1) ...
+Selecting previously unselected package libxdmcp-dev:amd64.
+Preparing to unpack .../08-libxdmcp-dev_1%3a1.1.2-3_amd64.deb ...
+Unpacking libxdmcp-dev:amd64 (1:1.1.2-3) ...
+Selecting previously unselected package xtrans-dev.
+Preparing to unpack .../09-xtrans-dev_1.3.5-1_all.deb ...
+Unpacking xtrans-dev (1.3.5-1) ...
+Selecting previously unselected package libxcb1-dev:amd64.
+Preparing to unpack .../10-libxcb1-dev_1.13-2~ubuntu18.04_amd64.deb ...
+Unpacking libxcb1-dev:amd64 (1.13-2~ubuntu18.04) ...
+Selecting previously unselected package libx11-dev:amd64.
+Preparing to unpack .../11-libx11-dev_2%3a1.6.4-3ubuntu0.2_amd64.deb ...
+Unpacking libx11-dev:amd64 (2:1.6.4-3ubuntu0.2) ...
+Selecting previously unselected package libx11-doc.
+Preparing to unpack .../12-libx11-doc_2%3a1.6.4-3ubuntu0.2_all.deb ...
+Unpacking libx11-doc (2:1.6.4-3ubuntu0.2) ...
+Selecting previously unselected package libxrender1:amd64.
+Preparing to unpack .../13-libxrender1_1%3a0.9.10-1_amd64.deb ...
+Unpacking libxrender1:amd64 (1:0.9.10-1) ...
+Selecting previously unselected package libxrender-dev:amd64.
+Preparing to unpack .../14-libxrender-dev_1%3a0.9.10-1_amd64.deb ...
+Unpacking libxrender-dev:amd64 (1:0.9.10-1) ...
+Setting up libpthread-stubs0-dev:amd64 (0.3-4) ...
+Setting up xorg-sgml-doctools (1:1.11-1) ...
+Setting up x11proto-dev (2018.4-4) ...
+Setting up xtrans-dev (1.3.5-1) ...
+Setting up libxdmcp-dev:amd64 (1:1.1.2-3) ...
+Processing triggers for libc-bin (2.27-3ubuntu1) ...
+Setting up libx11-doc (2:1.6.4-3ubuntu0.2) ...
+Setting up libxrender1:amd64 (1:0.9.10-1) ...
+Setting up x11-common (1:7.7+19ubuntu7.1) ...
+update-rc.d: warning: start and stop actions are no longer supported; falling back to defaults
+invoke-rc.d: could not determine current runlevel
+invoke-rc.d: policy-rc.d denied execution of start.
+Setting up x11proto-core-dev (2018.4-4) ...
+Setting up libxau-dev:amd64 (1:1.0.8-1) ...
+Setting up libice6:amd64 (2:1.0.9-2) ...
+Setting up libxcb1-dev:amd64 (1.13-2~ubuntu18.04) ...
+Setting up libx11-dev:amd64 (2:1.6.4-3ubuntu0.2) ...
+Setting up libsm6:amd64 (2:1.2.2-1) ...
+Setting up libxrender-dev:amd64 (1:0.9.10-1) ...
+Processing triggers for libc-bin (2.27-3ubuntu1) ...
+Removing intermediate container 4b86374e1028
+ ---> 76adb1ddc6b9
 Step 26/48 : RUN pip install torch
- ---> Using cache
- ---> e3acaecd9e12
+ ---> Running in 11a6fce8a20a
+Collecting torch
+  Downloading https://files.pythonhosted.org/packages/69/60/f685fb2cfb3088736bafbc9bdbb455327bdc8906b606da9c9a81bae1c81e/torch-1.1.0-cp36-cp36m-manylinux1_x86_64.whl (676.9MB)
+Collecting numpy (from torch)
+  Downloading https://files.pythonhosted.org/packages/87/2d/e4656149cbadd3a8a0369fcd1a9c7d61cc7b87b3903b85389c70c989a696/numpy-1.16.4-cp36-cp36m-manylinux1_x86_64.whl (17.3MB)
+Installing collected packages: numpy, torch
+Successfully installed numpy-1.16.4 torch-1.1.0
+Removing intermediate container 11a6fce8a20a
+ ---> b44d2bcd657a
 Step 27/48 : RUN pip install opencv-python torchvision torchtext
- ---> Using cache
- ---> cc95c9a5aedb
+ ---> Running in aaf119dac3e0
+Collecting opencv-python
+  Downloading https://files.pythonhosted.org/packages/7b/d2/a2dbf83d4553ca6b3701d91d75e42fe50aea97acdc00652dca515749fb5d/opencv_python-4.1.0.25-cp36-cp36m-manylinux1_x86_64.whl (26.6MB)
+Collecting torchvision
+  Downloading https://files.pythonhosted.org/packages/2e/45/0f2f3062c92d9cf1d5d7eabd3cae88cea9affbd2b17fb1c043627838cb0a/torchvision-0.3.0-cp36-cp36m-manylinux1_x86_64.whl (2.6MB)
+Collecting torchtext
+  Downloading https://files.pythonhosted.org/packages/c6/bc/b28b9efb4653c03e597ed207264eea45862b5260f48e9f010b5068d64db1/torchtext-0.3.1-py3-none-any.whl (62kB)
+Requirement already satisfied: numpy>=1.11.3 in /usr/local/lib/python3.6/dist-packages (from opencv-python) (1.16.4)
+Requirement already satisfied: six in /usr/lib/python3/dist-packages (from torchvision) (1.11.0)
+Collecting pillow>=4.1.1 (from torchvision)
+  Downloading https://files.pythonhosted.org/packages/14/41/db6dec65ddbc176a59b89485e8cc136a433ed9c6397b6bfe2cd38412051e/Pillow-6.1.0-cp36-cp36m-manylinux1_x86_64.whl (2.1MB)
+Requirement already satisfied: torch>=1.1.0 in /usr/local/lib/python3.6/dist-packages (from torchvision) (1.1.0)
+Collecting tqdm (from torchtext)
+  Downloading https://files.pythonhosted.org/packages/9f/3d/7a6b68b631d2ab54975f3a4863f3c4e9b26445353264ef01f465dc9b0208/tqdm-4.32.2-py2.py3-none-any.whl (50kB)
+Collecting requests (from torchtext)
+  Downloading https://files.pythonhosted.org/packages/51/bd/23c926cd341ea6b7dd0b2a00aba99ae0f828be89d72b2190f27c11d4b7fb/requests-2.22.0-py2.py3-none-any.whl (57kB)
+Requirement already satisfied: idna<2.9,>=2.5 in /usr/lib/python3/dist-packages (from requests->torchtext) (2.6)
+Collecting urllib3!=1.25.0,!=1.25.1,<1.26,>=1.21.1 (from requests->torchtext)
+  Downloading https://files.pythonhosted.org/packages/e6/60/247f23a7121ae632d62811ba7f273d0e58972d75e58a94d329d51550a47d/urllib3-1.25.3-py2.py3-none-any.whl (150kB)
+Collecting certifi>=2017.4.17 (from requests->torchtext)
+  Downloading https://files.pythonhosted.org/packages/69/1b/b853c7a9d4f6a6d00749e94eb6f3a041e342a885b87340b79c1ef73e3a78/certifi-2019.6.16-py2.py3-none-any.whl (157kB)
+Collecting chardet<3.1.0,>=3.0.2 (from requests->torchtext)
+  Downloading https://files.pythonhosted.org/packages/bc/a9/01ffebfb562e4274b6487b4bb1ddec7ca55ec7510b22e4c51f14098443b8/chardet-3.0.4-py2.py3-none-any.whl (133kB)
+Installing collected packages: opencv-python, pillow, torchvision, tqdm, urllib3, certifi, chardet, requests, torchtext
+Successfully installed certifi-2019.6.16 chardet-3.0.4 opencv-python-4.1.0.25 pillow-6.1.0 requests-2.22.0 torchtext-0.3.1 torchvision-0.3.0 tqdm-4.32.2 urllib3-1.25.3
+Removing intermediate container aaf119dac3e0
+ ---> 4188a6fb9de9
 Step 28/48 : RUN pip install ninja yacs cython matplotlib demjson click
- ---> Using cache
- ---> dd3d451867f4
+ ---> Running in 66d9c2abc514
+Collecting ninja
+  Downloading https://files.pythonhosted.org/packages/cc/bf/32e5dd5cce6543374e4050a7292099402ab80787eddf3732810a55b37763/ninja-1.9.0.post1-py3-none-manylinux1_x86_64.whl (98kB)
+Collecting yacs
+  Downloading https://files.pythonhosted.org/packages/2f/51/9d613d67a8561a0cdf696c3909870f157ed85617fea3cff769bb7de09ef7/yacs-0.1.6-py3-none-any.whl
+Collecting cython
+  Downloading https://files.pythonhosted.org/packages/c5/c6/c4fabec42bf5f6220e06621b0a239f9758fb0fb309f03c05e1a5ff90709a/Cython-0.29.11-cp36-cp36m-manylinux1_x86_64.whl (2.1MB)
+Collecting matplotlib
+  Downloading https://files.pythonhosted.org/packages/57/4f/dd381ecf6c6ab9bcdaa8ea912e866dedc6e696756156d8ecc087e20817e2/matplotlib-3.1.1-cp36-cp36m-manylinux1_x86_64.whl (13.1MB)
+Collecting demjson
+  Downloading https://files.pythonhosted.org/packages/96/67/6db789e2533158963d4af689f961b644ddd9200615b8ce92d6cad695c65a/demjson-2.2.4.tar.gz (131kB)
+Collecting click
+  Downloading https://files.pythonhosted.org/packages/fa/37/45185cb5abbc30d7257104c434fe0b07e5a195a6847506c074527aa599ec/Click-7.0-py2.py3-none-any.whl (81kB)
+Collecting PyYAML (from yacs)
+  Downloading https://files.pythonhosted.org/packages/a3/65/837fefac7475963d1eccf4aa684c23b95aa6c1d033a2c5965ccb11e22623/PyYAML-5.1.1.tar.gz (274kB)
+Collecting kiwisolver>=1.0.1 (from matplotlib)
+  Downloading https://files.pythonhosted.org/packages/f8/a1/5742b56282449b1c0968197f63eae486eca2c35dcd334bab75ad524e0de1/kiwisolver-1.1.0-cp36-cp36m-manylinux1_x86_64.whl (90kB)
+Requirement already satisfied: numpy>=1.11 in /usr/local/lib/python3.6/dist-packages (from matplotlib) (1.16.4)
+Collecting pyparsing!=2.0.4,!=2.1.2,!=2.1.6,>=2.0.1 (from matplotlib)
+  Downloading https://files.pythonhosted.org/packages/dd/d9/3ec19e966301a6e25769976999bd7bbe552016f0d32b577dc9d63d2e0c49/pyparsing-2.4.0-py2.py3-none-any.whl (62kB)
+Collecting python-dateutil>=2.1 (from matplotlib)
+  Downloading https://files.pythonhosted.org/packages/41/17/c62faccbfbd163c7f57f3844689e3a78bae1f403648a6afb1d0866d87fbb/python_dateutil-2.8.0-py2.py3-none-any.whl (226kB)
+Collecting cycler>=0.10 (from matplotlib)
+  Downloading https://files.pythonhosted.org/packages/f7/d2/e07d3ebb2bd7af696440ce7e754c59dd546ffe1bbe732c8ab68b9c834e61/cycler-0.10.0-py2.py3-none-any.whl
+Requirement already satisfied: setuptools in /usr/lib/python3/dist-packages (from kiwisolver>=1.0.1->matplotlib) (39.0.1)
+Requirement already satisfied: six>=1.5 in /usr/lib/python3/dist-packages (from python-dateutil>=2.1->matplotlib) (1.11.0)
+Building wheels for collected packages: demjson, PyYAML
+  Building wheel for demjson (setup.py): started
+  Building wheel for demjson (setup.py): finished with status 'done'
+  Stored in directory: /root/.cache/pip/wheels/c5/d2/ab/a54fb5ea53ac3badba098160e8452fa126a51febda80440ded
+  Building wheel for PyYAML (setup.py): started
+  Building wheel for PyYAML (setup.py): finished with status 'done'
+  Stored in directory: /root/.cache/pip/wheels/16/27/a1/775c62ddea7bfa62324fd1f65847ed31c55dadb6051481ba3f
+Successfully built demjson PyYAML
+Installing collected packages: ninja, PyYAML, yacs, cython, kiwisolver, pyparsing, python-dateutil, cycler, matplotlib, demjson, click
+Successfully installed PyYAML-5.1.1 click-7.0 cycler-0.10.0 cython-0.29.11 demjson-2.2.4 kiwisolver-1.1.0 matplotlib-3.1.1 ninja-1.9.0.post1 pyparsing-2.4.0 python-dateutil-2.8.0 yacs-0.1.6
+Removing intermediate container 66d9c2abc514
+ ---> e8b817d88514
 Step 29/48 : RUN pip install git+https://github.com/cocodataset/cocoapi.git#subdirectory=PythonAPI
- ---> Using cache
- ---> 2054ea0bcf36
+ ---> Running in 8ad7663fe641
+Collecting git+https://github.com/cocodataset/cocoapi.git#subdirectory=PythonAPI
+  Cloning https://github.com/cocodataset/cocoapi.git to /tmp/pip-req-build-1irrhx7g
+[91m  Running command git clone -q https://github.com/cocodataset/cocoapi.git /tmp/pip-req-build-1irrhx7g
+[0mRequirement already satisfied: cython>=0.27.3 in /usr/local/lib/python3.6/dist-packages (from pycocotools==2.0) (0.29.11)
+Requirement already satisfied: matplotlib>=2.1.0 in /usr/local/lib/python3.6/dist-packages (from pycocotools==2.0) (3.1.1)
+Requirement already satisfied: setuptools>=18.0 in /usr/lib/python3/dist-packages (from pycocotools==2.0) (39.0.1)
+Requirement already satisfied: numpy>=1.11 in /usr/local/lib/python3.6/dist-packages (from matplotlib>=2.1.0->pycocotools==2.0) (1.16.4)
+Requirement already satisfied: python-dateutil>=2.1 in /usr/local/lib/python3.6/dist-packages (from matplotlib>=2.1.0->pycocotools==2.0) (2.8.0)
+Requirement already satisfied: cycler>=0.10 in /usr/local/lib/python3.6/dist-packages (from matplotlib>=2.1.0->pycocotools==2.0) (0.10.0)
+Requirement already satisfied: pyparsing!=2.0.4,!=2.1.2,!=2.1.6,>=2.0.1 in /usr/local/lib/python3.6/dist-packages (from matplotlib>=2.1.0->pycocotools==2.0) (2.4.0)
+Requirement already satisfied: kiwisolver>=1.0.1 in /usr/local/lib/python3.6/dist-packages (from matplotlib>=2.1.0->pycocotools==2.0) (1.1.0)
+Requirement already satisfied: six>=1.5 in /usr/lib/python3/dist-packages (from python-dateutil>=2.1->matplotlib>=2.1.0->pycocotools==2.0) (1.11.0)
+Building wheels for collected packages: pycocotools
+  Building wheel for pycocotools (setup.py): started
+  Building wheel for pycocotools (setup.py): finished with status 'done'
+  Stored in directory: /tmp/pip-ephem-wheel-cache-naid3gem/wheels/90/51/41/646daf401c3bc408ff10de34ec76587a9b3ebfac8d21ca5c3a
+Successfully built pycocotools
+Installing collected packages: pycocotools
+Successfully installed pycocotools-2.0
+Removing intermediate container 8ad7663fe641
+ ---> a114a987e95b
 Step 30/48 : RUN git clone https://github.com/facebookresearch/fastText.git /final/pack/fastText
- ---> Using cache
- ---> 817abf280d59
+ ---> Running in 6269a2d45cc9
+[91mCloning into '/final/pack/fastText'...
+[0mRemoving intermediate container 6269a2d45cc9
+ ---> 4c059b88b300
 Step 31/48 : RUN pip install -e /final/pack/fastText
- ---> Using cache
- ---> f2a79021631b
+ ---> Running in ab208a4f6b25
+Obtaining file:///final/pack/fastText
+Requirement already satisfied: numpy in /usr/local/lib/python3.6/dist-packages (from fasttext==0.9.1) (1.16.4)
+Requirement already satisfied: pybind11>=2.2 in /usr/local/lib/python3.6/dist-packages (from fasttext==0.9.1) (2.3.0)
+Requirement already satisfied: setuptools>=0.7.0 in /usr/lib/python3/dist-packages (from fasttext==0.9.1) (39.0.1)
+Installing collected packages: fasttext
+  Running setup.py develop for fasttext
+Successfully installed fasttext
+Removing intermediate container ab208a4f6b25
+ ---> 890e65df54ac
 Step 32/48 : RUN git clone https://github.com/facebookresearch/pythia.git /final/pack/pythia
- ---> Using cache
- ---> dc73aa5ba422
+ ---> Running in 57e8a72d2ef9
+[91mCloning into '/final/pack/pythia'...
+[0mRemoving intermediate container 57e8a72d2ef9
+ ---> aaf7dcf8bdd7
 Step 33/48 : RUN sed -i '/torch/d' /final/pack/pythia/requirements.txt
- ---> Using cache
- ---> 9d4d0dcc7fbd
+ ---> Running in a9ffa0859d9e
+Removing intermediate container a9ffa0859d9e
+ ---> 7c2b5eb40187
 Step 34/48 : RUN pip install -e /final/pack/pythia
- ---> Using cache
- ---> e8a344312c27
+ ---> Running in f1ce02878c8d
+Obtaining file:///final/pack/pythia
+Collecting GitPython>=2.1 (from pythia==0.3)
+  Downloading https://files.pythonhosted.org/packages/fe/e5/fafe827507644c32d6dc553a1c435cdf882e0c28918a5bab29f7fbebfb70/GitPython-2.1.11-py2.py3-none-any.whl (448kB)
+Requirement already satisfied: PyYAML>=3.11 in /usr/local/lib/python3.6/dist-packages (from pythia==0.3) (5.1.1)
+Requirement already satisfied: demjson>=2.2 in /usr/local/lib/python3.6/dist-packages (from pythia==0.3) (2.2.4)
+Requirement already satisfied: fastText in ./pack/fastText/python/fasttext_module (from pythia==0.3) (0.9.1)
+Collecting nltk==3.4.1 (from pythia==0.3)
+  Downloading https://files.pythonhosted.org/packages/73/56/90178929712ce427ebad179f8dc46c8deef4e89d4c853092bee1efd57d05/nltk-3.4.1.zip (3.1MB)
+Requirement already satisfied: numpy>=1.14 in /usr/local/lib/python3.6/dist-packages (from pythia==0.3) (1.16.4)
+Collecting pytest==3.3.2 (from pythia==0.3)
+  Downloading https://files.pythonhosted.org/packages/38/af/8dcf688d192914928393f931b7b550f2530299bbb08018b2f17efa6aab73/pytest-3.3.2-py2.py3-none-any.whl (185kB)
+Collecting requests==2.21.0 (from pythia==0.3)
+  Downloading https://files.pythonhosted.org/packages/7d/e3/20f3d364d6c8e5d2353c72a67778eb189176f08e873c9900e10c0287b84b/requests-2.21.0-py2.py3-none-any.whl (57kB)
+Collecting tensorboardX==1.2 (from pythia==0.3)
+  Downloading https://files.pythonhosted.org/packages/c5/22/43f4f0318f7c68a1000dbb700a353b745584bc2397437832d15ba69ea5f1/tensorboardX-1.2-py2.py3-none-any.whl (44kB)
+Collecting tqdm==4.19.9 (from pythia==0.3)
+  Downloading https://files.pythonhosted.org/packages/b3/c4/b67cf1ab472b770e08e94105a0c7ca7032cd070627c435f5998c9cf6e64f/tqdm-4.19.9-py2.py3-none-any.whl (52kB)
+Collecting gitdb2>=2.0.0 (from GitPython>=2.1->pythia==0.3)
+  Downloading https://files.pythonhosted.org/packages/da/30/a407568aa8d8f25db817cf50121a958722f3fc5f87e3a6fba1f40c0633e3/gitdb2-2.0.5-py2.py3-none-any.whl (62kB)
+Requirement already satisfied: pybind11>=2.2 in /usr/local/lib/python3.6/dist-packages (from fastText->pythia==0.3) (2.3.0)
+Requirement already satisfied: setuptools>=0.7.0 in /usr/lib/python3/dist-packages (from fastText->pythia==0.3) (39.0.1)
+Requirement already satisfied: six in /usr/lib/python3/dist-packages (from nltk==3.4.1->pythia==0.3) (1.11.0)
+Collecting attrs>=17.2.0 (from pytest==3.3.2->pythia==0.3)
+  Downloading https://files.pythonhosted.org/packages/23/96/d828354fa2dbdf216eaa7b7de0db692f12c234f7ef888cc14980ef40d1d2/attrs-19.1.0-py2.py3-none-any.whl
+Collecting py>=1.5.0 (from pytest==3.3.2->pythia==0.3)
+  Downloading https://files.pythonhosted.org/packages/76/bc/394ad449851729244a97857ee14d7cba61ddb268dce3db538ba2f2ba1f0f/py-1.8.0-py2.py3-none-any.whl (83kB)
+Collecting pluggy<0.7,>=0.5 (from pytest==3.3.2->pythia==0.3)
+  Downloading https://files.pythonhosted.org/packages/ba/65/ded3bc40bbf8d887f262f150fbe1ae6637765b5c9534bd55690ed2c0b0f7/pluggy-0.6.0-py3-none-any.whl
+Requirement already satisfied: chardet<3.1.0,>=3.0.2 in /usr/local/lib/python3.6/dist-packages (from requests==2.21.0->pythia==0.3) (3.0.4)
+Requirement already satisfied: idna<2.9,>=2.5 in /usr/lib/python3/dist-packages (from requests==2.21.0->pythia==0.3) (2.6)
+Collecting urllib3<1.25,>=1.21.1 (from requests==2.21.0->pythia==0.3)
+  Downloading https://files.pythonhosted.org/packages/01/11/525b02e4acc0c747de8b6ccdab376331597c569c42ea66ab0a1dbd36eca2/urllib3-1.24.3-py2.py3-none-any.whl (118kB)
+Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.6/dist-packages (from requests==2.21.0->pythia==0.3) (2019.6.16)
+Collecting protobuf>=0.3.2 (from tensorboardX==1.2->pythia==0.3)
+  Downloading https://files.pythonhosted.org/packages/d2/fb/29de8d08967f0cce1bb10b39846d836b0f3bf6776ddc36aed7c73498ca7e/protobuf-3.8.0-cp36-cp36m-manylinux1_x86_64.whl (1.2MB)
+Collecting smmap2>=2.0.0 (from gitdb2>=2.0.0->GitPython>=2.1->pythia==0.3)
+  Downloading https://files.pythonhosted.org/packages/55/d2/866d45e3a121ee15a1dc013824d58072fd5c7799c9c34d01378eb262ca8f/smmap2-2.0.5-py2.py3-none-any.whl
+Building wheels for collected packages: nltk
+  Building wheel for nltk (setup.py): started
+  Building wheel for nltk (setup.py): finished with status 'done'
+  Stored in directory: /root/.cache/pip/wheels/97/8a/10/d646015f33c525688e91986c4544c68019b19a473cb33d3b55
+Successfully built nltk
+Installing collected packages: smmap2, gitdb2, GitPython, nltk, attrs, py, pluggy, pytest, urllib3, requests, protobuf, tensorboardX, tqdm, pythia
+  Found existing installation: urllib3 1.25.3
+    Uninstalling urllib3-1.25.3:
+      Successfully uninstalled urllib3-1.25.3
+  Found existing installation: requests 2.22.0
+    Uninstalling requests-2.22.0:
+      Successfully uninstalled requests-2.22.0
+  Found existing installation: tqdm 4.32.2
+    Uninstalling tqdm-4.32.2:
+      Successfully uninstalled tqdm-4.32.2
+  Running setup.py develop for pythia
+Successfully installed GitPython-2.1.11 attrs-19.1.0 gitdb2-2.0.5 nltk-3.4.1 pluggy-0.6.0 protobuf-3.8.0 py-1.8.0 pytest-3.3.2 pythia requests-2.21.0 smmap2-2.0.5 tensorboardX-1.2 tqdm-4.19.9 urllib3-1.24.3
+Removing intermediate container f1ce02878c8d
+ ---> 9a240af7b384
 Step 35/48 : RUN git clone https://gitlab.com/meetshah1995/vqa-maskrcnn-benchmark.git /final/pack/vqa-maskrcnn-benchmark
- ---> Using cache
- ---> 366cd2ea5a73
+ ---> Running in 44ada86ece18
+[91mCloning into '/final/pack/vqa-maskrcnn-benchmark'...
+[0mRemoving intermediate container 44ada86ece18
+ ---> 9de27859a481
 Step 36/48 : WORKDIR /final/pack/vqa-maskrcnn-benchmark
- ---> Using cache
- ---> 8ef560638a0f
+ ---> Running in 95d0dd02198a
+Removing intermediate container 95d0dd02198a
+ ---> 1e97d052cdf7
 Step 37/48 : RUN python setup.py build
- ---> Using cache
- ---> 682b71d43b6e
+ ---> Running in fb2435ed168a
+No CUDA runtime is found, using CUDA_HOME='/usr/local/cuda'
+running build
+running build_py
+creating build
+creating build/lib.linux-x86_64-3.6
+creating build/lib.linux-x86_64-3.6/maskrcnn_benchmark
+copying maskrcnn_benchmark/__init__.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark
+creating build/lib.linux-x86_64-3.6/maskrcnn_benchmark/engine
+copying maskrcnn_benchmark/engine/inference.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/engine
+copying maskrcnn_benchmark/engine/__init__.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/engine
+copying maskrcnn_benchmark/engine/trainer.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/engine
+creating build/lib.linux-x86_64-3.6/maskrcnn_benchmark/data
+copying maskrcnn_benchmark/data/build.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/data
+copying maskrcnn_benchmark/data/__init__.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/data
+copying maskrcnn_benchmark/data/collate_batch.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/data
+creating build/lib.linux-x86_64-3.6/maskrcnn_benchmark/modeling
+copying maskrcnn_benchmark/modeling/utils.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/modeling
+copying maskrcnn_benchmark/modeling/balanced_positive_negative_sampler.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/modeling
+copying maskrcnn_benchmark/modeling/matcher.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/modeling
+copying maskrcnn_benchmark/modeling/box_coder.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/modeling
+copying maskrcnn_benchmark/modeling/registry.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/modeling
+copying maskrcnn_benchmark/modeling/__init__.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/modeling
+copying maskrcnn_benchmark/modeling/poolers.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/modeling
+creating build/lib.linux-x86_64-3.6/maskrcnn_benchmark/solver
+copying maskrcnn_benchmark/solver/build.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/solver
+copying maskrcnn_benchmark/solver/__init__.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/solver
+copying maskrcnn_benchmark/solver/lr_scheduler.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/solver
+creating build/lib.linux-x86_64-3.6/maskrcnn_benchmark/config
+copying maskrcnn_benchmark/config/paths_catalog.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/config
+copying maskrcnn_benchmark/config/__init__.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/config
+copying maskrcnn_benchmark/config/defaults.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/config
+creating build/lib.linux-x86_64-3.6/maskrcnn_benchmark/utils
+copying maskrcnn_benchmark/utils/checkpoint.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/utils
+copying maskrcnn_benchmark/utils/env.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/utils
+copying maskrcnn_benchmark/utils/logger.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/utils
+copying maskrcnn_benchmark/utils/registry.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/utils
+copying maskrcnn_benchmark/utils/imports.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/utils
+copying maskrcnn_benchmark/utils/collect_env.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/utils
+copying maskrcnn_benchmark/utils/__init__.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/utils
+copying maskrcnn_benchmark/utils/c2_model_loading.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/utils
+copying maskrcnn_benchmark/utils/comm.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/utils
+copying maskrcnn_benchmark/utils/miscellaneous.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/utils
+copying maskrcnn_benchmark/utils/model_serialization.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/utils
+copying maskrcnn_benchmark/utils/model_zoo.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/utils
+copying maskrcnn_benchmark/utils/metric_logger.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/utils
+creating build/lib.linux-x86_64-3.6/maskrcnn_benchmark/layers
+copying maskrcnn_benchmark/layers/roi_pool.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/layers
+copying maskrcnn_benchmark/layers/nms.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/layers
+copying maskrcnn_benchmark/layers/_utils.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/layers
+copying maskrcnn_benchmark/layers/roi_align.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/layers
+copying maskrcnn_benchmark/layers/__init__.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/layers
+copying maskrcnn_benchmark/layers/batch_norm.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/layers
+copying maskrcnn_benchmark/layers/misc.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/layers
+copying maskrcnn_benchmark/layers/smooth_l1_loss.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/layers
+creating build/lib.linux-x86_64-3.6/maskrcnn_benchmark/structures
+copying maskrcnn_benchmark/structures/segmentation_mask.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/structures
+copying maskrcnn_benchmark/structures/__init__.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/structures
+copying maskrcnn_benchmark/structures/image_list.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/structures
+copying maskrcnn_benchmark/structures/bounding_box.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/structures
+copying maskrcnn_benchmark/structures/boxlist_ops.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/structures
+creating build/lib.linux-x86_64-3.6/maskrcnn_benchmark/data/transforms
+copying maskrcnn_benchmark/data/transforms/build.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/data/transforms
+copying maskrcnn_benchmark/data/transforms/transforms.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/data/transforms
+copying maskrcnn_benchmark/data/transforms/__init__.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/data/transforms
+creating build/lib.linux-x86_64-3.6/maskrcnn_benchmark/data/datasets
+copying maskrcnn_benchmark/data/datasets/voc.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/data/datasets
+copying maskrcnn_benchmark/data/datasets/__init__.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/data/datasets
+copying maskrcnn_benchmark/data/datasets/concat_dataset.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/data/datasets
+copying maskrcnn_benchmark/data/datasets/coco.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/data/datasets
+copying maskrcnn_benchmark/data/datasets/list_dataset.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/data/datasets
+creating build/lib.linux-x86_64-3.6/maskrcnn_benchmark/data/samplers
+copying maskrcnn_benchmark/data/samplers/distributed.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/data/samplers
+copying maskrcnn_benchmark/data/samplers/iteration_based_batch_sampler.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/data/samplers
+copying maskrcnn_benchmark/data/samplers/__init__.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/data/samplers
+copying maskrcnn_benchmark/data/samplers/grouped_batch_sampler.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/data/samplers
+creating build/lib.linux-x86_64-3.6/maskrcnn_benchmark/data/datasets/evaluation
+copying maskrcnn_benchmark/data/datasets/evaluation/__init__.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/data/datasets/evaluation
+creating build/lib.linux-x86_64-3.6/maskrcnn_benchmark/data/datasets/evaluation/voc
+copying maskrcnn_benchmark/data/datasets/evaluation/voc/__init__.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/data/datasets/evaluation/voc
+copying maskrcnn_benchmark/data/datasets/evaluation/voc/voc_eval.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/data/datasets/evaluation/voc
+creating build/lib.linux-x86_64-3.6/maskrcnn_benchmark/data/datasets/evaluation/coco
+copying maskrcnn_benchmark/data/datasets/evaluation/coco/__init__.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/data/datasets/evaluation/coco
+copying maskrcnn_benchmark/data/datasets/evaluation/coco/coco_eval.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/data/datasets/evaluation/coco
+creating build/lib.linux-x86_64-3.6/maskrcnn_benchmark/modeling/roi_heads
+copying maskrcnn_benchmark/modeling/roi_heads/roi_heads.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/modeling/roi_heads
+copying maskrcnn_benchmark/modeling/roi_heads/__init__.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/modeling/roi_heads
+creating build/lib.linux-x86_64-3.6/maskrcnn_benchmark/modeling/detector
+copying maskrcnn_benchmark/modeling/detector/__init__.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/modeling/detector
+copying maskrcnn_benchmark/modeling/detector/detectors.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/modeling/detector
+copying maskrcnn_benchmark/modeling/detector/generalized_rcnn.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/modeling/detector
+creating build/lib.linux-x86_64-3.6/maskrcnn_benchmark/modeling/rpn
+copying maskrcnn_benchmark/modeling/rpn/inference.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/modeling/rpn
+copying maskrcnn_benchmark/modeling/rpn/rpn.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/modeling/rpn
+copying maskrcnn_benchmark/modeling/rpn/loss.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/modeling/rpn
+copying maskrcnn_benchmark/modeling/rpn/anchor_generator.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/modeling/rpn
+copying maskrcnn_benchmark/modeling/rpn/__init__.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/modeling/rpn
+creating build/lib.linux-x86_64-3.6/maskrcnn_benchmark/modeling/backbone
+copying maskrcnn_benchmark/modeling/backbone/fpn.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/modeling/backbone
+copying maskrcnn_benchmark/modeling/backbone/backbone.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/modeling/backbone
+copying maskrcnn_benchmark/modeling/backbone/__init__.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/modeling/backbone
+copying maskrcnn_benchmark/modeling/backbone/resnet.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/modeling/backbone
+creating build/lib.linux-x86_64-3.6/maskrcnn_benchmark/modeling/roi_heads/mask_head
+copying maskrcnn_benchmark/modeling/roi_heads/mask_head/inference.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/modeling/roi_heads/mask_head
+copying maskrcnn_benchmark/modeling/roi_heads/mask_head/loss.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/modeling/roi_heads/mask_head
+copying maskrcnn_benchmark/modeling/roi_heads/mask_head/roi_mask_predictors.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/modeling/roi_heads/mask_head
+copying maskrcnn_benchmark/modeling/roi_heads/mask_head/__init__.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/modeling/roi_heads/mask_head
+copying maskrcnn_benchmark/modeling/roi_heads/mask_head/roi_mask_feature_extractors.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/modeling/roi_heads/mask_head
+copying maskrcnn_benchmark/modeling/roi_heads/mask_head/mask_head.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/modeling/roi_heads/mask_head
+creating build/lib.linux-x86_64-3.6/maskrcnn_benchmark/modeling/roi_heads/box_head
+copying maskrcnn_benchmark/modeling/roi_heads/box_head/inference.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/modeling/roi_heads/box_head
+copying maskrcnn_benchmark/modeling/roi_heads/box_head/roi_box_predictors.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/modeling/roi_heads/box_head
+copying maskrcnn_benchmark/modeling/roi_heads/box_head/loss.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/modeling/roi_heads/box_head
+copying maskrcnn_benchmark/modeling/roi_heads/box_head/__init__.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/modeling/roi_heads/box_head
+copying maskrcnn_benchmark/modeling/roi_heads/box_head/box_head.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/modeling/roi_heads/box_head
+copying maskrcnn_benchmark/modeling/roi_heads/box_head/roi_box_feature_extractors.py -> build/lib.linux-x86_64-3.6/maskrcnn_benchmark/modeling/roi_heads/box_head
+running build_ext
+building 'maskrcnn_benchmark._C' extension
+creating build/temp.linux-x86_64-3.6
+creating build/temp.linux-x86_64-3.6/final
+creating build/temp.linux-x86_64-3.6/final/pack
+creating build/temp.linux-x86_64-3.6/final/pack/vqa-maskrcnn-benchmark
+creating build/temp.linux-x86_64-3.6/final/pack/vqa-maskrcnn-benchmark/maskrcnn_benchmark
+creating build/temp.linux-x86_64-3.6/final/pack/vqa-maskrcnn-benchmark/maskrcnn_benchmark/csrc
+creating build/temp.linux-x86_64-3.6/final/pack/vqa-maskrcnn-benchmark/maskrcnn_benchmark/csrc/cpu
+x86_64-linux-gnu-gcc -pthread -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -I/final/pack/vqa-maskrcnn-benchmark/maskrcnn_benchmark/csrc -I/usr/local/lib/python3.6/dist-packages/torch/include -I/usr/local/lib/python3.6/dist-packages/torch/include/torch/csrc/api/include -I/usr/local/lib/python3.6/dist-packages/torch/include/TH -I/usr/local/lib/python3.6/dist-packages/torch/include/THC -I/usr/include/python3.6m -c /final/pack/vqa-maskrcnn-benchmark/maskrcnn_benchmark/csrc/vision.cpp -o build/temp.linux-x86_64-3.6/final/pack/vqa-maskrcnn-benchmark/maskrcnn_benchmark/csrc/vision.o -DTORCH_API_INCLUDE_EXTENSION_H -DTORCH_EXTENSION_NAME=_C -D_GLIBCXX_USE_CXX11_ABI=0 -std=c++11
+x86_64-linux-gnu-gcc -pthread -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -I/final/pack/vqa-maskrcnn-benchmark/maskrcnn_benchmark/csrc -I/usr/local/lib/python3.6/dist-packages/torch/include -I/usr/local/lib/python3.6/dist-packages/torch/include/torch/csrc/api/include -I/usr/local/lib/python3.6/dist-packages/torch/include/TH -I/usr/local/lib/python3.6/dist-packages/torch/include/THC -I/usr/include/python3.6m -c /final/pack/vqa-maskrcnn-benchmark/maskrcnn_benchmark/csrc/cpu/ROIAlign_cpu.cpp -o build/temp.linux-x86_64-3.6/final/pack/vqa-maskrcnn-benchmark/maskrcnn_benchmark/csrc/cpu/ROIAlign_cpu.o -DTORCH_API_INCLUDE_EXTENSION_H -DTORCH_EXTENSION_NAME=_C -D_GLIBCXX_USE_CXX11_ABI=0 -std=c++11
+[91mIn file included from /usr/local/lib/python3.6/dist-packages/torch/include/ATen/ATen.h:9:0,
+                 from /usr/local/lib/python3.6/dist-packages/torch/include/torch/csrc/api/include/torch/types.h:3,
+                 from /usr/local/lib/python3.6/dist-packages/torch/include/torch/csrc/api/include/torch/data/dataloader_options.h:4,
+                 from /usr/local/lib/python3.6/dist-packages/torch/include/torch/csrc/api/include/torch/data/dataloader/base.h:3,
+                 from /usr/local/lib/python3.6/dist-packages/torch/include/torch/csrc/api/include/torch/data/dataloader/stateful.h:3,
+                 from /usr/local/lib/python3.6/dist-packages/torch/include/torch/csrc/api/include/torch/data/dataloader.h:3,
+                 from /usr/local/lib/python3.6/dist-packages/torch/include/torch/csrc/api/include/torch/data.h:3,
+                 from /usr/local/lib/python3.6/dist-packages/torch/include/torch/csrc/api/include/torch/all.h:4,
+                 from /usr/local/lib/python3.6/dist-packages/torch/include/torch/extension.h:4,
+                 from /final/pack/vqa-maskrcnn-benchmark/maskrcnn_benchmark/csrc/cpu/vision.h:3,
+                 from /final/pack/vqa-maskrcnn-benchmark/maskrcnn_benchmark/csrc/cpu/ROIAlign_cpu.cpp:2:
+/final/pack/vqa-maskrcnn-benchmark/maskrcnn_benchmark/csrc/cpu/ROIAlign_cpu.cpp: In lambda function:
+/usr/local/lib/python3.6/dist-packages/torch/include/ATen/Dispatch.h:71:52: warning: ‘c10::ScalarType detail::scalar_type(const at::DeprecatedTypeProperties&)’ is deprecated [-Wdeprecated-declarations]
+     at::ScalarType _st = ::detail::scalar_type(TYPE);                        \
+                                                    ^
+/final/pack/vqa-maskrcnn-benchmark/maskrcnn_benchmark/csrc/cpu/ROIAlign_cpu.cpp:242:3: note: in expansion of macro ‘AT_DISPATCH_FLOATING_TYPES’
+   AT_DISPATCH_FLOATING_TYPES(input.type(), "ROIAlign_forward", [&] {
+   ^~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/local/lib/python3.6/dist-packages/torch/include/ATen/Dispatch.h:47:23: note: declared here
+ inline at::ScalarType scalar_type(const at::DeprecatedTypeProperties &t) {
+                       ^~~~~~~~~~~
+[0mx86_64-linux-gnu-gcc -pthread -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -I/final/pack/vqa-maskrcnn-benchmark/maskrcnn_benchmark/csrc -I/usr/local/lib/python3.6/dist-packages/torch/include -I/usr/local/lib/python3.6/dist-packages/torch/include/torch/csrc/api/include -I/usr/local/lib/python3.6/dist-packages/torch/include/TH -I/usr/local/lib/python3.6/dist-packages/torch/include/THC -I/usr/include/python3.6m -c /final/pack/vqa-maskrcnn-benchmark/maskrcnn_benchmark/csrc/cpu/nms_cpu.cpp -o build/temp.linux-x86_64-3.6/final/pack/vqa-maskrcnn-benchmark/maskrcnn_benchmark/csrc/cpu/nms_cpu.o -DTORCH_API_INCLUDE_EXTENSION_H -DTORCH_EXTENSION_NAME=_C -D_GLIBCXX_USE_CXX11_ABI=0 -std=c++11
+[91mIn file included from /usr/local/lib/python3.6/dist-packages/torch/include/ATen/ATen.h:9:0,
+                 from /usr/local/lib/python3.6/dist-packages/torch/include/torch/csrc/api/include/torch/types.h:3,
+                 from /usr/local/lib/python3.6/dist-packages/torch/include/torch/csrc/api/include/torch/data/dataloader_options.h:4,
+                 from /usr/local/lib/python3.6/dist-packages/torch/include/torch/csrc/api/include/torch/data/dataloader/base.h:3,
+                 from /usr/local/lib/python3.6/dist-packages/torch/include/torch/csrc/api/include/torch/data/dataloader/stateful.h:3,
+                 from /usr/local/lib/python3.6/dist-packages/torch/include/torch/csrc/api/include/torch/data/dataloader.h:3,
+                 from /usr/local/lib/python3.6/dist-packages/torch/include/torch/csrc/api/include/torch/data.h:3,
+                 from /usr/local/lib/python3.6/dist-packages/torch/include/torch/csrc/api/include/torch/all.h:4,
+                 from /usr/local/lib/python3.6/dist-packages/torch/include/torch/extension.h:4,
+                 from /final/pack/vqa-maskrcnn-benchmark/maskrcnn_benchmark/csrc/cpu/vision.h:3,
+                 from /final/pack/vqa-maskrcnn-benchmark/maskrcnn_benchmark/csrc/cpu/nms_cpu.cpp:2:
+/final/pack/vqa-maskrcnn-benchmark/maskrcnn_benchmark/csrc/cpu/nms_cpu.cpp: In lambda function:
+/usr/local/lib/python3.6/dist-packages/torch/include/ATen/Dispatch.h:71:52: warning: ‘c10::ScalarType detail::scalar_type(const at::DeprecatedTypeProperties&)’ is deprecated [-Wdeprecated-declarations]
+     at::ScalarType _st = ::detail::scalar_type(TYPE);                        \
+                                                    ^
+/final/pack/vqa-maskrcnn-benchmark/maskrcnn_benchmark/csrc/cpu/nms_cpu.cpp:71:3: note: in expansion of macro ‘AT_DISPATCH_FLOATING_TYPES’
+   AT_DISPATCH_FLOATING_TYPES(dets.type(), "nms", [&] {
+   ^~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/local/lib/python3.6/dist-packages/torch/include/ATen/Dispatch.h:47:23: note: declared here
+ inline at::ScalarType scalar_type(const at::DeprecatedTypeProperties &t) {
+                       ^~~~~~~~~~~
+[0mx86_64-linux-gnu-g++ -pthread -shared -Wl,-O1 -Wl,-Bsymbolic-functions -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-Bsymbolic-functions -Wl,-z,relro -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 build/temp.linux-x86_64-3.6/final/pack/vqa-maskrcnn-benchmark/maskrcnn_benchmark/csrc/vision.o build/temp.linux-x86_64-3.6/final/pack/vqa-maskrcnn-benchmark/maskrcnn_benchmark/csrc/cpu/ROIAlign_cpu.o build/temp.linux-x86_64-3.6/final/pack/vqa-maskrcnn-benchmark/maskrcnn_benchmark/csrc/cpu/nms_cpu.o -o build/lib.linux-x86_64-3.6/maskrcnn_benchmark/_C.cpython-36m-x86_64-linux-gnu.so
+Removing intermediate container fb2435ed168a
+ ---> 053255828270
 Step 38/48 : RUN python setup.py develop
- ---> Using cache
- ---> 9913af896f64
+ ---> Running in d04646a603dd
+No CUDA runtime is found, using CUDA_HOME='/usr/local/cuda'
+running develop
+running egg_info
+creating maskrcnn_benchmark.egg-info
+writing maskrcnn_benchmark.egg-info/PKG-INFO
+writing dependency_links to maskrcnn_benchmark.egg-info/dependency_links.txt
+writing top-level names to maskrcnn_benchmark.egg-info/top_level.txt
+writing manifest file 'maskrcnn_benchmark.egg-info/SOURCES.txt'
+reading manifest file 'maskrcnn_benchmark.egg-info/SOURCES.txt'
+writing manifest file 'maskrcnn_benchmark.egg-info/SOURCES.txt'
+running build_ext
+copying build/lib.linux-x86_64-3.6/maskrcnn_benchmark/_C.cpython-36m-x86_64-linux-gnu.so -> maskrcnn_benchmark
+Creating /usr/local/lib/python3.6/dist-packages/maskrcnn-benchmark.egg-link (link to .)
+Adding maskrcnn-benchmark 0.1 to easy-install.pth file
+
+Installed /final/pack/vqa-maskrcnn-benchmark
+Processing dependencies for maskrcnn-benchmark==0.1
+Finished processing dependencies for maskrcnn-benchmark==0.1
+Removing intermediate container d04646a603dd
+ ---> 6676739e5eef
 Step 39/48 : WORKDIR /final
- ---> Using cache
- ---> da8fbf9b2550
+ ---> Running in e6a4f3675e4a
+Removing intermediate container e6a4f3675e4a
+ ---> 34254239be1a
 Step 40/48 : WORKDIR /final/work
- ---> Using cache
- ---> 3286c65abeb7
+ ---> Running in 81f8be1ab93a
+Removing intermediate container 81f8be1ab93a
+ ---> a258802d694e
 Step 41/48 : COPY cache.py .
- ---> Using cache
- ---> 1d3cf9bd0429
+ ---> 3005b864b143
 Step 42/48 : RUN /final/work/cache.py .
- ---> Using cache
- ---> c0b5d96e1a45
-Step 43/48 : COPY entry.py .
- ---> ea90711abff1
-Step 44/48 : RUN /final/work/entry.py
- ---> Running in a1ad8cef9ff8
+ ---> Running in 6349c466a1fa
+[91mDownloading: "https://download.pytorch.org/models/resnet152-b121ed2d.pth" to /root/.cache/torch/checkpoints/resnet152-b121ed2d.pth
+  0%|          | 0/241530880 [00:00<?, ?it/s][0m[91m  0%|          | 524288/241530880 [00:00<00:54, 4453086.66it/s][0m[91m  0%|          | 983040/241530880 [00:00<00:54, 4438453.69it/s][0m[91m  1%|          | 1507328/241530880 [00:00<00:52, 4547630.45it/s][0m[91m  1%|          | 1966080/241530880 [00:00<00:53, 4514571.95it/s][0m[91m  1%|          | 2424832/241530880 [00:00<00:57, 4189938.33it/s][0m[91m  1%|          | 2949120/241530880 [00:00<00:58, 4066147.28it/s][0m[91m  2%|▏         | 3776512/241530880 [00:00<00:49, 4792358.98it/s][0m[91m  2%|▏         | 4325376/241530880 [00:00<00:50, 4671189.24it/s][0m[91m  2%|▏         | 4808704/241530880 [00:01<00:50, 4706376.65it/s][0m[91m  2%|▏         | 5292032/241530880 [00:01<00:51, 4606686.94it/s][0m[91m  2%|▏         | 5816320/241530880 [00:01<00:49, 4773191.40it/s][0m[91m  3%|▎         | 6504448/241530880 [00:01<00:44, 5251838.95it/s][0m[91m  3%|▎         | 7053312/241530880 [00:01<00:45, 5138876.03it/s][0m[91m  3%|▎         | 7733248/241530880 [00:01<00:42, 5439533.48it/s][0m[91m  3%|▎         | 8323072/241530880 [00:01<00:43, 5397903.58it/s][0m[91m  4%|▎         | 8978432/241530880 [00:01<00:41, 5571135.00it/s][0m[91m  4%|▍         | 9551872/241530880 [00:01<00:41, 5605867.11it/s][0m[91m  4%|▍         | 10125312/241530880 [00:01<00:42, 5392985.35it/s][0m[91m  4%|▍         | 10674176/241530880 [00:02<00:45, 5112717.39it/s][0m[91m  5%|▍         | 11403264/241530880 [00:02<00:41, 5544090.10it/s][0m[91m  5%|▍         | 12058624/241530880 [00:02<00:39, 5766873.14it/s][0m[91m  5%|▌         | 12656640/241530880 [00:02<00:40, 5589601.57it/s][0m[91m  6%|▌         | 13434880/241530880 [00:02<00:38, 5934492.26it/s][0m[91m  6%|▌         | 14049280/241530880 [00:02<00:41, 5425574.76it/s][0m[91m  6%|▌         | 14614528/241530880 [00:02<00:46, 4902957.04it/s][0m[91m  6%|▋         | 15130624/241530880 [00:02<00:46, 4842889.95it/s][0m[91m  7%|▋         | 15728640/241530880 [00:03<00:43, 5133761.20it/s][0m[91m  7%|▋         | 16318464/241530880 [00:03<00:42, 5314146.37it/s][0m[91m  7%|▋         | 16867328/241530880 [00:03<00:47, 4737490.65it/s][0m[91m  7%|▋         | 17498112/241530880 [00:03<00:43, 5101935.05it/s][0m[91m  7%|▋         | 18030592/241530880 [00:03<00:43, 5107441.40it/s][0m[91m  8%|▊         | 18563072/241530880 [00:03<00:48, 4579747.07it/s][0m[91m  8%|▊         | 19046400/241530880 [00:03<00:52, 4255216.84it/s][0m[91m  9%|▊         | 20643840/241530880 [00:03<00:40, 5455234.43it/s][0m[91m 10%|▉         | 23363584/241530880 [00:03<00:30, 7170681.61it/s][0m[91m 11%|█         | 26132480/241530880 [00:04<00:23, 9220310.08it/s][0m[91m 12%|█▏        | 28704768/241530880 [00:04<00:18, 11413616.79it/s][0m[91m 13%|█▎        | 31457280/241530880 [00:04<00:15, 13761173.47it/s][0m[91m 14%|█▍        | 33865728/241530880 [00:04<00:13, 15791011.85it/s][0m[91m 15%|█▌        | 37109760/241530880 [00:04<00:10, 18618011.65it/s][0m[91m 16%|█▋        | 39657472/241530880 [00:04<00:10, 18791557.52it/s][0m[91m 17%|█▋        | 42016768/241530880 [00:04<00:10, 19633918.07it/s][0m[91m 19%|█▊        | 45203456/241530880 [00:04<00:08, 22187742.69it/s][0m[91m 20%|█▉        | 48168960/241530880 [00:04<00:08, 23986352.70it/s][0m[91m 21%|██        | 50987008/241530880 [00:05<00:07, 25097213.76it/s][0m[91m 22%|██▏       | 53714944/241530880 [00:05<00:07, 25094190.71it/s][0m[91m 23%|██▎       | 56377344/241530880 [00:05<00:07, 25164510.04it/s][0m[91m 24%|██▍       | 59031552/241530880 [00:05<00:07, 25555019.24it/s][0m[91m 26%|██▌       | 61849600/241530880 [00:05<00:06, 26281806.36it/s][0m[91m 27%|██▋       | 64536576/241530880 [00:05<00:06, 26332699.04it/s][0m[91m 28%|██▊       | 67215360/241530880 [00:05<00:06, 26367737.09it/s][0m[91m 29%|██▉       | 69885952/241530880 [00:05<00:07, 22494443.62it/s][0m[91m 30%|███       | 72761344/241530880 [00:05<00:07, 24030943.03it/s][0m[91m 31%|███▏      | 75726848/241530880 [00:05<00:06, 25477592.26it/s][0m[91m 32%|███▏      | 78381056/241530880 [00:06<00:06, 25552569.52it/s][0m[91m 34%|███▎      | 81149952/241530880 [00:06<00:06, 26066029.44it/s][0m[91m 35%|███▍      | 83992576/241530880 [00:06<00:05, 26730978.58it/s][0m[91m 36%|███▌      | 86712320/241530880 [00:06<00:05, 26590530.93it/s][0m[91m 37%|███▋      | 89407488/241530880 [00:06<00:05, 25733850.67it/s][0m[91m 38%|███▊      | 92143616/241530880 [00:06<00:05, 26124572.33it/s][0m[91m 39%|███▉      | 94781440/241530880 [00:06<00:06, 24050539.74it/s][0m[91m 40%|████      | 97255424/241530880 [00:06<00:05, 24129151.13it/s][0m[91m 41%|████▏     | 99704832/241530880 [00:06<00:05, 24079775.93it/s][0m[91m 42%|████▏     | 102293504/241530880 [00:07<00:05, 24594026.87it/s][0m[91m 44%|████▎     | 105299968/241530880 [00:07<00:05, 25985831.32it/s][0m[91m 45%|████▍     | 107937792/241530880 [00:07<00:05, 24545707.72it/s][0m[91m 46%|████▌     | 110837760/241530880 [00:07<00:05, 25713997.33it/s][0m[91m 47%|████▋     | 114229248/241530880 [00:07<00:04, 27691207.67it/s][0m[91m 48%|████▊     | 117071872/241530880 [00:07<00:04, 26440309.47it/s][0m[91m 50%|████▉     | 119914496/241530880 [00:07<00:04, 26941052.87it/s][0m[91m 51%|█████     | 122658816/241530880 [00:07<00:04, 24455275.95it/s][0m[91m 52%|█████▏    | 125239296/241530880 [00:07<00:04, 24776117.35it/s][0m[91m 53%|█████▎    | 127860736/241530880 [00:08<00:04, 25135113.97it/s][0m[91m 54%|█████▍    | 130621440/241530880 [00:08<00:04, 25827500.69it/s][0m[91m 55%|█████▌    | 133431296/241530880 [00:08<00:04, 26464951.83it/s][0m[91m 56%|█████▋    | 136110080/241530880 [00:08<00:04, 25394185.88it/s][0m[91m 57%|█████▋    | 138854400/241530880 [00:08<00:03, 25742618.05it/s][0m[91m 59%|█████▉    | 142000128/241530880 [00:08<00:03, 27110341.79it/s][0m[91m 60%|█████▉    | 144752640/241530880 [00:08<00:03, 27142265.06it/s][0m[91m 61%|██████    | 147496960/241530880 [00:08<00:03, 26103141.03it/s][0m[91m 62%|██████▏   | 150134784/241530880 [00:09<00:05, 16621791.98it/s][0m[91m 63%|██████▎   | 152256512/241530880 [00:09<00:08, 10076597.38it/s][0m[91m 64%|██████▎   | 153894912/241530880 [00:09<00:11, 7781330.50it/s] [0m[91m 64%|██████▍   | 155197440/241530880 [00:10<00:13, 6386523.18it/s][0m[91m 65%|██████▍   | 156246016/241530880 [00:10<00:13, 6543911.43it/s][0m[91m 65%|██████▌   | 157188096/241530880 [00:10<00:15, 5403129.79it/s][0m[91m 65%|██████▌   | 157966336/241530880 [00:10<00:14, 5861555.95it/s][0m[91m 66%|██████▌   | 158728192/241530880 [00:10<00:14, 5566167.83it/s][0m[91m 66%|██████▌   | 159416320/241530880 [00:10<00:14, 5512374.12it/s][0m[91m 66%|██████▋   | 160235520/241530880 [00:10<00:13, 6093274.68it/s][0m[91m 67%|██████▋   | 160931840/241530880 [00:11<00:14, 5442490.07it/s][0m[91m 67%|██████▋   | 161546240/241530880 [00:11<00:14, 5391800.33it/s][0m[91m 67%|██████▋   | 162480128/241530880 [00:11<00:12, 6143600.52it/s][0m[91m 68%|██████▊   | 165347328/241530880 [00:11<00:09, 8035673.99it/s][0m[91m 70%|██████▉   | 168116224/241530880 [00:11<00:07, 10153726.01it/s][0m[91m 71%|███████   | 170975232/241530880 [00:11<00:05, 12587656.28it/s][0m[91m 72%|███████▏  | 173604864/241530880 [00:11<00:04, 14919226.59it/s][0m[91m 73%|███████▎  | 176422912/241530880 [00:11<00:03, 17370708.16it/s][0m[91m 74%|███████▍  | 179142656/241530880 [00:11<00:03, 19474988.01it/s][0m[91m 75%|███████▌  | 181821440/241530880 [00:12<00:02, 21211269.83it/s][0m[91m 76%|███████▋  | 184377344/241530880 [00:12<00:02, 19956894.54it/s][0m[91m 78%|███████▊  | 187236352/241530880 [00:12<00:02, 21939774.44it/s][0m[91m 79%|███████▊  | 190038016/241530880 [00:12<00:02, 23437037.96it/s][0m[91m 80%|███████▉  | 192954368/241530880 [00:12<00:01, 24877788.36it/s][0m[91m 81%|████████  | 195731456/241530880 [00:12<00:01, 25674257.72it/s][0m[91m 82%|████████▏ | 198434816/241530880 [00:12<00:01, 25285211.91it/s][0m[91m 83%|████████▎ | 201424896/241530880 [00:12<00:01, 26470451.95it/s][0m[91m 85%|████████▍ | 204161024/241530880 [00:12<00:01, 25910464.47it/s][0m[91m 86%|████████▌ | 206815232/241530880 [00:13<00:01, 24649978.39it/s][0m[91m 87%|████████▋ | 209338368/241530880 [00:13<00:01, 22097309.45it/s][0m[91m 88%|████████▊ | 212107264/241530880 [00:13<00:01, 23461255.81it/s][0m[91m 89%|████████▉ | 214958080/241530880 [00:13<00:01, 24702962.08it/s][0m[91m 90%|█████████ | 217890816/241530880 [00:13<00:00, 25926260.42it/s][0m[91m 91%|█████████▏| 220594176/241530880 [00:13<00:00, 26197936.46it/s][0m[91m 92%|█████████▏| 223363072/241530880 [00:13<00:00, 26620568.92it/s][0m[91m 94%|█████████▎| 226066432/241530880 [00:13<00:00, 25352578.31it/s][0m[91m 95%|█████████▍| 229146624/241530880 [00:13<00:00, 26772086.43it/s][0m[91m 96%|█████████▌| 231931904/241530880 [00:13<00:00, 26970874.22it/s][0m[91m 97%|█████████▋| 234668032/241530880 [00:14<00:00, 26854294.07it/s][0m[91m 98%|█████████▊| 237379584/241530880 [00:14<00:00, 24009432.12it/s][0m[91m 99%|█████████▉| 239910912/241530880 [00:14<00:00, 24309032.19it/s][0m[91m100%|██████████| 241530880/241530880 [00:14<00:00, 16778173.52it/s][0m[91m
+/final/pack/pythia/pythia/.vector_cache/glove.6B.zip: 0.00B [00:00, ?B/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:   0%|          | 8.19k/862M [00:00<7:22:42, 32.5kB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:   0%|          | 1.03M/862M [00:00<5:09:57, 46.3kB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:   1%|          | 4.52M/862M [00:00<3:36:12, 66.1kB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:   1%|          | 8.13M/862M [00:00<2:30:49, 94.4kB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:   1%|▏         | 11.9M/862M [00:00<1:45:13, 135kB/s] [0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:   2%|▏         | 15.5M/862M [00:00<1:13:27, 192kB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:   2%|▏         | 20.0M/862M [00:00<51:14, 274kB/s]  [0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:   3%|▎         | 23.6M/862M [00:00<35:49, 390kB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:   3%|▎         | 27.4M/862M [00:01<25:04, 555kB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:   4%|▎         | 31.0M/862M [00:01<17:36, 787kB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:   4%|▍         | 34.8M/862M [00:01<12:22, 1.11MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:   4%|▍         | 37.2M/862M [00:01<08:48, 1.56MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:   5%|▍         | 41.0M/862M [00:01<06:14, 2.19MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:   5%|▌         | 44.9M/862M [00:01<04:27, 3.06MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:   6%|▌         | 48.3M/862M [00:01<03:13, 4.20MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:   6%|▌         | 51.9M/862M [00:01<02:21, 5.71MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:   6%|▋         | 55.9M/862M [00:01<01:44, 7.68MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:   7%|▋         | 59.9M/862M [00:01<01:19, 10.1MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:   7%|▋         | 64.0M/862M [00:02<01:01, 13.0MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:   8%|▊         | 67.7M/862M [00:02<00:49, 16.2MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:   8%|▊         | 71.6M/862M [00:02<00:40, 19.5MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:   9%|▉         | 75.5M/862M [00:02<00:34, 22.9MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:   9%|▉         | 79.4M/862M [00:02<00:30, 26.1MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  10%|▉         | 83.0M/862M [00:02<00:27, 28.3MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  10%|█         | 86.7M/862M [00:02<00:25, 30.2MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  10%|█         | 90.1M/862M [00:02<00:24, 31.2MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  11%|█         | 94.1M/862M [00:02<00:23, 33.2MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  11%|█▏        | 97.9M/862M [00:02<00:22, 34.5MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  12%|█▏        | 102M/862M [00:03<00:21, 35.3MB/s] [0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  12%|█▏        | 105M/862M [00:03<00:21, 35.6MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  13%|█▎        | 109M/862M [00:03<00:21, 35.2MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  13%|█▎        | 112M/862M [00:03<00:21, 35.1MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  14%|█▎        | 117M/862M [00:03<00:19, 37.7MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  14%|█▍        | 121M/862M [00:03<00:20, 37.1MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  14%|█▍        | 124M/862M [00:03<00:20, 35.8MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  15%|█▍        | 128M/862M [00:03<00:20, 35.9MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  15%|█▌        | 131M/862M [00:03<00:20, 36.2MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  16%|█▌        | 135M/862M [00:04<00:19, 36.4MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  16%|█▌        | 139M/862M [00:04<00:19, 37.3MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  17%|█▋        | 143M/862M [00:04<00:18, 38.2MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  17%|█▋        | 148M/862M [00:04<00:17, 39.9MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  18%|█▊        | 152M/862M [00:04<00:18, 39.1MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  18%|█▊        | 156M/862M [00:04<00:18, 39.2MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  18%|█▊        | 159M/862M [00:04<00:18, 38.3MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  19%|█▉        | 163M/862M [00:04<00:18, 38.2MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  19%|█▉        | 167M/862M [00:04<00:18, 38.2MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  20%|█▉        | 171M/862M [00:04<00:18, 37.9MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  20%|██        | 175M/862M [00:05<00:18, 37.6MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  21%|██        | 178M/862M [00:05<00:18, 36.9MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  21%|██        | 182M/862M [00:05<00:18, 37.2MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  22%|██▏       | 186M/862M [00:05<00:17, 37.9MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  22%|██▏       | 190M/862M [00:05<00:17, 37.5MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  22%|██▏       | 194M/862M [00:05<00:17, 37.2MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  23%|██▎       | 198M/862M [00:05<00:17, 37.3MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  23%|██▎       | 201M/862M [00:05<00:17, 37.1MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  24%|██▍       | 205M/862M [00:05<00:17, 37.6MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  24%|██▍       | 209M/862M [00:05<00:17, 36.6MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  25%|██▍       | 213M/862M [00:06<00:17, 37.6MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  25%|██▌       | 217M/862M [00:06<00:17, 36.8MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  26%|██▌       | 221M/862M [00:06<00:16, 37.7MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  26%|██▌       | 225M/862M [00:06<00:16, 38.0MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  27%|██▋       | 229M/862M [00:06<00:16, 38.1MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  27%|██▋       | 233M/862M [00:06<00:16, 38.3MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  27%|██▋       | 236M/862M [00:06<00:16, 38.1MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  28%|██▊       | 240M/862M [00:06<00:16, 38.1MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  28%|██▊       | 244M/862M [00:06<00:16, 38.5MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  29%|██▊       | 248M/862M [00:06<00:17, 36.0MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  29%|██▉       | 251M/862M [00:07<00:17, 35.6MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  29%|██▉       | 254M/862M [00:07<00:17, 34.2MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  30%|██▉       | 258M/862M [00:07<00:17, 35.0MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  30%|███       | 262M/862M [00:07<00:17, 35.1MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  31%|███       | 265M/862M [00:07<00:16, 35.6MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  31%|███       | 269M/862M [00:07<00:16, 37.0MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  32%|███▏      | 273M/862M [00:07<00:15, 37.7MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  32%|███▏      | 277M/862M [00:07<00:15, 38.1MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  33%|███▎      | 281M/862M [00:07<00:15, 38.3MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  33%|███▎      | 285M/862M [00:07<00:14, 38.6MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  33%|███▎      | 289M/862M [00:08<00:15, 37.6MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  34%|███▍      | 293M/862M [00:08<00:14, 38.0MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  34%|███▍      | 297M/862M [00:08<00:14, 39.1MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  35%|███▍      | 301M/862M [00:08<00:14, 38.5MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  35%|███▌      | 305M/862M [00:08<00:14, 38.4MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  36%|███▌      | 309M/862M [00:08<00:14, 38.7MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  36%|███▌      | 312M/862M [00:08<00:14, 38.5MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  37%|███▋      | 316M/862M [00:08<00:14, 38.0MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  37%|███▋      | 320M/862M [00:08<00:14, 38.5MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  38%|███▊      | 324M/862M [00:08<00:14, 37.7MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  38%|███▊      | 328M/862M [00:09<00:14, 36.8MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  38%|███▊      | 331M/862M [00:09<00:15, 35.2MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  39%|███▉      | 335M/862M [00:09<00:14, 36.4MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  39%|███▉      | 339M/862M [00:09<00:14, 37.0MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  40%|███▉      | 343M/862M [00:09<00:13, 38.1MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  40%|████      | 347M/862M [00:09<00:13, 38.2MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  41%|████      | 351M/862M [00:09<00:13, 38.8MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  41%|████      | 355M/862M [00:09<00:13, 38.7MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  42%|████▏     | 359M/862M [00:09<00:13, 38.1MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  42%|████▏     | 362M/862M [00:10<00:13, 37.8MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  42%|████▏     | 366M/862M [00:10<00:13, 36.4MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  43%|████▎     | 369M/862M [00:10<00:13, 36.0MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  43%|████▎     | 374M/862M [00:10<00:12, 38.4MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  44%|████▍     | 378M/862M [00:10<00:12, 38.3MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  44%|████▍     | 382M/862M [00:10<00:12, 37.5MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  45%|████▍     | 385M/862M [00:10<00:12, 37.8MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  45%|████▌     | 389M/862M [00:10<00:12, 37.8MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  46%|████▌     | 393M/862M [00:10<00:12, 37.8MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  46%|████▌     | 396M/862M [00:10<00:12, 36.2MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  46%|████▋     | 401M/862M [00:11<00:12, 37.3MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  47%|████▋     | 404M/862M [00:11<00:12, 37.6MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  47%|████▋     | 408M/862M [00:11<00:12, 36.3MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  48%|████▊     | 411M/862M [00:11<00:12, 35.6MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  48%|████▊     | 415M/862M [00:11<00:12, 36.3MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  49%|████▊     | 419M/862M [00:11<00:12, 36.6MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  49%|████▉     | 422M/862M [00:11<00:12, 36.5MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  49%|████▉     | 427M/862M [00:11<00:11, 37.6MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  50%|████▉     | 431M/862M [00:11<00:11, 38.0MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  50%|█████     | 434M/862M [00:11<00:11, 37.4MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  51%|█████     | 438M/862M [00:12<00:11, 38.4MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  51%|█████▏    | 442M/862M [00:12<00:11, 37.5MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  52%|█████▏    | 446M/862M [00:12<00:10, 38.1MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  52%|█████▏    | 450M/862M [00:12<00:10, 37.9MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  53%|█████▎    | 454M/862M [00:12<00:10, 38.1MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  53%|█████▎    | 457M/862M [00:12<00:10, 37.9MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  54%|█████▎    | 461M/862M [00:12<00:10, 38.4MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  54%|█████▍    | 465M/862M [00:12<00:10, 37.9MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  54%|█████▍    | 469M/862M [00:12<00:10, 37.5MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  55%|█████▍    | 473M/862M [00:12<00:10, 38.4MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  55%|█████▌    | 476M/862M [00:13<00:10, 37.6MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  56%|█████▌    | 480M/862M [00:13<00:10, 37.6MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  56%|█████▌    | 484M/862M [00:13<00:10, 37.7MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  57%|█████▋    | 488M/862M [00:13<00:10, 37.0MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  57%|█████▋    | 491M/862M [00:13<00:10, 36.2MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  57%|█████▋    | 494M/862M [00:13<00:10, 34.5MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  58%|█████▊    | 498M/862M [00:13<00:10, 35.4MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  58%|█████▊    | 502M/862M [00:13<00:10, 35.3MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  59%|█████▊    | 506M/862M [00:13<00:10, 35.6MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  59%|█████▉    | 509M/862M [00:13<00:09, 36.0MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  60%|█████▉    | 513M/862M [00:14<00:09, 36.6MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  60%|█████▉    | 517M/862M [00:14<00:09, 36.1MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  60%|██████    | 521M/862M [00:14<00:09, 36.5MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  61%|██████    | 524M/862M [00:14<00:09, 36.9MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  61%|██████    | 528M/862M [00:14<00:09, 36.4MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  62%|██████▏   | 532M/862M [00:14<00:09, 36.4MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  62%|██████▏   | 536M/862M [00:14<00:08, 37.0MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  63%|██████▎   | 539M/862M [00:14<00:08, 37.0MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  63%|██████▎   | 543M/862M [00:14<00:08, 36.9MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  63%|██████▎   | 547M/862M [00:14<00:08, 38.3MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  64%|██████▍   | 551M/862M [00:15<00:08, 38.3MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  64%|██████▍   | 555M/862M [00:15<00:07, 39.0MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  65%|██████▍   | 559M/862M [00:15<00:07, 39.2MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  65%|██████▌   | 563M/862M [00:15<00:07, 38.1MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  66%|██████▌   | 566M/862M [00:15<00:08, 36.5MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  66%|██████▌   | 570M/862M [00:15<00:07, 37.5MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  67%|██████▋   | 574M/862M [00:15<00:07, 37.8MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  67%|██████▋   | 578M/862M [00:15<00:07, 37.6MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  67%|██████▋   | 582M/862M [00:15<00:07, 37.5MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  68%|██████▊   | 586M/862M [00:16<00:07, 37.7MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  68%|██████▊   | 590M/862M [00:16<00:07, 37.9MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  69%|██████▉   | 594M/862M [00:16<00:06, 38.6MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  69%|██████▉   | 597M/862M [00:16<00:06, 38.1MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  70%|██████▉   | 601M/862M [00:16<00:06, 38.0MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  70%|███████   | 605M/862M [00:16<00:06, 37.1MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  71%|███████   | 609M/862M [00:16<00:06, 37.2MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  71%|███████   | 613M/862M [00:16<00:06, 38.7MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  72%|███████▏  | 617M/862M [00:16<00:06, 38.7MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  72%|███████▏  | 621M/862M [00:16<00:06, 39.1MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  73%|███████▎  | 625M/862M [00:17<00:05, 39.6MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  73%|███████▎  | 629M/862M [00:17<00:05, 39.2MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  73%|███████▎  | 633M/862M [00:17<00:06, 36.9MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  74%|███████▍  | 637M/862M [00:17<00:05, 38.4MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  74%|███████▍  | 641M/862M [00:17<00:05, 37.7MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  75%|███████▍  | 644M/862M [00:17<00:05, 37.5MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  75%|███████▌  | 648M/862M [00:17<00:05, 37.0MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  76%|███████▌  | 652M/862M [00:17<00:05, 36.4MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  76%|███████▌  | 656M/862M [00:17<00:05, 37.0MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  77%|███████▋  | 660M/862M [00:17<00:05, 37.6MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  77%|███████▋  | 664M/862M [00:18<00:05, 38.1MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  77%|███████▋  | 668M/862M [00:18<00:05, 37.7MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  78%|███████▊  | 672M/862M [00:18<00:05, 37.9MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  78%|███████▊  | 675M/862M [00:18<00:04, 37.7MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  79%|███████▉  | 679M/862M [00:18<00:04, 37.7MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  79%|███████▉  | 683M/862M [00:18<00:04, 37.3MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  80%|███████▉  | 687M/862M [00:18<00:04, 37.3MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  80%|████████  | 691M/862M [00:18<00:04, 37.6MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  81%|████████  | 694M/862M [00:18<00:04, 36.9MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  81%|████████  | 698M/862M [00:18<00:04, 37.7MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  81%|████████▏ | 702M/862M [00:19<00:04, 38.0MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  82%|████████▏ | 706M/862M [00:19<00:04, 37.9MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  82%|████████▏ | 710M/862M [00:19<00:04, 37.7MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  83%|████████▎ | 713M/862M [00:19<00:03, 37.5MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  83%|████████▎ | 717M/862M [00:19<00:03, 37.9MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  84%|████████▎ | 721M/862M [00:19<00:03, 37.4MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  84%|████████▍ | 725M/862M [00:19<00:03, 36.5MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  84%|████████▍ | 728M/862M [00:19<00:03, 37.0MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  85%|████████▍ | 732M/862M [00:19<00:03, 36.5MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  85%|████████▌ | 736M/862M [00:19<00:03, 36.6MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  86%|████████▌ | 740M/862M [00:20<00:03, 37.6MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  86%|████████▌ | 744M/862M [00:20<00:03, 37.4MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  87%|████████▋ | 748M/862M [00:20<00:03, 37.8MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  87%|████████▋ | 752M/862M [00:20<00:02, 38.5MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  88%|████████▊ | 755M/862M [00:20<00:02, 38.5MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  88%|████████▊ | 759M/862M [00:20<00:02, 37.3MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  88%|████████▊ | 763M/862M [00:20<00:02, 37.6MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  89%|████████▉ | 767M/862M [00:20<00:02, 38.0MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  89%|████████▉ | 771M/862M [00:20<00:02, 37.8MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  90%|████████▉ | 774M/862M [00:20<00:02, 37.0MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  90%|█████████ | 778M/862M [00:21<00:02, 36.8MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  91%|█████████ | 782M/862M [00:21<00:02, 38.0MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  91%|█████████ | 786M/862M [00:21<00:02, 36.9MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  92%|█████████▏| 790M/862M [00:21<00:01, 37.9MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  92%|█████████▏| 793M/862M [00:21<00:01, 37.6MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  92%|█████████▏| 797M/862M [00:21<00:01, 36.7MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  93%|█████████▎| 801M/862M [00:21<00:01, 38.1MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  93%|█████████▎| 805M/862M [00:21<00:01, 36.7MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  94%|█████████▍| 809M/862M [00:21<00:01, 37.6MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  94%|█████████▍| 812M/862M [00:22<00:01, 37.6MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  95%|█████████▍| 816M/862M [00:22<00:01, 37.1MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  95%|█████████▌| 820M/862M [00:22<00:01, 36.9MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  96%|█████████▌| 823M/862M [00:22<00:01, 36.8MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  96%|█████████▌| 827M/862M [00:22<00:00, 37.1MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  96%|█████████▋| 831M/862M [00:22<00:00, 37.8MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  97%|█████████▋| 835M/862M [00:22<00:00, 37.8MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  97%|█████████▋| 839M/862M [00:22<00:00, 37.5MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  98%|█████████▊| 842M/862M [00:22<00:00, 36.9MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  98%|█████████▊| 847M/862M [00:22<00:00, 38.1MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  99%|█████████▊| 850M/862M [00:23<00:00, 37.6MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip:  99%|█████████▉| 854M/862M [00:23<00:00, 37.4MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip: 100%|█████████▉| 858M/862M [00:23<00:00, 37.7MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip: 100%|█████████▉| 862M/862M [00:23<00:00, 38.8MB/s][0m[91m/final/pack/pythia/pythia/.vector_cache/glove.6B.zip: 862MB [00:23, 37.0MB/s]                           [0m[91m
+  0%|          | 0/400000 [00:00<?, ?it/s][0m[91m  0%|          | 859/400000 [00:00<00:46, 8587.12it/s][0m[91m  0%|          | 1475/400000 [00:00<00:54, 7368.94it/s][0m[91m  1%|          | 2060/400000 [00:00<00:57, 6862.18it/s][0m[91m  1%|          | 2844/400000 [00:00<00:55, 7104.48it/s][0m[91m  1%|          | 3807/400000 [00:00<00:52, 7608.08it/s][0m[91m  1%|          | 4472/400000 [00:00<00:54, 7244.10it/s][0m[91m  1%|▏         | 5236/400000 [00:00<00:54, 7299.00it/s][0m[91m  1%|▏         | 5911/400000 [00:00<00:54, 7166.25it/s][0m[91m  2%|▏         | 6633/400000 [00:00<00:54, 7171.80it/s][0m[91m  2%|▏         | 7319/400000 [00:01<00:54, 7140.71it/s][0m[91m  2%|▏         | 8114/400000 [00:01<00:54, 7211.61it/s][0m[91m  2%|▏         | 8897/400000 [00:01<00:53, 7261.83it/s][0m[91m  2%|▏         | 9659/400000 [00:01<00:53, 7288.85it/s][0m[91m  3%|▎         | 10403/400000 [00:01<00:53, 7293.23it/s][0m[91m  3%|▎         | 11144/400000 [00:01<00:53, 7270.28it/s][0m[91m  3%|▎         | 11879/400000 [00:01<00:53, 7275.08it/s][0m[91m  3%|▎         | 12609/400000 [00:01<00:54, 7168.71it/s][0m[91m  3%|▎         | 13294/400000 [00:01<00:54, 7124.53it/s][0m[91m  3%|▎         | 13966/400000 [00:01<00:54, 7080.72it/s][0m[91m  4%|▎         | 14626/400000 [00:02<00:54, 7021.51it/s][0m[91m  4%|▍         | 15641/400000 [00:02<00:53, 7164.45it/s][0m[91m  4%|▍         | 16598/400000 [00:02<00:52, 7269.22it/s][0m[91m  4%|▍         | 17412/400000 [00:02<00:52, 7273.64it/s][0m[91m  5%|▍         | 18282/400000 [00:02<00:52, 7330.74it/s][0m[91m  5%|▍         | 19097/400000 [00:02<00:52, 7292.51it/s][0m[91m  5%|▍         | 19863/400000 [00:02<00:52, 7304.90it/s][0m[91m  5%|▌         | 20628/400000 [00:02<00:52, 7250.55it/s][0m[91m  5%|▌         | 21346/400000 [00:02<00:52, 7209.34it/s][0m[91m  6%|▌         | 22390/400000 [00:03<00:51, 7314.59it/s][0m[91m  6%|▌         | 23185/400000 [00:03<00:51, 7284.76it/s][0m[91m  6%|▌         | 23938/400000 [00:03<00:51, 7288.03it/s][0m[91m  6%|▌         | 24859/400000 [00:03<00:51, 7344.77it/s][0m[91m  6%|▋         | 25660/400000 [00:03<00:51, 7316.82it/s][0m[91m  7%|▋         | 26417/400000 [00:03<00:51, 7252.84it/s][0m[91m  7%|▋         | 27115/400000 [00:03<00:51, 7237.78it/s][0m[91m  7%|▋         | 27845/400000 [00:03<00:51, 7239.32it/s][0m[91m  7%|▋         | 28547/400000 [00:03<00:51, 7178.73it/s][0m[91m  7%|▋         | 29505/400000 [00:04<00:51, 7237.37it/s][0m[91m  8%|▊         | 30249/400000 [00:04<00:51, 7219.37it/s][0m[91m  8%|▊         | 31114/400000 [00:04<00:50, 7252.47it/s][0m[91m  8%|▊         | 32068/400000 [00:04<00:50, 7304.43it/s][0m[91m  8%|▊         | 32888/400000 [00:04<00:50, 7252.33it/s][0m[91m  9%|▊         | 34027/400000 [00:04<00:49, 7341.34it/s][0m[91m  9%|▊         | 34889/400000 [00:04<00:50, 7300.95it/s][0m[91m  9%|▉         | 35673/400000 [00:04<00:49, 7287.69it/s][0m[91m  9%|▉         | 36424/400000 [00:05<00:49, 7278.16it/s][0m[91m  9%|▉         | 37249/400000 [00:05<00:49, 7296.96it/s][0m[91m 10%|▉         | 38090/400000 [00:05<00:49, 7318.12it/s][0m[91m 10%|▉         | 38873/400000 [00:05<00:49, 7283.05it/s][0m[91m 10%|▉         | 39666/400000 [00:05<00:49, 7294.84it/s][0m[91m 10%|█         | 40412/400000 [00:05<00:49, 7269.57it/s][0m[91m 10%|█         | 41330/400000 [00:05<00:49, 7303.12it/s][0m[91m 11%|█         | 42100/400000 [00:05<00:48, 7304.70it/s][0m[91m 11%|█         | 43151/400000 [00:05<00:48, 7359.31it/s][0m[91m 11%|█         | 43999/400000 [00:05<00:48, 7362.79it/s][0m[91m 11%|█         | 44819/400000 [00:06<00:48, 7342.88it/s][0m[91m 11%|█▏        | 45585/400000 [00:06<00:48, 7327.43it/s][0m[91m 12%|█▏        | 46317/400000 [00:06<00:48, 7314.14it/s][0m[91m 12%|█▏        | 47027/400000 [00:06<00:48, 7309.52it/s][0m[91m 12%|█▏        | 47735/400000 [00:06<00:48, 7279.72it/s][0m[91m 12%|█▏        | 48546/400000 [00:06<00:48, 7292.13it/s][0m[91m 12%|█▏        | 49321/400000 [00:06<00:48, 7298.80it/s][0m[91m 13%|█▎        | 50051/400000 [00:06<00:48, 7288.26it/s][0m[91m 13%|█▎        | 50768/400000 [00:06<00:47, 7286.47it/s][0m[91m 13%|█▎        | 51480/400000 [00:07<00:47, 7264.72it/s][0m[91m 13%|█▎        | 52189/400000 [00:07<00:47, 7262.19it/s][0m[91m 13%|█▎        | 52933/400000 [00:07<00:47, 7264.61it/s][0m[91m 13%|█▎        | 53638/400000 [00:07<00:47, 7247.84it/s][0m[91m 14%|█▎        | 54317/400000 [00:07<00:47, 7215.07it/s][0m[91m 14%|█▍        | 55276/400000 [00:07<00:47, 7246.17it/s][0m[91m 14%|█▍        | 56088/400000 [00:07<00:47, 7257.33it/s][0m[91m 14%|█▍        | 56844/400000 [00:07<00:47, 7259.30it/s][0m[91m 14%|█▍        | 57705/400000 [00:07<00:47, 7276.32it/s][0m[91m 15%|█▍        | 58506/400000 [00:08<00:46, 7285.45it/s][0m[91m 15%|█▍        | 59404/400000 [00:08<00:46, 7306.17it/s][0m[91m 15%|█▌        | 60226/400000 [00:08<00:46, 7272.24it/s][0m[91m 15%|█▌        | 60965/400000 [00:08<00:46, 7269.30it/s][0m[91m 15%|█▌        | 61693/400000 [00:08<00:46, 7251.99it/s][0m[91m 16%|█▌        | 62472/400000 [00:08<00:46, 7258.22it/s][0m[91m 16%|█▌        | 63190/400000 [00:08<00:46, 7245.08it/s][0m[91m 16%|█▌        | 63999/400000 [00:08<00:46, 7254.58it/s][0m[91m 16%|█▌        | 64886/400000 [00:08<00:46, 7272.58it/s][0m[91m 16%|█▋        | 65717/400000 [00:09<00:45, 7284.07it/s][0m[91m 17%|█▋        | 66775/400000 [00:09<00:45, 7320.18it/s][0m[91m 17%|█▋        | 67686/400000 [00:09<00:45, 7339.57it/s][0m[91m 17%|█▋        | 68569/400000 [00:09<00:45, 7305.58it/s][0m[91m 17%|█▋        | 69391/400000 [00:09<00:45, 7315.20it/s][0m[91m 18%|█▊        | 70225/400000 [00:09<00:45, 7325.85it/s][0m[91m 18%|█▊        | 71030/400000 [00:09<00:44, 7319.21it/s][0m[91m 18%|█▊        | 71829/400000 [00:09<00:44, 7326.04it/s][0m[91m 18%|█▊        | 72704/400000 [00:09<00:44, 7340.37it/s][0m[91m 18%|█▊        | 73642/400000 [00:10<00:44, 7360.67it/s][0m[91m 19%|█▊        | 74488/400000 [00:10<00:44, 7362.40it/s][0m[91m 19%|█▉        | 75306/400000 [00:10<00:44, 7363.11it/s][0m[91m 19%|█▉        | 76101/400000 [00:10<00:44, 7336.88it/s][0m[91m 19%|█▉        | 76822/400000 [00:10<00:44, 7333.01it/s][0m[91m 19%|█▉        | 77536/400000 [00:10<00:44, 7324.27it/s][0m[91m 20%|█▉        | 78259/400000 [00:10<00:43, 7323.34it/s][0m[91m 20%|█▉        | 79391/400000 [00:10<00:43, 7360.38it/s][0m[91m 20%|██        | 80275/400000 [00:10<00:43, 7373.92it/s][0m[91m 20%|██        | 81122/400000 [00:10<00:43, 7379.16it/s][0m[91m 21%|██        | 82270/400000 [00:11<00:42, 7416.06it/s][0m[91m 21%|██        | 83234/400000 [00:11<00:42, 7435.89it/s][0m[91m 21%|██        | 84171/400000 [00:11<00:42, 7420.15it/s][0m[91m 21%|██▏       | 85015/400000 [00:11<00:42, 7406.33it/s][0m[91m 21%|██▏       | 85793/400000 [00:11<00:42, 7403.05it/s][0m[91m 22%|██▏       | 86550/400000 [00:11<00:42, 7382.22it/s][0m[91m 22%|██▏       | 87337/400000 [00:11<00:42, 7386.34it/s][0m[91m 22%|██▏       | 88148/400000 [00:11<00:42, 7392.40it/s][0m[91m 22%|██▏       | 89003/400000 [00:12<00:42, 7401.94it/s][0m[91m 22%|██▏       | 89785/400000 [00:12<00:41, 7404.32it/s][0m[91m 23%|██▎       | 90808/400000 [00:12<00:41, 7427.40it/s][0m[91m 23%|██▎       | 91791/400000 [00:12<00:41, 7446.86it/s][0m[91m 23%|██▎       | 92682/400000 [00:12<00:41, 7435.40it/s][0m[91m 23%|██▎       | 93498/400000 [00:12<00:41, 7424.01it/s][0m[91m 24%|██▎       | 94366/400000 [00:12<00:41, 7433.87it/s][0m[91m 24%|██▍       | 95159/400000 [00:12<00:41, 7420.64it/s][0m[91m 24%|██▍       | 95909/400000 [00:12<00:40, 7421.24it/s][0m[91m 24%|██▍       | 96652/400000 [00:13<00:40, 7400.15it/s][0m[91m 24%|██▍       | 97344/400000 [00:13<00:40, 7396.47it/s][0m[91m 25%|██▍       | 98120/400000 [00:13<00:40, 7399.20it/s][0m[91m 25%|██▍       | 98833/400000 [00:13<00:40, 7385.53it/s][0m[91m 25%|██▍       | 99514/400000 [00:13<00:40, 7381.16it/s][0m[91m 25%|██▌       | 100350/400000 [00:13<00:40, 7388.27it/s][0m[91m 25%|██▌       | 101337/400000 [00:13<00:40, 7406.39it/s][0m[91m 26%|██▌       | 102140/400000 [00:13<00:40, 7409.47it/s][0m[91m 26%|██▌       | 102937/400000 [00:13<00:40, 7402.67it/s][0m[91m 26%|██▌       | 103709/400000 [00:14<00:40, 7404.91it/s][0m[91m 26%|██▌       | 104492/400000 [00:14<00:39, 7407.90it/s][0m[91m 26%|██▋       | 105260/400000 [00:14<00:39, 7394.44it/s][0m[91m 26%|██▋       | 105976/400000 [00:14<00:39, 7391.65it/s][0m[91m 27%|██▋       | 106784/400000 [00:14<00:39, 7396.32it/s][0m[91m 27%|██▋       | 107554/400000 [00:14<00:39, 7398.40it/s][0m[91m 27%|██▋       | 108303/400000 [00:14<00:39, 7386.35it/s][0m[91m 27%|██▋       | 109203/400000 [00:14<00:39, 7397.23it/s][0m[91m 27%|██▋       | 109966/400000 [00:14<00:39, 7381.77it/s][0m[91m 28%|██▊       | 110707/400000 [00:14<00:39, 7381.94it/s][0m[91m 28%|██▊       | 111423/400000 [00:15<00:39, 7372.86it/s][0m[91m 28%|██▊       | 112110/400000 [00:15<00:39, 7367.48it/s][0m[91m 28%|██▊       | 113002/400000 [00:15<00:38, 7377.55it/s][0m[91m 28%|██▊       | 113828/400000 [00:15<00:38, 7383.25it/s][0m[91m 29%|██▊       | 114596/400000 [00:15<00:38, 7370.24it/s][0m[91m 29%|██▉       | 115313/400000 [00:15<00:38, 7368.95it/s][0m[91m 29%|██▉       | 116228/400000 [00:15<00:38, 7380.24it/s][0m[91m 29%|██▉       | 117067/400000 [00:15<00:38, 7386.56it/s][0m[91m 29%|██▉       | 117861/400000 [00:15<00:38, 7389.29it/s][0m[91m 30%|██▉       | 118651/400000 [00:16<00:38, 7379.04it/s][0m[91m 30%|██▉       | 119392/400000 [00:16<00:38, 7379.18it/s][0m[91m 30%|███       | 120374/400000 [00:16<00:37, 7394.15it/s][0m[91m 30%|███       | 121434/400000 [00:16<00:37, 7413.70it/s][0m[91m 31%|███       | 122320/400000 [00:16<00:37, 7400.47it/s][0m[91m 31%|███       | 123119/400000 [00:16<00:37, 7393.31it/s][0m[91m 31%|███       | 123871/400000 [00:16<00:37, 7390.17it/s][0m[91m 31%|███       | 124628/400000 [00:16<00:37, 7391.17it/s][0m[91m 31%|███▏      | 125390/400000 [00:16<00:37, 7392.49it/s][0m[91m 32%|███▏      | 126137/400000 [00:17<00:37, 7392.72it/s][0m[91m 32%|███▏      | 127048/400000 [00:17<00:36, 7402.72it/s][0m[91m 32%|███▏      | 127960/400000 [00:17<00:36, 7412.62it/s][0m[91m 32%|███▏      | 128790/400000 [00:17<00:36, 7416.36it/s][0m[91m 32%|███▏      | 129613/400000 [00:17<00:36, 7415.21it/s][0m[91m 33%|███▎      | 130459/400000 [00:17<00:36, 7421.13it/s][0m[91m 33%|███▎      | 131268/400000 [00:17<00:36, 7423.79it/s][0m[91m 33%|███▎      | 132071/400000 [00:17<00:36, 7422.15it/s][0m[91m 33%|███▎      | 132898/400000 [00:17<00:35, 7426.86it/s][0m[91m 33%|███▎      | 133858/400000 [00:17<00:35, 7438.93it/s][0m[91m 34%|███▎      | 134745/400000 [00:18<00:35, 7446.83it/s][0m[91m 34%|███▍      | 135601/400000 [00:18<00:35, 7452.65it/s][0m[91m 34%|███▍      | 136455/400000 [00:18<00:35, 7458.57it/s][0m[91m 34%|███▍      | 137309/400000 [00:18<00:35, 7453.27it/s][0m[91m 35%|███▍      | 138108/400000 [00:18<00:35, 7445.29it/s][0m[91m 35%|███▍      | 138856/400000 [00:18<00:35, 7445.23it/s][0m[91m 35%|███▍      | 139855/400000 [00:18<00:34, 7458.80it/s][0m[91m 35%|███▌      | 140678/400000 [00:18<00:34, 7446.15it/s][0m[91m 35%|███▌      | 141492/400000 [00:18<00:34, 7449.76it/s][0m[91m 36%|███▌      | 142371/400000 [00:19<00:34, 7456.77it/s][0m[91m 36%|███▌      | 143173/400000 [00:19<00:34, 7455.62it/s][0m[91m 36%|███▌      | 143952/400000 [00:19<00:34, 7454.85it/s][0m[91m 36%|███▌      | 144736/400000 [00:19<00:34, 7456.77it/s][0m[91m 36%|███▋      | 145573/400000 [00:19<00:34, 7461.38it/s][0m[91m 37%|███▋      | 146363/400000 [00:19<00:34, 7458.11it/s][0m[91m 37%|███▋      | 147123/400000 [00:19<00:33, 7454.75it/s][0m[91m 37%|███▋      | 147961/400000 [00:19<00:33, 7459.40it/s][0m[91m 37%|███▋      | 148729/400000 [00:19<00:33, 7449.29it/s][0m[91m 37%|███▋      | 149444/400000 [00:20<00:33, 7446.43it/s][0m[91m 38%|███▊      | 150423/400000 [00:20<00:33, 7458.03it/s][0m[91m 38%|███▊      | 151212/400000 [00:20<00:33, 7458.29it/s][0m[91m 38%|███▊      | 152049/400000 [00:20<00:33, 7462.74it/s][0m[91m 38%|███▊      | 152862/400000 [00:20<00:33, 7465.97it/s][0m[91m 38%|███▊      | 153663/400000 [00:20<00:33, 7456.07it/s][0m[91m 39%|███▊      | 154402/400000 [00:20<00:32, 7452.01it/s][0m[91m 39%|███▉      | 155136/400000 [00:20<00:32, 7451.43it/s][0m[91m 39%|███▉      | 155859/400000 [00:20<00:32, 7441.70it/s][0m[91m 39%|███▉      | 156571/400000 [00:21<00:32, 7440.15it/s][0m[91m 39%|███▉      | 157261/400000 [00:21<00:32, 7432.62it/s][0m[91m 40%|███▉      | 158345/400000 [00:21<00:32, 7448.62it/s][0m[91m 40%|███▉      | 159135/400000 [00:21<00:32, 7441.48it/s][0m[91m 40%|███▉      | 159876/400000 [00:21<00:32, 7435.50it/s][0m[91m 40%|████      | 160585/400000 [00:21<00:32, 7428.05it/s][0m[91m 40%|████      | 161356/400000 [00:21<00:32, 7429.34it/s][0m[91m 41%|████      | 162062/400000 [00:21<00:32, 7424.00it/s][0m[91m 41%|████      | 163003/400000 [00:21<00:31, 7433.00it/s][0m[91m 41%|████      | 163765/400000 [00:22<00:31, 7427.19it/s][0m[91m 41%|████      | 164524/400000 [00:22<00:31, 7427.88it/s][0m[91m 41%|████▏     | 165259/400000 [00:22<00:31, 7427.18it/s][0m[91m 41%|████▏     | 165992/400000 [00:22<00:31, 7426.04it/s][0m[91m 42%|████▏     | 166841/400000 [00:22<00:31, 7430.77it/s][0m[91m 42%|████▏     | 167715/400000 [00:22<00:31, 7436.57it/s][0m[91m 42%|████▏     | 168662/400000 [00:22<00:31, 7445.54it/s][0m[91m 42%|████▏     | 169504/400000 [00:22<00:30, 7446.31it/s][0m[91m 43%|████▎     | 170322/400000 [00:22<00:30, 7435.72it/s][0m[91m 43%|████▎     | 171287/400000 [00:23<00:30, 7445.33it/s][0m[91m 43%|████▎     | 172098/400000 [00:23<00:30, 7429.46it/s][0m[91m 43%|████▎     | 172820/400000 [00:23<00:30, 7424.81it/s][0m[91m 43%|████▎     | 173519/400000 [00:23<00:30, 7414.79it/s][0m[91m 44%|████▎     | 174490/400000 [00:23<00:30, 7424.51it/s][0m[91m 44%|████▍     | 175492/400000 [00:23<00:30, 7435.50it/s][0m[91m 44%|████▍     | 176318/400000 [00:23<00:30, 7431.04it/s][0m[91m 44%|████▍     | 177121/400000 [00:23<00:29, 7433.49it/s][0m[91m 44%|████▍     | 177905/400000 [00:23<00:29, 7430.99it/s][0m[91m 45%|████▍     | 178686/400000 [00:24<00:29, 7432.55it/s][0m[91m 45%|████▍     | 179450/400000 [00:24<00:29, 7430.88it/s][0m[91m 45%|████▌     | 180196/400000 [00:24<00:29, 7422.58it/s][0m[91m 45%|████▌     | 180961/400000 [00:24<00:29, 7423.50it/s][0m[91m 45%|████▌     | 181688/400000 [00:24<00:29, 7422.84it/s][0m[91m 46%|████▌     | 182409/400000 [00:24<00:29, 7416.92it/s][0m[91m 46%|████▌     | 183099/400000 [00:24<00:29, 7409.40it/s][0m[91m 46%|████▌     | 183867/400000 [00:24<00:29, 7410.48it/s][0m[91m 46%|████▌     | 184758/400000 [00:24<00:29, 7416.48it/s][0m[91m 46%|████▋     | 185509/400000 [00:25<00:28, 7414.54it/s][0m[91m 47%|████▋     | 186244/400000 [00:25<00:28, 7412.61it/s][0m[91m 47%|████▋     | 186967/400000 [00:25<00:28, 7402.75it/s][0m[91m 47%|████▋     | 187745/400000 [00:25<00:28, 7404.18it/s][0m[91m 47%|████▋     | 188517/400000 [00:25<00:28, 7405.42it/s][0m[91m 47%|████▋     | 189265/400000 [00:25<00:28, 7405.70it/s][0m[91m 48%|████▊     | 190112/400000 [00:25<00:28, 7409.83it/s][0m[91m 48%|████▊     | 190953/400000 [00:25<00:28, 7413.69it/s][0m[91m 48%|████▊     | 191906/400000 [00:25<00:28, 7421.85it/s][0m[91m 48%|████▊     | 192841/400000 [00:25<00:27, 7429.28it/s][0m[91m 48%|████▊     | 193708/400000 [00:26<00:27, 7426.58it/s][0m[91m 49%|████▊     | 194521/400000 [00:26<00:27, 7418.16it/s][0m[91m 49%|████▉     | 195318/400000 [00:26<00:27, 7420.22it/s][0m[91m 49%|████▉     | 196078/400000 [00:26<00:27, 7411.83it/s][0m[91m 49%|████▉     | 196783/400000 [00:26<00:27, 7404.30it/s][0m[91m 49%|████▉     | 197621/400000 [00:26<00:27, 7407.94it/s][0m[91m 50%|████▉     | 198471/400000 [00:26<00:27, 7411.99it/s][0m[91m 50%|████▉     | 199262/400000 [00:26<00:27, 7413.80it/s][0m[91m 50%|█████     | 200156/400000 [00:26<00:26, 7419.45it/s][0m[91m 50%|█████     | 200997/400000 [00:27<00:26, 7423.07it/s][0m[91m 50%|█████     | 201813/400000 [00:27<00:26, 7416.48it/s][0m[91m 51%|█████     | 202567/400000 [00:27<00:26, 7415.99it/s][0m[91m 51%|█████     | 203313/400000 [00:27<00:26, 7415.63it/s][0m[91m 51%|█████     | 204271/400000 [00:27<00:26, 7423.49it/s][0m[91m 51%|█████▏    | 205130/400000 [00:27<00:26, 7427.67it/s][0m[91m 51%|█████▏    | 205979/400000 [00:27<00:26, 7431.49it/s][0m[91m 52%|█████▏    | 206809/400000 [00:27<00:26, 7422.89it/s][0m[91m 52%|█████▏    | 207563/400000 [00:27<00:25, 7418.27it/s][0m[91m 52%|█████▏    | 208396/400000 [00:28<00:25, 7421.50it/s][0m[91m 52%|█████▏    | 209443/400000 [00:28<00:25, 7432.31it/s][0m[91m 53%|█████▎    | 210284/400000 [00:28<00:25, 7431.28it/s][0m[91m 53%|█████▎    | 211088/400000 [00:28<00:25, 7424.04it/s][0m[91m 53%|█████▎    | 211829/400000 [00:28<00:25, 7421.40it/s][0m[91m 53%|█████▎    | 212707/400000 [00:28<00:25, 7426.11it/s][0m[91m 53%|█████▎    | 213475/400000 [00:28<00:25, 7424.73it/s][0m[91m 54%|█████▎    | 214354/400000 [00:28<00:24, 7429.46it/s][0m[91m 54%|█████▍    | 215142/400000 [00:28<00:24, 7424.44it/s][0m[91m 54%|█████▍    | 215882/400000 [00:29<00:24, 7423.69it/s][0m[91m 54%|█████▍    | 216861/400000 [00:29<00:24, 7431.79it/s][0m[91m 54%|█████▍    | 217669/400000 [00:29<00:24, 7423.46it/s][0m[91m 55%|█████▍    | 218406/400000 [00:29<00:24, 7419.68it/s][0m[91m 55%|█████▍    | 219116/400000 [00:29<00:24, 7418.06it/s][0m[91m 55%|█████▍    | 219899/400000 [00:29<00:24, 7419.45it/s][0m[91m 55%|█████▌    | 220628/400000 [00:29<00:24, 7418.93it/s][0m[91m 55%|█████▌    | 221356/400000 [00:29<00:24, 7412.90it/s][0m[91m 56%|█████▌    | 222069/400000 [00:29<00:24, 7411.95it/s][0m[91m 56%|█████▌    | 222765/400000 [00:30<00:23, 7408.23it/s][0m[91m 56%|█████▌    | 223630/400000 [00:30<00:23, 7412.31it/s][0m[91m 56%|█████▌    | 224364/400000 [00:30<00:23, 7410.93it/s][0m[91m 56%|█████▋    | 225162/400000 [00:30<00:23, 7412.77it/s][0m[91m 56%|█████▋    | 225909/400000 [00:30<00:23, 7407.43it/s][0m[91m 57%|█████▋    | 226688/400000 [00:30<00:23, 7408.64it/s][0m[91m 57%|█████▋    | 227415/400000 [00:30<00:23, 7402.95it/s][0m[91m 57%|█████▋    | 228103/400000 [00:30<00:23, 7397.87it/s][0m[91m 57%|█████▋    | 228838/400000 [00:30<00:23, 7397.70it/s][0m[91m 57%|█████▋    | 229523/400000 [00:31<00:23, 7392.40it/s][0m[91m 58%|█████▊    | 230274/400000 [00:31<00:22, 7392.77it/s][0m[91m 58%|█████▊    | 231349/400000 [00:31<00:22, 7403.50it/s][0m[91m 58%|█████▊    | 232182/400000 [00:31<00:22, 7406.44it/s][0m[91m 58%|█████▊    | 232994/400000 [00:31<00:22, 7407.15it/s][0m[91m 58%|█████▊    | 233791/400000 [00:31<00:22, 7404.02it/s][0m[91m 59%|█████▊    | 234547/400000 [00:31<00:22, 7404.36it/s][0m[91m 59%|█████▉    | 235372/400000 [00:31<00:22, 7406.98it/s][0m[91m 59%|█████▉    | 236147/400000 [00:31<00:22, 7398.51it/s][0m[91m 59%|█████▉    | 236929/400000 [00:32<00:22, 7399.78it/s][0m[91m 59%|█████▉    | 237831/400000 [00:32<00:21, 7404.82it/s][0m[91m 60%|█████▉    | 238708/400000 [00:32<00:21, 7409.04it/s][0m[91m 60%|█████▉    | 239603/400000 [00:32<00:21, 7413.81it/s][0m[91m 60%|██████    | 240439/400000 [00:32<00:21, 7411.35it/s][0m[91m 60%|██████    | 241227/400000 [00:32<00:21, 7412.76it/s][0m[91m 61%|██████    | 242015/400000 [00:32<00:21, 7413.60it/s][0m[91m 61%|██████    | 242797/400000 [00:32<00:21, 7407.76it/s][0m[91m 61%|██████    | 243776/400000 [00:32<00:21, 7414.96it/s][0m[91m 61%|██████    | 244578/400000 [00:33<00:20, 7411.26it/s][0m[91m 61%|██████▏   | 245445/400000 [00:33<00:20, 7415.05it/s][0m[91m 62%|██████▏   | 246377/400000 [00:33<00:20, 7420.75it/s][0m[91m 62%|██████▏   | 247208/400000 [00:33<00:20, 7423.20it/s][0m[91m 62%|██████▏   | 248037/400000 [00:33<00:20, 7414.04it/s][0m[91m 62%|██████▏   | 248780/400000 [00:33<00:20, 7411.23it/s][0m[91m 62%|██████▏   | 249498/400000 [00:33<00:20, 7408.52it/s][0m[91m 63%|██████▎   | 250280/400000 [00:33<00:20, 7409.71it/s][0m[91m 63%|██████▎   | 251079/400000 [00:33<00:20, 7411.38it/s][0m[91m 63%|██████▎   | 252044/400000 [00:33<00:19, 7417.97it/s][0m[91m 63%|██████▎   | 253001/400000 [00:34<00:19, 7424.27it/s][0m[91m 64%|██████▎   | 254159/400000 [00:34<00:19, 7436.42it/s][0m[91m 64%|██████▍   | 255105/400000 [00:34<00:19, 7441.97it/s][0m[91m 64%|██████▍   | 256047/400000 [00:34<00:19, 7442.65it/s][0m[91m 64%|██████▍   | 256935/400000 [00:34<00:19, 7445.80it/s][0m[91m 64%|██████▍   | 257811/400000 [00:34<00:19, 7441.33it/s][0m[91m 65%|██████▍   | 258614/400000 [00:34<00:19, 7439.39it/s][0m[91m 65%|██████▍   | 259383/400000 [00:34<00:18, 7436.15it/s][0m[91m 65%|██████▌   | 260116/400000 [00:35<00:18, 7430.64it/s][0m[91m 65%|██████▌   | 260834/400000 [00:35<00:18, 7429.92it/s][0m[91m 65%|██████▌   | 261532/400000 [00:35<00:18, 7428.59it/s][0m[91m 66%|██████▌   | 262280/400000 [00:35<00:18, 7428.70it/s][0m[91m 66%|██████▌   | 263033/400000 [00:35<00:18, 7428.96it/s][0m[91m 66%|██████▌   | 263911/400000 [00:35<00:18, 7432.75it/s][0m[91m 66%|██████▌   | 264913/400000 [00:35<00:18, 7440.01it/s][0m[91m 66%|██████▋   | 265753/400000 [00:35<00:18, 7439.33it/s][0m[91m 67%|██████▋   | 266558/400000 [00:35<00:17, 7433.00it/s][0m[91m 67%|██████▋   | 267296/400000 [00:35<00:17, 7432.26it/s][0m[91m 67%|██████▋   | 268217/400000 [00:36<00:17, 7437.18it/s][0m[91m 67%|██████▋   | 269066/400000 [00:36<00:17, 7440.07it/s][0m[91m 68%|██████▊   | 270128/400000 [00:36<00:17, 7448.81it/s][0m[91m 68%|██████▊   | 271159/400000 [00:36<00:17, 7456.64it/s][0m[91m 68%|██████▊   | 272086/400000 [00:36<00:17, 7452.44it/s][0m[91m 68%|██████▊   | 272927/400000 [00:36<00:17, 7450.16it/s][0m[91m 68%|██████▊   | 273719/400000 [00:36<00:16, 7450.39it/s][0m[91m 69%|██████▊   | 274500/400000 [00:36<00:16, 7443.07it/s][0m[91m 69%|██████▉   | 275245/400000 [00:36<00:16, 7443.09it/s][0m[91m 69%|██████▉   | 276098/400000 [00:37<00:16, 7446.01it/s][0m[91m 69%|██████▉   | 276860/400000 [00:37<00:16, 7442.70it/s][0m[91m 69%|██████▉   | 277654/400000 [00:37<00:16, 7444.03it/s][0m[91m 70%|██████▉   | 278400/400000 [00:37<00:16, 7437.51it/s][0m[91m 70%|██████▉   | 279098/400000 [00:37<00:16, 7436.27it/s][0m[91m 70%|██████▉   | 279885/400000 [00:37<00:16, 7437.42it/s][0m[91m 70%|███████   | 280620/400000 [00:37<00:16, 7437.15it/s][0m[91m 70%|███████   | 281345/400000 [00:37<00:15, 7434.64it/s][0m[91m 71%|███████   | 282050/400000 [00:37<00:15, 7429.85it/s][0m[91m 71%|███████   | 283021/400000 [00:38<00:15, 7435.83it/s][0m[91m 71%|███████   | 283782/400000 [00:38<00:15, 7433.29it/s][0m[91m 71%|███████   | 284513/400000 [00:38<00:15, 7430.88it/s][0m[91m 71%|███████▏  | 285223/400000 [00:38<00:15, 7428.64it/s][0m[91m 71%|███████▏  | 285919/400000 [00:38<00:15, 7426.83it/s][0m[91m 72%|███████▏  | 286711/400000 [00:38<00:15, 7428.07it/s][0m[91m 72%|███████▏  | 287464/400000 [00:38<00:15, 7428.33it/s][0m[91m 72%|███████▏  | 288194/400000 [00:38<00:15, 7427.88it/s][0m[91m 72%|███████▏  | 288923/400000 [00:38<00:14, 7424.68it/s][0m[91m 72%|███████▏  | 289668/400000 [00:39<00:14, 7424.75it/s][0m[91m 73%|███████▎  | 290382/400000 [00:39<00:14, 7420.65it/s][0m[91m 73%|███████▎  | 291118/400000 [00:39<00:14, 7420.46it/s][0m[91m 73%|███████▎  | 291902/400000 [00:39<00:14, 7421.51it/s][0m[91m 73%|███████▎  | 292626/400000 [00:39<00:14, 7420.14it/s][0m[91m 73%|███████▎  | 293387/400000 [00:39<00:14, 7420.61it/s][0m[91m 74%|███████▎  | 294115/400000 [00:39<00:14, 7419.21it/s][0m[91m 74%|███████▍  | 295112/400000 [00:39<00:14, 7425.61it/s][0m[91m 74%|███████▍  | 295913/400000 [00:39<00:14, 7417.97it/s][0m[91m 74%|███████▍  | 296635/400000 [00:40<00:13, 7414.98it/s][0m[91m 74%|███████▍  | 297331/400000 [00:40<00:13, 7409.45it/s][0m[91m 75%|███████▍  | 298017/400000 [00:40<00:13, 7408.06it/s][0m[91m 75%|███████▍  | 298682/400000 [00:40<00:13, 7401.99it/s][0m[91m 75%|███████▍  | 299373/400000 [00:40<00:13, 7400.75it/s][0m[91m 75%|███████▌  | 300020/400000 [00:40<00:13, 7396.07it/s][0m[91m 75%|███████▌  | 300645/400000 [00:40<00:13, 7392.43it/s][0m[91m 75%|███████▌  | 301482/400000 [00:40<00:13, 7394.82it/s][0m[91m 76%|███████▌  | 302322/400000 [00:40<00:13, 7397.24it/s][0m[91m 76%|███████▌  | 303120/400000 [00:40<00:13, 7398.66it/s][0m[91m 76%|███████▌  | 303870/400000 [00:41<00:13, 7391.69it/s][0m[91m 76%|███████▌  | 304586/400000 [00:41<00:12, 7391.11it/s][0m[91m 76%|███████▋  | 305566/400000 [00:41<00:12, 7396.94it/s][0m[91m 77%|███████▋  | 306385/400000 [00:41<00:12, 7398.83it/s][0m[91m 77%|███████▋  | 307177/400000 [00:41<00:12, 7391.82it/s][0m[91m 77%|███████▋  | 307894/400000 [00:41<00:12, 7387.58it/s][0m[91m 77%|███████▋  | 308691/400000 [00:41<00:12, 7388.95it/s][0m[91m 77%|███████▋  | 309406/400000 [00:41<00:12, 7387.21it/s][0m[91m 78%|███████▊  | 310531/400000 [00:41<00:12, 7396.41it/s][0m[91m 78%|███████▊  | 311360/400000 [00:42<00:11, 7396.24it/s][0m[91m 78%|███████▊  | 312160/400000 [00:42<00:11, 7391.73it/s][0m[91m 78%|███████▊  | 312979/400000 [00:42<00:11, 7393.60it/s][0m[91m 78%|███████▊  | 313742/400000 [00:42<00:11, 7392.10it/s][0m[91m 79%|███████▊  | 314481/400000 [00:42<00:11, 7390.87it/s][0m[91m 79%|███████▉  | 315206/400000 [00:42<00:11, 7389.84it/s][0m[91m 79%|███████▉  | 315965/400000 [00:42<00:11, 7390.30it/s][0m[91m 79%|███████▉  | 316726/400000 [00:42<00:11, 7390.80it/s][0m[91m 79%|███████▉  | 317465/400000 [00:42<00:11, 7387.64it/s][0m[91m 80%|███████▉  | 318176/400000 [00:43<00:11, 7386.98it/s][0m[91m 80%|███████▉  | 318943/400000 [00:43<00:10, 7387.61it/s][0m[91m 80%|███████▉  | 319667/400000 [00:43<00:10, 7383.97it/s][0m[91m 80%|████████  | 320356/400000 [00:43<00:10, 7382.65it/s][0m[91m 80%|████████  | 321186/400000 [00:43<00:10, 7384.75it/s][0m[91m 80%|████████  | 321916/400000 [00:43<00:10, 7380.12it/s][0m[91m 81%|████████  | 322619/400000 [00:43<00:10, 7379.32it/s][0m[91m 81%|████████  | 323395/400000 [00:43<00:10, 7380.18it/s][0m[91m 81%|████████  | 324111/400000 [00:43<00:10, 7378.44it/s][0m[91m 81%|████████  | 324844/400000 [00:44<00:10, 7378.32it/s][0m[91m 81%|████████▏ | 325555/400000 [00:44<00:10, 7373.40it/s][0m[91m 82%|████████▏ | 326222/400000 [00:44<00:10, 7367.10it/s][0m[91m 82%|████████▏ | 327187/400000 [00:44<00:09, 7372.24it/s][0m[91m 82%|████████▏ | 327957/400000 [00:44<00:09, 7372.96it/s][0m[91m 82%|████████▏ | 328696/400000 [00:44<00:09, 7372.32it/s][0m[91m 82%|████████▏ | 329675/400000 [00:44<00:09, 7377.73it/s][0m[91m 83%|████████▎ | 330550/400000 [00:44<00:09, 7380.78it/s][0m[91m 83%|████████▎ | 331376/400000 [00:44<00:09, 7375.87it/s][0m[91m 83%|████████▎ | 332269/400000 [00:45<00:09, 7379.31it/s][0m[91m 83%|████████▎ | 333244/400000 [00:45<00:09, 7384.56it/s][0m[91m 84%|████████▎ | 334093/400000 [00:45<00:08, 7385.16it/s][0m[91m 84%|████████▎ | 334916/400000 [00:45<00:08, 7381.18it/s][0m[91m 84%|████████▍ | 335674/400000 [00:45<00:08, 7380.61it/s][0m[91m 84%|████████▍ | 336419/400000 [00:45<00:08, 7374.81it/s][0m[91m 84%|████████▍ | 337239/400000 [00:45<00:08, 7376.61it/s][0m[91m 84%|████████▍ | 337965/400000 [00:45<00:08, 7374.61it/s][0m[91m 85%|████████▍ | 338884/400000 [00:45<00:08, 7378.54it/s][0m[91m 85%|████████▍ | 339653/400000 [00:46<00:08, 7376.45it/s][0m[91m 85%|████████▌ | 340388/400000 [00:46<00:08, 7375.44it/s][0m[91m 85%|████████▌ | 341197/400000 [00:46<00:07, 7376.97it/s][0m[91m 85%|████████▌ | 341945/400000 [00:46<00:07, 7374.31it/s][0m[91m 86%|████████▌ | 342727/400000 [00:46<00:07, 7375.26it/s][0m[91m 86%|████████▌ | 343621/400000 [00:46<00:07, 7378.60it/s][0m[91m 86%|████████▌ | 344403/400000 [00:46<00:07, 7377.02it/s][0m[91m 86%|████████▋ | 345153/400000 [00:46<00:07, 7376.83it/s][0m[91m 87%|████████▋ | 346031/400000 [00:46<00:07, 7379.81it/s][0m[91m 87%|████████▋ | 346815/400000 [00:47<00:07, 7373.94it/s][0m[91m 87%|████████▋ | 347594/400000 [00:47<00:07, 7374.81it/s][0m[91m 87%|████████▋ | 348327/400000 [00:47<00:07, 7369.85it/s][0m[91m 87%|████████▋ | 349091/400000 [00:47<00:06, 7370.41it/s][0m[91m 87%|████████▋ | 349797/400000 [00:47<00:06, 7369.13it/s][0m[91m 88%|████████▊ | 350549/400000 [00:47<00:06, 7369.43it/s][0m[91m 88%|████████▊ | 351366/400000 [00:47<00:06, 7371.10it/s][0m[91m 88%|████████▊ | 352222/400000 [00:47<00:06, 7373.58it/s][0m[91m 88%|████████▊ | 353000/400000 [00:47<00:06, 7372.40it/s][0m[91m 89%|████████▊ | 354009/400000 [00:47<00:06, 7378.04it/s][0m[91m 89%|████████▊ | 354837/400000 [00:48<00:06, 7374.27it/s][0m[91m 89%|████████▉ | 355598/400000 [00:48<00:06, 7373.86it/s][0m[91m 89%|████████▉ | 356347/400000 [00:48<00:05, 7371.51it/s][0m[91m 89%|████████▉ | 357280/400000 [00:48<00:05, 7375.55it/s][0m[91m 90%|████████▉ | 358124/400000 [00:48<00:05, 7377.73it/s][0m[91m 90%|████████▉ | 358924/400000 [00:48<00:05, 7376.95it/s][0m[91m 90%|████████▉ | 359696/400000 [00:48<00:05, 7377.60it/s][0m[91m 90%|█████████ | 360467/400000 [00:48<00:05, 7377.24it/s][0m[91m 90%|█████████ | 361334/400000 [00:48<00:05, 7379.86it/s][0m[91m 91%|█████████ | 362126/400000 [00:49<00:05, 7380.95it/s][0m[91m 91%|█████████ | 362916/400000 [00:49<00:05, 7379.37it/s][0m[91m 91%|█████████ | 363671/400000 [00:49<00:04, 7379.45it/s][0m[91m 91%|█████████ | 364422/400000 [00:49<00:04, 7377.78it/s][0m[91m 91%|█████████▏| 365147/400000 [00:49<00:04, 7373.74it/s][0m[91m 91%|█████████▏| 365968/400000 [00:49<00:04, 7375.41it/s][0m[91m 92%|█████████▏| 366731/400000 [00:49<00:04, 7375.92it/s][0m[91m 92%|█████████▏| 367497/400000 [00:49<00:04, 7376.46it/s][0m[91m 92%|█████████▏| 368299/400000 [00:49<00:04, 7377.74it/s][0m[91m 92%|█████████▏| 369185/400000 [00:50<00:04, 7380.70it/s][0m[91m 92%|█████████▏| 369984/400000 [00:50<00:04, 7380.96it/s][0m[91m 93%|█████████▎| 370769/400000 [00:50<00:03, 7378.92it/s][0m[91m 93%|█████████▎| 371554/400000 [00:50<00:03, 7379.84it/s][0m[91m 93%|█████████▎| 372494/400000 [00:50<00:03, 7383.84it/s][0m[91m 93%|█████████▎| 373321/400000 [00:50<00:03, 7385.58it/s][0m[91m 94%|█████████▎| 374262/400000 [00:50<00:03, 7389.57it/s][0m[91m 94%|█████████▍| 375116/400000 [00:50<00:03, 7389.57it/s][0m[91m 94%|█████████▍| 375935/400000 [00:50<00:03, 7390.37it/s][0m[91m 94%|█████████▍| 376742/400000 [00:50<00:03, 7387.61it/s][0m[91m 94%|█████████▍| 377496/400000 [00:51<00:03, 7386.63it/s][0m[91m 95%|█████████▍| 378232/400000 [00:51<00:02, 7381.89it/s][0m[91m 95%|█████████▍| 379181/400000 [00:51<00:02, 7385.99it/s][0m[91m 95%|█████████▍| 379943/400000 [00:51<00:02, 7384.39it/s][0m[91m 95%|█████████▌| 380677/400000 [00:51<00:02, 7384.05it/s][0m[91m 95%|█████████▌| 381538/400000 [00:51<00:02, 7386.40it/s][0m[91m 96%|█████████▌| 382370/400000 [00:51<00:02, 7388.20it/s][0m[91m 96%|█████████▌| 383173/400000 [00:51<00:02, 7389.42it/s][0m[91m 96%|█████████▌| 384070/400000 [00:51<00:02, 7392.44it/s][0m[91m 96%|█████████▌| 384894/400000 [00:52<00:02, 7390.44it/s][0m[91m 96%|█████████▋| 385668/400000 [00:52<00:01, 7389.43it/s][0m[91m 97%|█████████▋| 386617/400000 [00:52<00:01, 7393.44it/s][0m[91m 97%|█████████▋| 387426/400000 [00:52<00:01, 7392.27it/s][0m[91m 97%|█████████▋| 388452/400000 [00:52<00:01, 7397.72it/s][0m[91m 97%|█████████▋| 389301/400000 [00:52<00:01, 7397.95it/s][0m[91m 98%|█████████▊| 390337/400000 [00:52<00:01, 7403.55it/s][0m[91m 98%|█████████▊| 391221/400000 [00:52<00:01, 7403.60it/s][0m[91m 98%|█████████▊| 392063/400000 [00:52<00:01, 7404.69it/s][0m[91m 98%|█████████▊| 392891/400000 [00:53<00:00, 7400.80it/s][0m[91m 98%|█████████▊| 393772/400000 [00:53<00:00, 7403.45it/s][0m[91m 99%|█████████▊| 394567/400000 [00:53<00:00, 7401.80it/s][0m[91m 99%|█████████▉| 395323/400000 [00:53<00:00, 7400.36it/s][0m[91m 99%|█████████▉| 396286/400000 [00:53<00:00, 7404.51it/s][0m[91m 99%|█████████▉| 397109/400000 [00:53<00:00, 7406.02it/s][0m[91m100%|█████████▉| 398027/400000 [00:53<00:00, 7409.32it/s][0m[91m100%|█████████▉| 398867/400000 [00:53<00:00, 7404.64it/s][0m[91m100%|█████████▉| 399626/400000 [00:53<00:00, 7402.90it/s][0mRemoving intermediate container 6349c466a1fa
+ ---> 70c53f11711f
+Step 43/48 : COPY service.py .
+ ---> 6c59e1f41dd2
+Step 44/48 : RUN /final/work/service.py
+ ---> Running in c4f665e28461
 Oracle : Initializing : Device Type is cpu
 Oracle : Initializing : Building - Text Processors
 Oracle : Initializing : Building - ResNet152
 Oracle : Initializing : Building - Detectron
 Oracle : Initializing : Building - PythiaVQA
-Oracle : Initializing : Finished in  10.749 Seconds
-Removing intermediate container a1ad8cef9ff8
- ---> b2161f19f2b0
+Oracle : Initializing : Finished in  14.095 Seconds
+Removing intermediate container c4f665e28461
+ ---> d5acc817ae4d
 Step 45/48 : COPY africa.jpg .
- ---> b18bc4e34392
-Step 46/48 : RUN /final/work/entry.py --image africa.jpg --question 'where is this place ?' --mode cpu
- ---> Running in 84f4628b231a
+ ---> d7e2aea9ebce
+Step 46/48 : RUN /final/work/service.py --image africa.jpg --question 'where is this place ?' --mode cpu
+ ---> Running in 428143b2ce4a
 Oracle : Initializing : Device Type is cpu
 Oracle : Initializing : Building - Text Processors
 Oracle : Initializing : Building - ResNet152
 Oracle : Initializing : Building - Detectron
 Oracle : Initializing : Building - PythiaVQA
-Oracle : Initializing : Finished in  10.763 Seconds
+Oracle : Initializing : Finished in  11.746 Seconds
 Oracle : Divining Answers : africa.jpg, where is this place ?
-Oracle : Getting Features : Detectron - Finished in  16.040 Seconds
-Oracle : Getting Features : ResNet152 - Finished in   2.087 Seconds
-Oracle : Divining Answers : PythiaVQA - Finished in   3.296 Seconds
-Oracle : Divining Answers : End-2-End - Finished in  21.464 Seconds
+Oracle : Getting Features : Detectron - Finished in  16.328 Seconds
+Oracle : Getting Features : ResNet152 - Finished in   2.092 Seconds
+Oracle : Divining Answers : PythiaVQA - Finished in   3.328 Seconds
+Oracle : Divining Answers : End-2-End - Finished in  21.789 Seconds
 Oracle : RANK | CONFIDENCE | ANSWER
        : 1    | 97.865%    | africa
        : 2    | 00.448%    | safari
        : 3    | 00.439%    | savannah
        : 4    | 00.439%    | outside
        : 5    | 00.331%    | desert
-Removing intermediate container 84f4628b231a
- ---> 4322f71b8cc2
-Step 47/48 : RUN /final/work/entry.py --image africa.jpg --question 'how many zebras are there ?' --mode cpu
- ---> Running in 541fb02a8aef
+Removing intermediate container 428143b2ce4a
+ ---> 8bc40c664859
+Step 47/48 : RUN /final/work/service.py --image africa.jpg --question 'how many zebras are there ?' --mode cpu
+ ---> Running in 1c65bd97335a
 Oracle : Initializing : Device Type is cpu
 Oracle : Initializing : Building - Text Processors
 Oracle : Initializing : Building - ResNet152
 Oracle : Initializing : Building - Detectron
 Oracle : Initializing : Building - PythiaVQA
-Oracle : Initializing : Finished in  10.622 Seconds
+Oracle : Initializing : Finished in  10.911 Seconds
 Oracle : Divining Answers : africa.jpg, how many zebras are there ?
-Oracle : Getting Features : Detectron - Finished in  15.865 Seconds
-Oracle : Getting Features : ResNet152 - Finished in   2.364 Seconds
-Oracle : Divining Answers : PythiaVQA - Finished in   3.378 Seconds
-Oracle : Divining Answers : End-2-End - Finished in  21.641 Seconds
+Oracle : Getting Features : Detectron - Finished in  15.860 Seconds
+Oracle : Getting Features : ResNet152 - Finished in   2.127 Seconds
+Oracle : Divining Answers : PythiaVQA - Finished in   3.454 Seconds
+Oracle : Divining Answers : End-2-End - Finished in  21.483 Seconds
 Oracle : RANK | CONFIDENCE | ANSWER
        : 1    | 99.851%    | 2
        : 2    | 00.123%    | 3
        : 3    | 00.016%    | 0
        : 4    | 00.009%    | 1
        : 5    | 00.001%    | no
-Removing intermediate container 541fb02a8aef
- ---> 54982a8ed2da
-Step 48/48 : RUN /final/work/entry.py --image africa.jpg --question 'what is the tall animal ?' --mode cpu
- ---> Running in f588f6d30261
+Removing intermediate container 1c65bd97335a
+ ---> 87a86bfa81a1
+Step 48/48 : RUN /final/work/service.py --image africa.jpg --question 'what is the tall animal ?' --mode cpu
+ ---> Running in 1c5c54d9bca8
 Oracle : Initializing : Device Type is cpu
 Oracle : Initializing : Building - Text Processors
 Oracle : Initializing : Building - ResNet152
 Oracle : Initializing : Building - Detectron
 Oracle : Initializing : Building - PythiaVQA
-Oracle : Initializing : Finished in  12.549 Seconds
+Oracle : Initializing : Finished in  10.596 Seconds
 Oracle : Divining Answers : africa.jpg, what is the tall animal ?
-Oracle : Getting Features : Detectron - Finished in  17.493 Seconds
-Oracle : Getting Features : ResNet152 - Finished in   2.206 Seconds
-Oracle : Divining Answers : PythiaVQA - Finished in   3.523 Seconds
-Oracle : Divining Answers : End-2-End - Finished in  23.263 Seconds
+Oracle : Getting Features : Detectron - Finished in  15.909 Seconds
+Oracle : Getting Features : ResNet152 - Finished in   2.192 Seconds
+Oracle : Divining Answers : PythiaVQA - Finished in   3.292 Seconds
+Oracle : Divining Answers : End-2-End - Finished in  21.436 Seconds
 Oracle : RANK | CONFIDENCE | ANSWER
        : 1    | 99.766%    | giraffe
        : 2    | 00.040%    | tall
        : 3    | 00.032%    | 10 feet
        : 4    | 00.024%    | yes
        : 5    | 00.023%    | zebra
-Removing intermediate container f588f6d30261
- ---> b1b9decc7ccb
-Successfully built b1b9decc7ccb
-Successfully tagged w251-final/pythia:latest
+Removing intermediate container 1c5c54d9bca8
+ ---> f00df8de75c7
+Successfully built f00df8de75c7
+Successfully tagged psnonis/w251-final:pythia
