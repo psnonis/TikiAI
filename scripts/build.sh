@@ -28,5 +28,5 @@ volume="/c/Berkeley/w251/final/containers/${context}"
  clean="docker rm -f ${context}"
    run="docker run -t -p ${expose}:${expose} -v ${volume}/app:/final/hot --rm --name ${context} ${repository}:${context}"
 
-${clean} > /dev/null 2>1
+${clean} > /dev/null 2>&1
 ${run}
