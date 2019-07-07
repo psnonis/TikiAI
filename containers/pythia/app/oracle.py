@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 
 import numpy as np
-import click as ck
 import torch
 import time
 import yaml
@@ -24,16 +23,13 @@ from pythia.models.pythia       import Pythia
 from pythia.common.registry     import registry
 from pythia.common.sample       import Sample, SampleList
 
-from flask         import Flask
-from flask_restful import Resource, Api
-
 class Oracle:
 
     TARGET_IMAGE_SIZE = [448, 448]
     CHANNEL_MEAN      = [0.485, 0.456, 0.406]
     CHANNEL_STD       = [0.229, 0.224, 0.225]
 
-    def __init__(self, device_type):
+    def __init__(self, device_type = 'cpu'):
 
         print(f'Oracle : Initializing : Device Type is {device_type}')
 
@@ -303,58 +299,6 @@ class Oracle:
 
         return probs, answers
 
-app = Flask(__name__)
-api = Api(app)
-orc = None
+if  __name__ == '__main__' :
 
-@ck.command()
-@ck.option('--mode',     default = 'nop', type = ck.Choice(['nop', 'api', 'cli']) )
-@ck.option('--device',   default = 'cpu', type = ck.Choice(['cpu', 'cuda', 'mkldnn', 'opengl', 'opencl', 'ideep', 'hip', 'msnpu']))
-@ck.option('--image',    default = None)
-@ck.option('--question', default = None)
-def main(mode, device, image, question):
-
-    if  mode == 'cli' and image and question :
-
-        print(f'Oracle : Command-line Interface')
-
-        orc            = Oracle(device)
-        start          = time.time()
-        probs, answers = orc.divine(image, question)
-        end            = time.time()
-
-        print(f'Oracle : Divining Answers : End-2-End - Finished in {end-start:7.3f} Seconds')
-        print(f'Oracle : RANK | CONFIDENCE | ANSWER')
-
-        for n, (p, a) in enumerate(zip(probs, answers), 1):
-
-            print(f'       : {n:<4} | {p:07.3%}    | {a}')
-
-    if  mode == 'api' :
-
-        print(f'Oracle : RESTful Application Programming Interface')
-
-        orc = Oracle(device)
-
-        app.run(debug = True)
-
-@app.route('/')
-def hello_world():
-    return 'Hello, World!'
-
-class Divine(Resource):
-    def post(self):
-        parse = reqparse.RequestParser()
-        parse.add_argument('audio', type = werkzeug.FileStorage, location = 'files')
-
-        args = parse.parse_args()
-
-        stream = args['audio'].stream
-        wav_file = wave.open(stream, 'rb')
-        signal = wav_file.readframes(-1)
-        signal = np.fromstring(signal, 'Int16')
-        fs = wav_file.getframerate()
-        wav_file.close()
-
-if  __name__ == '__main__':
-    main()
+    Oracle()

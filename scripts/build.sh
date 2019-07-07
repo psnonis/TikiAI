@@ -21,4 +21,4 @@ echo -e "${EOL}${SKY}${TXT}${PAD}${EOL} ${header} ${PAD}${EOL}${PAD}${RST}${EOL}
 
 ${command} | ${logger} | ${color}
 
-echo -e "${EOL}${SKY}${TXT}${PAD}${RST}${EOL}"
+echo -e "${EOL}${GRN}${TXT}${PAD}${RST}${EOL}"

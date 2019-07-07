@@ -50,14 +50,16 @@ WORKDIR /final
 
 WORKDIR /final/work
    COPY cache.py .
-    RUN /final/work/cache.py .
+    RUN /final/work/cache.py
+WORKDIR /final
 
 RUN pip install flask flask-restful
 
-   COPY entry.py .
-    RUN /final/work/entry.py
-   COPY africa.jpg .
-    RUN /final/work/entry.py --mode cli --device cpu --image africa.jpg --question 'where is this place ?'
+   COPY app app
+ EXPOSE 5000
+WORKDIR /final/app
 
-EXPOSE 5000
-   CMD /final/work/entry.py --mode api --device cpu
+COPY africa.jpg .
+#RUN /final/app/cli.py --device cpu --image africa.jpg --question 'where is this place ?'
+
+CMD ["./api.py", "--device", "cpu"]
