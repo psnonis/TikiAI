@@ -1,9 +1,10 @@
 #!/bin/bash
 
-tagname=${1-pythia}
+      root=$(readlink -f ${0} | xargs dirname | xargs dirname)
+containers=$(realpath --relative-to=${PWD} ${root}/containers)
+   context=${1-pythia}
 repository=psnonis/w251-final
-containers=containers
 
-echo Pulling ${repository}:${tagname}
-echo docker pull ${repository}:${tagname}
-     docker pull ${repository}:${tagname}
+echo Pulling ${repository}:${context}
+echo docker pull ${repository}:${context}
+     docker pull ${repository}:${context}

@@ -51,9 +51,12 @@ WORKDIR /final
 WORKDIR /final/work
    COPY cache.py .
     RUN /final/work/cache.py .
-   COPY service.py .
-    RUN /final/work/service.py
+
+RUN pip install flask flask-restful
+
+   COPY entry.py .
+    RUN /final/work/entry.py
    COPY africa.jpg .
-    RUN /final/work/service.py --image africa.jpg --question 'where is this place ?' --mode cpu
-    RUN /final/work/service.py --image africa.jpg --question 'how many zebras are there ?' --mode cpu
-    RUN /final/work/service.py --image africa.jpg --question 'what is the tall animal ?' --mode cpu
+    RUN /final/work/entry.py --mode cli --device cpu --image africa.jpg --question 'where is this place ?'
+
+CMD /final/work/entry.py --mode api --device cpu

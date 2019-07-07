@@ -24,6 +24,9 @@ from pythia.models.pythia       import Pythia
 from pythia.common.registry     import registry
 from pythia.common.sample       import Sample, SampleList
 
+from flask         import Flask
+from flask_restful import Resource, Api
+
 class Oracle:
 
     TARGET_IMAGE_SIZE = [448, 448]
@@ -300,18 +303,24 @@ class Oracle:
 
         return probs, answers
 
+app = Flask(__name__)
+api = Api(app)
+orc = None
+
 @ck.command()
+@ck.option('--mode',     default = 'nop', type = ck.Choice(['nop', 'api', 'cli']) )
+@ck.option('--device',   default = 'cpu', type = ck.Choice(['cpu', 'cuda', 'mkldnn', 'opengl', 'opencl', 'ideep', 'hip', 'msnpu']))
 @ck.option('--image',    default = None)
 @ck.option('--question', default = None)
-@ck.option('--mode',     default = 'cpu', type = ck.Choice(['cpu', 'cuda', 'mkldnn', 'opengl', 'opencl', 'ideep', 'hip', 'msnpu']))
-def divine(image, question, mode):
+def main(mode, device, image, question):
 
-    oracle = Oracle(mode)
+    if  mode == 'cli' and image and question :
 
-    if  image and question :
+        print(f'Oracle : Command-line Interface')
 
+        orc            = Oracle(device)
         start          = time.time()
-        probs, answers = oracle.divine(image, question)
+        probs, answers = orc.divine(image, question)
         end            = time.time()
 
         print(f'Oracle : Divining Answers : End-2-End - Finished in {end-start:7.3f} Seconds')
@@ -321,5 +330,31 @@ def divine(image, question, mode):
 
             print(f'       : {n:<4} | {p:07.3%}    | {a}')
 
+    if  mode == 'api' :
+
+        print(f'Oracle : RESTful Application Programming Interface')
+
+        orc = Oracle(device)
+
+        app.run(debug = True)
+
+@app.route('/')
+def hello_world():
+    return 'Hello, World!'
+
+class Divine(Resource):
+    def post(self):
+        parse = reqparse.RequestParser()
+        parse.add_argument('audio', type = werkzeug.FileStorage, location = 'files')
+
+        args = parse.parse_args()
+
+        stream = args['audio'].stream
+        wav_file = wave.open(stream, 'rb')
+        signal = wav_file.readframes(-1)
+        signal = np.fromstring(signal, 'Int16')
+        fs = wav_file.getframerate()
+        wav_file.close()
+
 if  __name__ == '__main__':
-    divine()
+    main()

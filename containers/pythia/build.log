@@ -1,4 +1,4 @@
-Sending build context to Docker daemon  100.9kB
+Sending build context to Docker daemon  100.4kB
 Step 1/48 : FROM nvidia/cuda:10.1-devel-ubuntu18.04
  ---> 010a71dc59db
 Step 2/48 : RUN mkdir -p /final
@@ -124,23 +124,23 @@ Step 41/48 : COPY cache.py .
 Step 42/48 : RUN /final/work/cache.py .
  ---> Using cache
  ---> 70c53f11711f
-Step 43/48 : COPY service.py .
+Step 43/48 : RUN pip install flask flask-restful
  ---> Using cache
- ---> 6c59e1f41dd2
-Step 44/48 : RUN /final/work/service.py
+ ---> c31c3462d4ea
+Step 44/48 : COPY entry.py .
  ---> Using cache
- ---> d5acc817ae4d
-Step 45/48 : COPY africa.jpg .
+ ---> 035371f703aa
+Step 45/48 : RUN /final/work/entry.py
  ---> Using cache
- ---> d7e2aea9ebce
-Step 46/48 : RUN /final/work/service.py --image africa.jpg --question 'where is this place ?' --mode cpu
+ ---> f3ed2f17dd80
+Step 46/48 : COPY africa.jpg .
  ---> Using cache
- ---> 8bc40c664859
-Step 47/48 : RUN /final/work/service.py --image africa.jpg --question 'how many zebras are there ?' --mode cpu
+ ---> 6727074a6c34
+Step 47/48 : RUN /final/work/entry.py --mode cli --device cpu --image africa.jpg --question 'where is this place ?'
  ---> Using cache
- ---> 87a86bfa81a1
-Step 48/48 : RUN /final/work/service.py --image africa.jpg --question 'what is the tall animal ?' --mode cpu
+ ---> 5405ee47c9c4
+Step 48/48 : CMD /final/work/entry.py --mode api --device cpu
  ---> Using cache
- ---> f00df8de75c7
-Successfully built f00df8de75c7
+ ---> 458e3d87311a
+Successfully built 458e3d87311a
 Successfully tagged psnonis/w251-final:pythia
