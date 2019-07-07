@@ -12,11 +12,13 @@ TXT=$'\x1B[38;5;190m'
 RST=$'\x1B[0m'
 EOL=$'\n'
 
-command="docker run --rm -v ${containers}/${context}:/final/context -it ${repository}:${context} bash"
+  clean="docker rm -f ${context}"
+command="docker run -d -t --rm --name ${context} ${repository}:${context}"
  header="Container : ${repository}:${context} ${PAD}${EOL}   Command : ${command}"
 
 echo -e "${EOL}${SKY}${TXT}${PAD}${EOL} ${header} ${PAD}${EOL}${PAD}${RST}${EOL}"
 
+${clean} 2> /dev/null
 ${command}
 
 echo -e "${EOL}${SKY}${TXT}${PAD}${RST}${EOL}"

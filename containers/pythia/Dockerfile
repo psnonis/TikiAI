@@ -59,4 +59,5 @@ RUN pip install flask flask-restful
    COPY africa.jpg .
     RUN /final/work/entry.py --mode cli --device cpu --image africa.jpg --question 'where is this place ?'
 
-CMD /final/work/entry.py --mode api --device cpu
+EXPOSE 5000
+   CMD /final/work/entry.py --mode api --device cpu

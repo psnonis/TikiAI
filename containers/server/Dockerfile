@@ -1,10 +1,12 @@
 FROM node:lts
 
-    RUN mkdir -p /final
+RUN mkdir -p /final
 WORKDIR /final
 
 RUN npm install sails -g
 
-   COPY web .
+ADD web web
 WORKDIR /final/web
-    CMD sails lift
+EXPOSE 1337
+
+CMD ["sails", "lift"]

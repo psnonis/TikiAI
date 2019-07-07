@@ -1,25 +1,29 @@
 Sending build context to Docker daemon  126.2MB
-Step 1/7 : FROM node:lts
+Step 1/8 : FROM node:lts
  ---> e05cbde47b8f
-Step 2/7 : RUN mkdir -p /final
+Step 2/8 : RUN mkdir -p /final
  ---> Using cache
  ---> e29369133e87
-Step 3/7 : WORKDIR /final
+Step 3/8 : WORKDIR /final
  ---> Using cache
  ---> cea765ce0473
-Step 4/7 : RUN npm install sails -g
+Step 4/8 : RUN npm install sails -g
  ---> Using cache
  ---> 88a36c6afd89
-Step 5/7 : COPY web .
+Step 5/8 : ADD web web
  ---> Using cache
- ---> 87d86cfb09c0
-Step 6/7 : WORKDIR /final/web
- ---> Running in f930ea08d66f
-Removing intermediate container f930ea08d66f
- ---> 0e9d98885e0c
-Step 7/7 : CMD sails lift
- ---> Running in e76e5275d855
-Removing intermediate container e76e5275d855
- ---> ad05a452aae7
-Successfully built ad05a452aae7
+ ---> efeffd698e8c
+Step 6/8 : WORKDIR /final/web
+ ---> Running in 5bb2eb846f1f
+Removing intermediate container 5bb2eb846f1f
+ ---> 17b2e8a057f5
+Step 7/8 : EXPOSE 1337
+ ---> Running in 142dc114737d
+Removing intermediate container 142dc114737d
+ ---> b715e246921a
+Step 8/8 : CMD ["sails", "lift"]
+ ---> Running in 2325e2b48a0a
+Removing intermediate container 2325e2b48a0a
+ ---> aab97c6b8c1b
+Successfully built aab97c6b8c1b
 Successfully tagged psnonis/w251-final:server
