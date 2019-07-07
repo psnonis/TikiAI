@@ -1,8 +1,8 @@
 #!/bin/bash
 
-context=${1-pythia}
+tagname=${1-pythia}
 repository=psnonis/w251-final
-tagname=${context}
+containers=containers
 
 echo Pushing ${repository}:${tagname}
 echo docker push ${repository}:${tagname}
