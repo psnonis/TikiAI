@@ -3,6 +3,7 @@
       root=$(readlink -f ${0} | xargs dirname | xargs dirname)
 containers=$(realpath --relative-to=${PWD} ${root}/containers)
    context=${1-pythia}
+    expose=${2-5000}
 repository=psnonis/w251-final
 
 PAD=$'\x1B[K'
@@ -12,13 +13,20 @@ TXT=$'\x1B[38;5;190m'
 RST=$'\x1B[0m'
 EOL=$'\n'
 
-command="docker build -t ${repository}:${context} -f ${containers}/${context}/Dockerfile ${containers}/${context}"
- header="Container : ${repository}:${context} ${PAD}${EOL}   Command : ${command}"
- logger="tee ${containers}/${context}/build.log"
-  color="ack --passthru ^Step.*"
+ build="docker build -t ${repository}:${context} -f ${containers}/${context}/Dockerfile ${containers}/${context}"
+header="Container : ${repository}:${context} ${PAD}${EOL}   Command : ${build}"
+logger="tee ${containers}/${context}/build.log"
+ color="ack --passthru ^Step.*"
 
 echo -e "${EOL}${SKY}${TXT}${PAD}${EOL} ${header} ${PAD}${EOL}${PAD}${RST}${EOL}"
 
-${command} | ${logger} | ${color}
+${build} | ${logger} | ${color}
 
 echo -e "${EOL}${GRN}${TXT}${PAD}${RST}${EOL}"
+
+volume="/c/Berkeley/w251/final/containers/${context}"
+ clean="docker rm -f ${context}"
+   run="docker run -t -p ${expose}:${expose} -v ${volume}/app:/final/hot --rm --name ${context} ${repository}:${context}"
+
+${clean} > /dev/null 2>1
+${run}

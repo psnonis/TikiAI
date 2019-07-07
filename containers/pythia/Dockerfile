@@ -55,11 +55,13 @@ WORKDIR /final
 
 RUN pip install flask flask-restful
 
-   COPY app app
+   COPY app /final/app
  EXPOSE 5000
 WORKDIR /final/app
 
 COPY africa.jpg .
 #RUN /final/app/cli.py --device cpu --image africa.jpg --question 'where is this place ?'
+
+WORKDIR /final/hot
 
 CMD ["./api.py", "--device", "cpu"]

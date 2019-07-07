@@ -5,8 +5,8 @@ WORKDIR /final
 
 RUN npm install sails -g
 
-   COPY web /final/web
+   COPY app /final/app
  EXPOSE 1337
-WORKDIR /final/web
+WORKDIR /final/app
 
 CMD ["sails", "lift"]

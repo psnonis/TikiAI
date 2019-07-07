@@ -35,7 +35,7 @@ def initialize():
 
 @app.route('/')
 def index():
-    return 'Pythia Flask Server Up and Running.'
+    return 'Pythia Flask Server Up and Running!'
 
 @app.route('/africa')
 def africa():
@@ -61,7 +61,7 @@ def main(device):
 
     app.config['device'] = device
 
-    app.run(host = '0.0.0.0')
+    app.run(host = '0.0.0.0', debug = True)
 
 if  __name__ == '__main__':
 
