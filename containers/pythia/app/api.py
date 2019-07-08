@@ -4,11 +4,25 @@ import click as     cli
 from  oracle import Oracle
 from    time import time
 
-from flask         import Flask, Response, request
+from PIL import Image
+from io  import BytesIO
+
+from flask         import Flask, Response, jsonify, request
+
 #from flask_restful import Resource, Api
 
 app = Flask(__name__)
 #api = Api(app)
+
+PAD='\x1B[K'
+SKY='\x1B[48;5;39m'
+GRN='\x1B[48;5;42m'
+PUR='\x1B[48;5;161m'
+RED='\x1B[48;5;196m'
+
+TXT='\x1B[38;5;190m'
+RST='\x1B[0m'
+EOL='\n'
 
 def orc():
 
@@ -24,18 +38,34 @@ orc.oracle = None
 @app.route('/api/divine', methods = ['POST'])
 def api_divine():
 
-    print('api_divine')
+    print(f'{EOL}{SKY}{TXT}  HANDLER > api_divine {PAD}{RST}')
+    request.get_data()
 
-    return 'Please Wait'
+    question = request.args.get('question')
+    data     = request.data
 
-@app.before_first_request
-def initialize():
+    if  question and data :
 
-    print('before_first_request')
+        image = Image.open(BytesIO(data))
+        meta  = f'{image.format}, {image.size}, {image.mode}'
+
+        print(f'{PUR}{TXT} QUESTION > {question      } {PAD}')
+        print(f'{PUR}{TXT}    IMAGE > {image.filename} {PAD}{RST}{EOL}')
+
+        probs, answers = orc().divine(image, question, meta)
+
+        return f'{answers}'
+
+    else :
+        print(f'{RED}{TXT}   STATUS > Invalid Request {PAD}{RST}{EOL}')
+        return 'Invalid Request'
 
 @app.route('/')
 def index():
-    return 'Pythia Flask Server Up and Running!'
+
+    print(f'{EOL}{SKY}{TXT} index {PAD}{RST}{EOL}')
+
+    return f'Pythia Flask Server Up and Running! : {time()}'
 
 @app.route('/africa')
 def africa():

@@ -176,9 +176,8 @@ class Oracle:
 
         return feature_list
 
-    def image_transform(self, image_path):
+    def image_transform(self, image):
 
-        image  = Image.open(image_path)
         array  = np.array(image).astype(np.float32)
         array  = array[:, :, ::-1]
         array -= np.array([102.9801, 115.9465, 122.7717])
@@ -204,28 +203,27 @@ class Oracle:
 
         return trans, scale
 
-    def get_detectron_features(self, image_path):
+    def get_detectron_features(self, image):
 
         start        = time.time()
-        image, scale = self.image_transform(image_path)
+        image, scale = self.image_transform(image)
         images       = to_image_list([image], size_divisible = 32)
         images       = images.to(self.device.type)
 
         with torch.no_grad():
-            output = self.detectron_model(images)
+            output   = self.detectron_model(images)
 
-        features  = self.feature_extract(output, [scale], 'fc6', 0.2)
-        end       = time.time()
+        features     = self.feature_extract(output, [scale], 'fc6', 0.2)
+        end          = time.time()
 
         print(f'Oracle : Getting Features : Detectron - Finished in {end-start:7.3f} Seconds')
 
         return features[0]
 
-    def get_resnet152_features(self, image_path):
+    def get_resnet152_features(self, image):
 
-        def transform_image(image_path):
+        def transform_image(image):
 
-            image = Image.open(image_path).convert('RGB')
             image = self.data_transforms(image)
             
             if  image.shape[0] == 1:
@@ -237,7 +235,7 @@ class Oracle:
             return image
 
         start    = time.time()
-        image    = transform_image(image_path)
+        image    = transform_image(image)
         features = self.resnet152_model(image).permute(0, 2, 3, 1)
         features = features.view(196, 2048)
         end      = time.time()
@@ -246,9 +244,13 @@ class Oracle:
 
         return features
 
-    def divine(self, image, question):
+    def divine(self, image, question, meta = None):
 
-        print(f'Oracle : Divining Answers : {image}, {question}')
+        meta  = meta or str(image)
+        image = Image.open(image).convert('RGB') if isinstance(image, str) else \
+                image.convert('RGB')
+
+        print(f'Oracle : Divining Answers : {meta}, {question}')
 
         with torch.no_grad():
 

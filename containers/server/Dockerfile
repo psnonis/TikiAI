@@ -8,7 +8,8 @@
   COPY app /final/app
   EXPOSE 1337
   WORKDIR /final/app
+  RUN npm install
 
-  WORKDIR /final/hot
+# WORKDIR /final/hot
 
   CMD ["sails", "lift"]
