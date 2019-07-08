@@ -1,5 +1,7 @@
 import { Meteor }   from 'meteor/meteor'
 
+import superagent from 'superagent'
+
 Meteor.startup(() =>
 {
 /*
@@ -19,4 +21,26 @@ Meteor.startup(() =>
     console.error(e)
   }
 */  
+})
+
+Meteor.methods(
+{
+  'divine'(params)
+  {
+    console.log('divine called')
+
+    var imagePath = '../../../../../public/camera-1.jpg'
+
+    superagent
+    .post('http://localhost:5000/api/divine')
+    .query({question: params.question})
+    .attach('image', imagePath)
+    .end((err, res) =>
+    {
+      console.log(`res : ${JSON.stringify(res)}`)
+      console.log(`err : ${err}`)
+    })
+
+    return 'ok'
+  }
 })

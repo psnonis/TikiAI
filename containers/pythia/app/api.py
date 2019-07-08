@@ -38,27 +38,39 @@ orc.oracle = None
 @app.route('/api/divine', methods = ['POST'])
 def api_divine():
 
-    print(f'{EOL}{SKY}{TXT}  HANDLER > api_divine {PAD}{RST}')
+    print(f'{EOL}{SKY}{TXT}  HANDLER > api_divine [{time()}] {PAD}{RST}')
     request.get_data()
 
     question = request.args.get('question')
     data     = request.data
 
-    if  question and data :
+  # image    = BytesIO(data) # postman, binary
 
-        image = Image.open(BytesIO(data))
-        meta  = f'{image.format}, {image.size}, {image.mode}'
+    if  question :
+        
+        response = {}
 
-        print(f'{PUR}{TXT} QUESTION > {question} {PAD}')
-        print(f'{PUR}{TXT}    IMAGE > {meta    } {PAD}{RST}{EOL}')
+        for n, name in enumerate(request.files, 1) :
 
-        probs, answers = orc().divine(image, question, meta)
+            response[name] = {}
 
-        return f'{answers}'
+            image = request.files[name]
+            image = Image.open(image)
+            meta  = f'{image.format}, {image.size}, {image.mode}'
+
+            print(f'{PUR}{TXT} QUESTION > {question} {PAD}')
+            print(f'{PUR}{TXT}    IMAGE > {meta    } {PAD}{RST}{EOL}')
+
+            response[name]['probabilities'], \
+            response[name]['answers'      ]  = orc().divine(image, question, meta)
+
+        return response
 
     else :
+
         print(f'{RED}{TXT}   STATUS > Invalid Request {PAD}{RST}{EOL}')
-        return 'Invalid Request'
+
+        return { 'error' : 'Invalid Request' }
 
 @app.route('/')
 def index():
