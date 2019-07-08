@@ -2,6 +2,8 @@ import React from 'react';
 import Hello from './Hello.jsx';
 import Info from './Info.jsx';
 
+import 'gestalt/dist/gestalt.css';
+
 // npm i gestalt
 // npm i antd
 
@@ -25,18 +27,8 @@ const Section = ({ children, title }) => (
     </Box>
 );
 
-
 const App = () => (
     <Box>
-        <Section title="Avatar">
-            <Box width={120}>
-                <Avatar
-                    src="https://s.hdnux.com/photos/70/67/71/14909045/3/920x920.jpg"
-                    name="Jeanette Epps"
-                />
-            </Box>
-        </Section>
-
         <Section title="Button">
             <Button text="Button" />
         </Section>
@@ -55,10 +47,10 @@ const App = () => (
             </Box>
         </Section>
 
-        <Section title="Card">
+        <Section title="Cameras">
             <Box maxWidth={200} padding={2} column={12}>
                 <Card>
-                    <Link color="darkGray" href="https://pinterest.com">
+                    <Link color="darkGray">
                         <Avatar
                             name="Ben Silbermann"
                             src="https://image.ibb.co/dzLoRv/Ben_Silberman.jpg"
@@ -78,7 +70,7 @@ const App = () => (
             <Text>Text</Text>
         </Section>
 
-        <Section title="TextField">
+        <Section title="Question">
             <TextField onChange={() => {}} id="textfield" placeholder="Placeholder" />
         </Section>
     </Box>
