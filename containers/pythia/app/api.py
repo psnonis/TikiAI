@@ -49,8 +49,8 @@ def api_divine():
         image = Image.open(BytesIO(data))
         meta  = f'{image.format}, {image.size}, {image.mode}'
 
-        print(f'{PUR}{TXT} QUESTION > {question      } {PAD}')
-        print(f'{PUR}{TXT}    IMAGE > {image.filename} {PAD}{RST}{EOL}')
+        print(f'{PUR}{TXT} QUESTION > {question} {PAD}')
+        print(f'{PUR}{TXT}    IMAGE > {meta    } {PAD}{RST}{EOL}')
 
         probs, answers = orc().divine(image, question, meta)
 
