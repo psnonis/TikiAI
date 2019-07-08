@@ -1,6 +1,4 @@
 import React from 'react';
-import Hello from './Hello.jsx';
-import Info from './Info.jsx';
 
 import 'gestalt/dist/gestalt.css';
 
@@ -27,47 +25,47 @@ const Section = ({ children, title }) => (
     </Box>
 );
 
+console.log('App')
+
 const App = () => (
     <Box>
-        <Section title="Button">
-            <Button text="Button" />
-        </Section>
-
-        <Section title="Box">
-            <Box display="flex">
-                <Box column={4} color="lightGray">
-                    <Text>1</Text>
-                </Box>
-                <Box column={4} color="darkGray">
-                    <Text color="white">2</Text>
-                </Box>
-                <Box column={4} color="lightGray">
-                    <Text>3</Text>
-                </Box>
-            </Box>
-        </Section>
 
         <Section title="Cameras">
-            <Box maxWidth={200} padding={2} column={12}>
-                <Card>
-                    <Link color="darkGray">
-                        <Avatar
-                            name="Ben Silbermann"
-                            src="https://image.ibb.co/dzLoRv/Ben_Silberman.jpg"
-                        />
+            <Box display="flex">
+                <Box column={4} paddingX={3} paddingY={3}>
+                    <Card>
+                        <Avatar name="Camera 1" src="camera-1.jpg"/>
                         <Box paddingX={3} paddingY={2}>
                             <Text align="center" bold>
-                                {"Ben"}
+                                {"Camera 1"}
                             </Text>
                         </Box>
-                    </Link>
-                    <Button color="red" text="Follow" />
-                </Card>
+                        <Button color="red" text="Monitor" />
+                    </Card>
+                </Box>
+                <Box column={4} paddingX={3} paddingY={3}>
+                    <Card>
+                        <Avatar name="Camera 1" src="camera-1.jpg"/>
+                        <Box paddingX={3} paddingY={2}>
+                            <Text align="center" bold>
+                                {"Camera 2"}
+                            </Text>
+                        </Box>
+                        <Button color="red" text="Monitor" />
+                    </Card>
+                </Box>
+                <Box column={4} paddingX={3} paddingY={3}>
+                    <Card>
+                        <Avatar name="Camera 1" src="camera-1.jpg"/>
+                        <Box paddingX={3} paddingY={2}>
+                            <Text align="center" bold>
+                                {"Camera 3"}
+                            </Text>
+                        </Box>
+                        <Button color="red" text="Monitor" />
+                    </Card>
+                </Box>
             </Box>
-        </Section>
-
-        <Section title="Text">
-            <Text>Text</Text>
         </Section>
 
         <Section title="Question">

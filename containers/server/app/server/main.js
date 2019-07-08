@@ -1,33 +1,22 @@
-import { Meteor } from 'meteor/meteor';
-import Links from '/imports/api/links';
+import { Meteor }   from 'meteor/meteor'
 
-import io from 'socket.io';
+Meteor.startup(() =>
+{
+/*
+  let   counter = 0
+  const server  = http.createServer();
+  const io      = socket_io(server);
 
-function insertLink(title, url) {
-  Links.insert({ title, url, createdAt: new Date() });
-}
+  io.on('connection', (socket) =>
+  {
+    console.log('new socket client')
+    socket.emit('counter', counter)
+  })
 
-Meteor.startup(() => {
-  // If the Links collection is empty, add some data.
-  if (Links.find().count() === 0) {
-    insertLink(
-      'Do the Tutorial',
-      'https://www.meteor.com/tutorials/react/creating-an-app'
-    );
-
-    insertLink(
-      'Follow the Guide',
-      'http://guide.meteor.com'
-    );
-
-    insertLink(
-      'Read the Docs',
-      'https://docs.meteor.com'
-    );
-
-    insertLink(
-      'Discussions',
-      'https://forums.meteor.com'
-    );
+  try {
+    server.listen(3003)
+  } catch (e) {
+    console.error(e)
   }
-});
+*/  
+})
