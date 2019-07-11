@@ -1,0 +1,9 @@
+FROM alpine
+
+MAINTAINER kevinstone@berkeley.edu
+
+WORKDIR /
+
+RUN apk update && apk add \
+    mosquitto \
+    mosquitto-clients
