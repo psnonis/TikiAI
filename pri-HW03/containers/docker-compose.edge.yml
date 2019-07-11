@@ -1,0 +1,59 @@
+version: "3.3"
+
+services:
+
+  fbridge:
+    container_name: fbridge
+    networks:
+      - hostnet
+    image: transit
+    build: transit
+    ports:
+      - "1883:1883"
+    command: "mosquitto -c /container/mosquitto_bridge_fog.conf"
+    volumes:
+      - ./transit:/container
+
+  ebroker:
+    container_name: ebroker
+    networks:
+      - hostnet
+    image: transit
+    build: transit
+    command: "mosquitto -c /container/mosquitto_broker_edge.conf"
+    volumes:
+      - ./transit:/container
+
+  capture:
+    container_name: capture
+    networks:
+      - hostnet
+    image: capture
+    build: capture
+    command: "python3 -u /container/service.py"
+    volumes:
+      - ./capture:/container
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - /dev/shm:/dev/shm
+      - /etc/localtime:/etc/localtime:ro
+
+    environment:
+      - DISPLAY
+    devices:
+      - /dev/video0
+      - /dev/nvhost-as-gpu
+      - /dev/nvhost-ctrl
+      - /dev/nvhost-ctrl-gpu
+      - /dev/nvhost-ctxsw-gpu
+      - /dev/nvhost-dbg-gpu
+      - /dev/nvhost-gpu
+      - /dev/nvhost-prof-gpu
+      - /dev/nvhost-sched-gpu
+      - /dev/nvhost-tsg-gpu
+      - /dev/nvmap
+      - /dev/snd
+
+networks:
+
+  hostnet:
+    driver: bridge

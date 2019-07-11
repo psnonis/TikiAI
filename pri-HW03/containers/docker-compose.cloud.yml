@@ -1,0 +1,32 @@
+version: "3.3"
+
+services:
+
+  cbroker:
+    container_name: cbroker
+    networks:
+      - hostnet
+    build:
+      context: transit
+    ports:
+      - "1883:1883"
+    command: "mosquitto -c /container/mosquitto_broker_cloud.conf"
+    volumes:
+      - ./transit:/container
+
+  storage:
+    container_name: storage
+    networks:
+      - hostnet
+    volumes:
+      - ./storage:/container
+    build:
+      context: storage
+    command: "python3 -u /container/service.py"
+    volumes:
+      - ./storage:/container
+
+networks:
+
+  hostnet:
+    driver: bridge

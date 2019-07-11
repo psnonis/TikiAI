@@ -1,0 +1,99 @@
+# container for the Jetson AGX Xavier with JetPack 4.2
+  FROM arm64v8/ubuntu:bionic
+
+  MAINTAINER priyankara.nonis@berkeley.edu
+
+# setup
+  ENV JETPACK_URL=http://169.44.201.108:7002/jetpacks/4.2
+  ARG DEBIAN_FRONTEND=noninteractive
+  RUN mkdir /history
+
+# install apt packages
+  RUN apt-get update
+  RUN apt-get install -q -y apt-utils
+  RUN apt-get install -q -y gnupg2 
+  RUN apt-get install -q -y lbzip2
+  RUN apt-get install -q -y curl
+  RUN apt-get install -q -y sudo
+  RUN apt-get install -q -y git
+  RUN apt-get install -q -y automake
+  RUN apt-get install -q -y autoconf
+  RUN apt-get install -q -y libtool
+  RUN apt-get install -q -y pkg-config
+  RUN apt-get install -q -y software-properties-common
+  RUN apt-get install -q -y iputils-ping
+  RUN apt-get install -q -y x11-apps
+  RUN apt-get install -q -y python
+  RUN apt-get install -q -y unp
+  RUN apt-get clean
+  RUN rm -rf /var/cache/apt
+
+# install jetson drivers
+  WORKDIR /tmp
+  RUN curl -sL ${JETPACK_URL}/Jetson_Linux_R32.1.0_aarch64.tbz2 | tar xvfj -
+  RUN chown root /etc/passwd /etc/sudoers /usr/lib/sudo/sudoers.so /etc/sudoers.d/README
+
+  RUN cp /tmp/Linux_for_Tegra/apply_binaries.sh /history/apply_binaries.sh-original
+  RUN sed -i "s/LDK_NV_TEGRA_DIR}\/config.tbz2/LDK_NV_TEGRA_DIR}\/config.tbz2 --exclude=etc\/hosts --exclude=etc\/hostname/g" /tmp/Linux_for_Tegra/apply_binaries.sh
+  RUN cp /tmp/Linux_for_Tegra/apply_binaries.sh /history/apply_binaries.sh-modified
+
+# RUN curl -sL http://developer.nvidia.com/embedded/dlc/l4t-jetson-tx2-driver-package-28-2 | tar xvfj -
+  RUN /tmp/Linux_for_Tegra/apply_binaries.sh -r /
+  RUN rm -rf /tmp/*
+
+# pull jetpack libs for cuda/cudnn
+  RUN curl ${JETPACK_URL}/cuda-repo-l4t-10-0-local-10.0.166_1.0-1_arm64.deb -so cuda-repo-l4t_arm64.deb
+  RUN curl ${JETPACK_URL}/libcudnn7_7.3.1.28-1+cuda10.0_arm64.deb           -so libcudnn_arm64.deb
+  RUN curl ${JETPACK_URL}/libcudnn7-dev_7.3.1.28-1+cuda10.0_arm64.deb       -so libcudnn-dev_arm64.deb
+  RUN curl ${JETPACK_URL}/libopencv-dev_3.3.1_arm64.deb                     -so libopencv-dev_arm64.deb
+
+# install libs: L4T, CUDA, cuDNN, OpenCV
+  RUN dpkg -i /tmp/cuda-repo-l4t_arm64.deb
+  RUN apt-key add /var/cuda-repo-10-0-local-10.0.166/7fa2af80.pub
+  RUN apt-get update && apt-get install -y cuda-toolkit-10.0
+  RUN dpkg -i /tmp/libcudnn_arm64.deb
+  RUN dpkg -i /tmp/libcudnn-dev_arm64.deb
+# RUN dpkg -i /tmp/libopencv-dev_arm64.deb
+
+# install libglvnd
+  WORKDIR /tmp
+  RUN apt-get install -q -y libxext-dev libx11-dev x11proto-gl-dev
+  RUN git clone https://github.com/NVIDIA/libglvnd.git
+  WORKDIR /tmp/libglvnd
+  RUN ./autogen.sh
+  RUN ./configure
+  RUN make -j 6
+  RUN make install
+  RUN rm -rf /tmp/libglvnd
+
+# create required softlinks
+  WORKDIR /
+  RUN rm -f /usr/lib/aarch64-linux-gnu/libGL.so
+  RUN ln -s /usr/lib/aarch64-linux-gnu/libGLU.so                                /usr/lib/aarch64-linux-gnu/libGL.so
+  RUN ln -s /usr/lib/aarch64-linux-gnu/libcuda.so                               /usr/lib/aarch64-linux-gnu/libcuda.so.1
+  RUN ln -s /usr/lib/aarch64-linux-gnu/tegra/libnvidia-ptxjitcompiler.so.32.1.0 /usr/lib/aarch64-linux-gnu/tegra/libnvidia-ptxjitcompiler.so.1
+
+# setup environment
+  ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/aarch64-linux-gnu/tegra
+  ENV PATH=.:/usr/local/cuda-10.0/bin:$PATH
+
+# install application dependencies
+
+  RUN apt-get install -q -y libhdf5-dev
+  RUN apt-get install -q -y python3-dev
+  RUN apt-get install -q -y python3-pip
+  RUN apt-get install -q -y python3-numpy
+  RUN apt-get install -q -y python3-setuptools
+  RUN apt-get install -q -y python3-h5py
+  RUN apt-get install -q -y python3-opencv
+  RUN apt-get install -q -y python3-wheel
+  RUN apt-get clean
+  RUN rm -rf /var/cache/apt
+
+  RUN pip3 install paho-mqtt
+
+# cleanup
+  RUN apt-get -y autoremove
+  RUN apt-get -y autoclean
+  RUN rm -rf /var/cache/apt
+  RUN rm -f  /tmp/*.deb
