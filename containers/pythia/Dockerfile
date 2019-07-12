@@ -62,6 +62,6 @@
   COPY africa.jpg .
 # RUN /final/app/cli.py --device cpu --image africa.jpg --question 'where is this place ?'
 
-  WORKDIR /final/hot
+# WORKDIR /final/hot # hot code reload
 
   CMD ["./api.py", "--device", "cpu"]
