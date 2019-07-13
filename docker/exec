@@ -3,8 +3,7 @@
       root=$(readlink -f ${0} | xargs dirname | xargs dirname)
 containers=$(realpath --relative-to=${PWD} ${root}/containers)
    context=${1-pythia}
-    expose=${2-5000}
-     extra=${@:3}
+     extra=${2-bash}
     repository=psnonis/w251-final
 
 PAD=$'\x1B[K'
@@ -15,7 +14,7 @@ RST=$'\x1B[0m'
 EOL=$'\n'
 
   clean="docker rm -f ${context}"
-command="docker run -d -t -p ${expose}:${expose} --rm --name ${context} ${repository}:${context} ${extra}"
+command="docker exec -ti ${context} ${extra}"
  header="Container : ${repository}:${context} ${PAD}${EOL}   Command : ${command}"
 
 clear
