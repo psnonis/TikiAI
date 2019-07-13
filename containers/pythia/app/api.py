@@ -59,7 +59,7 @@ def api_divine():
             print(f'{PUR}{TXT}    IMAGE > {meta    } {PAD}{RST}{EOL}')
 
             response[name]['probabilities'], \
-            response[name]['answers'      ]  = orc().divine(image, question, meta)
+            response[name]['answers'      ]  = orc(app).divine(image, question, meta)
 
         return response
 
@@ -80,7 +80,7 @@ def index():
 def africa():
 
     start          = time()
-    probs, answers = orc().divine('africa.jpg', 'where is this place ?')
+    probs, answers = orc(app).divine('africa.jpg', 'where is this place ?')
     end            = time()
 
     print(f'Oracle : Divining Answers : End-2-End - Finished in {end-start:7.3f} Seconds')
