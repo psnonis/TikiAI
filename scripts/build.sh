@@ -6,6 +6,9 @@ containers=$(realpath --relative-to=${PWD} ${root}/containers)
     expose=${2-5000}
 repository=psnonis/w251-final
 
+highlight () { sed -r 's/(Step.*)/\n\1\n/g' | GREP_COLOR='00;38;5;1;48;5;226' grep --color=always -E  "^Step.*|$" "${@:1}" | sed 's/ && /\n     /g'; }
+_ighlight () { sed -r 's/(Step.*)/\n\1\n/g' | GREP_COLOR='00;38;5;1;48;5;226' grep --color=always -Pz "Step.*"             | sed 's/ && /\n     /g'; }
+
 PAD=$'\x1B[K'
 SKY=$'\x1B[0;37;44m'
 GRN=$'\x1B[0;30;42m'
@@ -16,17 +19,11 @@ EOL=$'\n'
  build="docker build -t ${repository}:${context} -f ${containers}/${context}/Dockerfile ${containers}/${context}"
 header="Container : ${repository}:${context} ${PAD}${EOL}   Command : ${build}"
 logger="tee ${containers}/${context}/build.log"
- color="ack --passthru ^Step.*"
+ color="ack-grep --flush --passthru ^Step.*"
 
+clear
 echo -e "${EOL}${SKY}${TXT}${PAD}${EOL} ${header} ${PAD}${EOL}${PAD}${RST}${EOL}"
 
-${build} | ${logger} | ${color}
+${build} | ${logger} | _ighlight
 
-echo -e "${EOL}${GRN}${TXT}${PAD}${RST}${EOL}"
-
-volume="/c/Berkeley/w251/final/containers/${context}"
- clean="docker rm -f ${context}"
-   run="docker run -t -p ${expose}:${expose} -v ${volume}/app:/final/hot --rm --name ${context} ${repository}:${context}"
-
-${clean} > /dev/null 2>&1
-${run}
+echo -e "${EOL}${SKY}${TXT}${PAD}${RST}${EOL}"

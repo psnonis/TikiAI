@@ -44,7 +44,7 @@ class Oracle:
         self.pythiaVQA_model = self.build_pythia_model() # https://github.com/facebookresearch/Pythia
 
         end = time.time()
-        print( f'Oracle : Initializing : Finished in {end-start:7.3f} Seconds')
+        print( f'Oracle : Initializing : Finished in {end-start:7.3f} Seconds\n')
 
     def build_processors(self):
 

@@ -7,12 +7,7 @@ from    time import time
 from PIL import Image
 from io  import BytesIO
 
-from flask         import Flask, Response, jsonify, request
-
-#from flask_restful import Resource, Api
-
-app = Flask(__name__)
-#api = Api(app)
+from flask import Flask, Response, jsonify, request
 
 PAD='\x1B[K'
 SKY='\x1B[48;5;39m'
@@ -24,7 +19,7 @@ TXT='\x1B[38;5;190m'
 RST='\x1B[0m'
 EOL='\n'
 
-def orc():
+def orc(app):
 
     if  not orc.oracle:
         orc.device = app.config['device']
@@ -34,6 +29,8 @@ def orc():
 
 orc.device = None
 orc.oracle = None
+
+app = Flask(__name__)
 
 @app.route('/api/divine', methods = ['POST'])
 def api_divine():
@@ -103,7 +100,9 @@ def main(device):
 
     app.config['device'] = device
 
-    app.run(host = '0.0.0.0', debug = True)
+    orc(app)
+
+    app.run(host = '0.0.0.0', debug = False)
 
 if  __name__ == '__main__':
 
