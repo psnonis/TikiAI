@@ -23,6 +23,15 @@ from pythia.models.pythia       import Pythia
 from pythia.common.registry     import registry
 from pythia.common.sample       import Sample, SampleList
 
+delays = \
+{
+    'BuildTime' : 0.0,
+    'Detectron' : 0.0,
+    'ResNet152' : 0.0,
+    'PythiaVQA' : 0.0,
+    'InferTime' : 0.0
+}
+
 class Oracle:
 
     TARGET_IMAGE_SIZE = [448, 448]
@@ -45,6 +54,8 @@ class Oracle:
 
         end = time.time()
         print( f'Oracle : Initializing : Finished in {end-start:7.3f} Seconds\n')
+
+        delays['BuildTime'] = end-start
 
     def build_processors(self):
 
@@ -218,6 +229,8 @@ class Oracle:
 
         print(f'Oracle : Getting Features : Detectron - Finished in {end-start:7.3f} Seconds')
 
+        delays['Detectron'] = end-start
+
         return features[0]
 
     def get_resnet152_features(self, image):
@@ -242,10 +255,13 @@ class Oracle:
 
         print(f'Oracle : Getting Features : ResNet152 - Finished in {end-start:7.3f} Seconds')
 
+        delays['ResNet152'] = end-start
+
         return features
 
     def divine(self, image, question, meta = None):
 
+        first = time.time()
         meta  = meta or str(image)
         image = Image.open(image).convert('RGB') if isinstance(image, str) else \
                 image.convert('RGB')
@@ -294,12 +310,18 @@ class Oracle:
             end = time.time()
 
         print(f'Oracle : Divining Answers : PythiaVQA - Finished in {end-start:7.3f} Seconds')
-        
+
+        delays['PythiaVQA'] = end-start
+
         gc.collect()
 
         torch.cuda.empty_cache()
 
-        return probs, answers
+        last = time.time()
+
+        delays['InferTime'] = last-first
+
+        return probs, answers, delays
 
 if  __name__ == '__main__' :
 

@@ -59,7 +59,8 @@ def api_divine():
             print(f'{PUR}{TXT}    IMAGE > {meta    } {PAD}{RST}{EOL}')
 
             response[name]['probabilities'], \
-            response[name]['answers'      ]  = orc(app).divine(image, question, meta)
+            response[name]['answers'      ], \
+            response[name]['delay'        ]  = orc(app).divine(image, question, meta)
 
         return response
 

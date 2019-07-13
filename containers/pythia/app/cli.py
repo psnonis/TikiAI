@@ -14,9 +14,11 @@ def main(device, image, question):
 
     print(f'\nOracle : Command-line Interface\n')
 
-    start          = time()
-    probs, answers = orc.divine(image, question)
-    end            = time()
+    start    = time()
+    probs,   \
+    answers, \
+    delays   = orc.divine(image, question)
+    end      = time()
 
     print(f'Oracle : Divining Answers : End-2-End - Finished in {end-start:7.3f} Seconds')
     print(f'Oracle : RANK | CONFIDENCE | ANSWER')
@@ -24,7 +26,7 @@ def main(device, image, question):
     for n, (p, a) in enumerate(zip(probs, answers), 1):
 
         print(f'       : {n:<4} | {p:07.3%}    | {a}')
-       
+
 if  __name__ == '__main__':
     
     main()
