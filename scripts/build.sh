@@ -6,8 +6,7 @@ containers=$(realpath --relative-to=${PWD} ${root}/containers)
     expose=${2-5000}
 repository=psnonis/w251-final
 
-highlight () { sed -r 's/(Step.*)/\n\1\n/g' | GREP_COLOR='00;38;5;1;48;5;226' grep --color=always -E  "^Step.*|$" "${@:1}" | sed 's/ && /\n     /g'; }
-_ighlight () { sed -r 's/(Step.*)/\n\1\n/g' | GREP_COLOR='00;38;5;1;48;5;226' grep --color=always -Pz "Step.*"             | sed 's/ && /\n     /g'; }
+highlight () { sed -u -r 's/(Step.*)/\n\1\n/g' | GREP_COLOR='00;38;5;1;48;5;226' grep --line-buffered --color=always -E  "^Step.*|$" "${@:1}" | sed -u 's/ && /\n     /g' ; }
 
 PAD=$'\x1B[K'
 SKY=$'\x1B[0;37;44m'
@@ -24,6 +23,6 @@ logger="tee ${containers}/${context}/build.log"
 clear
 echo -e "${EOL}${SKY}${TXT}${PAD}${EOL} ${header} ${PAD}${EOL}${PAD}${RST}${EOL}"
 
-${build} | ${logger} | _ighlight
+${build} | ${logger} | highlight
 
 echo -e "${EOL}${SKY}${TXT}${PAD}${RST}${EOL}"
