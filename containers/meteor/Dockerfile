@@ -1,7 +1,7 @@
   FROM node:lts
 
 # Setup Working Directory
-  RUN mkdir -p /final
+  RUN mkdir -p /final/bin
   WORKDIR /final
 
 # Install Meteor
