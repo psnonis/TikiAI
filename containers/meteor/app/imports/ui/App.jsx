@@ -28,17 +28,6 @@ const Section = ({ children, title }) =>
   </Box>
 )
 
-function monitor(e)
-{
-  console.log('monitor')
-  console.log(e)
-
-  Meteor.call('divine', {question: 'where is this place ?'}, (err, res) =>
-  {
-    console.log(`divine returned : ${res}`)
-  })
-}
-
 const App = () => (
   <Box>
     <Section title="Cameras">
@@ -51,7 +40,7 @@ const App = () => (
                 {"Camera 1"}
               </Text>
             </Box>
-            <Button color="red" text="Monitor" onClick={monitor} />
+            <Button id="camera-1" color="red" text="Monitor" onClick={monitor} />
           </Card>
         </Box>
         <Box column={4} paddingX={3} paddingY={3}>
@@ -62,7 +51,7 @@ const App = () => (
                 {"Camera 2"}
               </Text>
             </Box>
-            <Button color="red" text="Monitor" onClick={monitor} />
+            <Button id="camera-2" color="red" text="Monitor" onClick={monitor} />
           </Card>
         </Box>
         <Box column={4} paddingX={3} paddingY={3}>
@@ -73,7 +62,7 @@ const App = () => (
                 {"Camera 3"}
               </Text>
             </Box>
-            <Button color="red" text="Monitor" onClick={monitor} />
+            <Button id="camera-3" color="red" text="Monitor" onClick={monitor} />
           </Card>
         </Box>
       </Box>
@@ -93,10 +82,28 @@ const App = () => (
       </Box>
     </Section>
 
-    <Section title="Question">
-      <TextField onChange={() => {}} id="textfield" placeholder="Placeholder" />
+    <Section title="Question" ref = "questionSection">
+      <TextField id="question" name="question" onChange={() => {}} placeholder="Placeholder" />
     </Section>
   </Box>
 );
+
+function monitor(e)
+{
+  console.log('monitor called')
+  var target   = e.event.target.id
+  console.log(`target is ${target}`)
+
+//var question = React.findDOMNode(this.refs.question).value
+
+//console.log(`question is ${question}`)
+  console.log(this)
+  var question = 'what is this place ?'
+
+  Meteor.call('divine', {question: question}, (err, res) =>
+  {
+    console.log(`divine returned : ${err}, ${res}`)
+  })
+}
 
 export default App;

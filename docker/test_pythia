@@ -7,5 +7,5 @@ repository=psnonis/w251-final
 
 curl \
   -X POST \
-  -F "image=@${root}/scripts/africa.jpg" \
+  -F "image=@${root}/docker/africa.jpg" \
   ${host}:5000/api/divine?question='where%20is%20this%20place%20%3F'
