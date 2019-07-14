@@ -1,24 +1,28 @@
 import { Meteor } from 'meteor/meteor'
-import superagent from 'superagent'
+import   request  from 'superagent'
 
 const PYTHIA = 'http://localhost:5000'
+const superagent = require('superagent')
 
 Meteor.methods(
 {
-    divine: function (params)
+    divine: async function (params)
     {
         console.log('divine called')
 
         var imagePath = '../../../../../public/camera-1.jpg'
+        var question  = 'what place is this ?'
 
-        const req = superagent
+        console.log('callin pythia')
+
+        var response  = await request
         .post(`${PYTHIA}/api/divine`)
-        .query({question: params.question})
+        .query({question: question})
         .attach('image', imagePath)
 
-        const res = Meteor.wrapAsync(req.end, req)()
+        console.log('divine return')
 
-        return res
+        return response
     }
 })
 

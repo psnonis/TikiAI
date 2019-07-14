@@ -2,11 +2,12 @@
 import { Meteor } from 'meteor/meteor';
 import { render } from 'react-dom';
 
-import React from 'react'
-import App   from '/imports/ui/App'
+import React        from 'react'
+import PersonalPage from '/imports/ui/PersonalPage'
 
 Meteor.startup(() =>
 {
+
 /*
   const io   = require('socket.io-client')
   let socket = io(`http://localhost:3003`)
@@ -26,5 +27,6 @@ Meteor.startup(() =>
     console.log(value)
   })
 */
-  render(<App />, document.getElementById('react-target'))
+
+    render(<PersonalPage />, document.getElementById('react-target'))
 })
