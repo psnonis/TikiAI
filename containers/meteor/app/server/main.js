@@ -15,14 +15,14 @@ Meteor.methods(
 
         console.log('callin pythia')
 
-        var response  = await request
+        let response  = await superagent
         .post(`${PYTHIA}/api/divine`)
         .query({question: question})
         .attach('image', imagePath)
 
-        console.log('divine return')
+        console.log(`divine return : ${response.text}`)
 
-        return response
+        return response.body
     }
 })
 
