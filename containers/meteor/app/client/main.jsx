@@ -1,9 +1,9 @@
 
-import { Meteor } from 'meteor/meteor';
-import { render } from 'react-dom';
+import { Meteor } from 'meteor/meteor'
+import { render } from 'react-dom'
 
-import React        from 'react'
-import PersonalPage from '/imports/ui/PersonalPage'
+import React      from 'react'
+import App        from '/imports/ui/App'
 
 Meteor.startup(() =>
 {
@@ -28,5 +28,5 @@ Meteor.startup(() =>
   })
 */
 
-    render(<PersonalPage />, document.getElementById('react-target'))
+  render(<App />, document.getElementById('react-target'))
 })
