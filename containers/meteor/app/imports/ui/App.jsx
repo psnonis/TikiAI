@@ -13,6 +13,7 @@ import
   Card,
   Heading,
   Spinner,
+  Container,
   Text,
   TextField
 } from 'gestalt'
@@ -30,8 +31,10 @@ const Section = ({ children, title }) =>
 const App = () =>
 (
   <Box>
-    <Session/>
-    <GalleryContainer/>
+    <Box alignContent="center" justifyContent="center" maxWidth={1024}>
+      <Session/>
+      <GalleryContainer/>
+    </Box>
   </Box>
 )
 

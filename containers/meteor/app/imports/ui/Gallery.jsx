@@ -85,6 +85,8 @@ class Gallery extends React.Component
     console.log(`Gallery.render : ${sessions}`)
 
     return (
+      <Box color="navy">
+      <Heading color="white">Session Gallery</Heading>
       <div
       ref={this._setScroll}
       style={{
@@ -95,7 +97,6 @@ class Gallery extends React.Component
         flexDirection: "column"
       }}
       >
-        <Heading>Session Gallery</Heading>
         <Masonry
           comp={Picture}
           flexible={true}
@@ -105,6 +106,7 @@ class Gallery extends React.Component
           scrollContainer={this._getScroll}
         />
       </div>
+      </Box>
     )
   }
 

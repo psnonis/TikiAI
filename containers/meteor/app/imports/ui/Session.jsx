@@ -1,33 +1,54 @@
-import React            from 'react'
-import Webcam           from 'react-webcam'
-import { ReactMicPlus } from 'react-mic-plus'
+import React  from 'react'
+import Webcam from 'react-webcam'
+
+import
+{
+  ReactMicPlus
+} from 'react-mic-plus'
 
 import
 {
   Avatar,
+  Column,
   Box,
   Button,
   Card,
   Heading,
   Spinner,
   Text,
+  Pulsar,
   TextField
 } from 'gestalt'
 
 export default class Session extends React.Component {
   constructor(props) {
     super(props)
+
+    this.handleChange = this.handleChange.bind(this)
+
     this.state = {
-      record: false
+      record: false,
+      question: 'who is this person ?'
     }
-   }
+  }
  
   setRef = webcam => {
     this.webcam = webcam
   }
 
   capturePicture = () => {
-    const picture = this.webcam.getScreenshot()
+
+    const picture  = this.webcam.getScreenshot()
+    var   question = 'who is this person ?'
+
+    console.log('callin apiDivine')
+
+    Meteor.call('apiDivine', {question: question, snapshot: picture}, (err, res) =>
+    {
+      console.log('Returned')
+      console.log(res)
+      console.log(err)
+    })
   }
 
   startRecording = () => {
@@ -46,6 +67,11 @@ export default class Session extends React.Component {
     console.log('recordedBlob is: ', recordedBlob);
   }
 
+  handleChange({ value })
+  {
+    this.setState( { value })
+  }
+
   render() {
 
     const videoConstraints = {
@@ -55,34 +81,54 @@ export default class Session extends React.Component {
     }
 
     return (
-      <Box>
-        <Heading>Current Session</Heading>
-        <Box display="flex" direction="row">
-          <Box maxWidth={640}>
-          <Card>
-            <Webcam
-              audio={false}
-              width={640}
-              height={360}
-              ref={this.setRef}
-              screenshotFormat="image/jpeg"
-              videoConstraints={videoConstraints}
-            />
-            <ReactMicPlus
-              record={this.state.record}
-              className="sound-wave"
-              onStop={this.onStop}
-              strokeColor="#000000"
-              backgroundColor="#FF4081"
-              nonstop={true}
-              duration={5} />
-            <Button onClick={this.capturePicture} text="Snap" />
-            <Button onClick={this.startRecording} text="Ask" color="blue"/>
-            <Button onClick={this.stopRecording}  text="Stop"/>
-          </Card>
-          </Box>
-        </Box>
+    <Box>
+      <Box color="navy" shape="roundedTop">
+        <Heading color="white" margin={2}>Current Session</Heading>
       </Box>
+      <Box display="flex" direction="row" paddingY={2}>
+        <Column span={8}>
+          <Box color="navy">
+            <Box maxWidth={640}>
+              <Card>
+                <Webcam
+                  audio={false}
+                  width={640}
+                  height={360}
+                  ref={this.setRef}
+                  screenshotFormat="image/jpeg"
+                  videoConstraints={videoConstraints}
+                />
+                <ReactMicPlus
+                  record={this.state.record}
+                  className="sound-wave"
+                  onStop={this.onStop}
+                  strokeColor="#000000"
+                  backgroundColor="#FF4081"
+                  nonstop={true}
+                  duration={5} />
+                <TextField
+                  id="question"
+                  onChange={this.handleChange}
+                  placeholder="Question"
+                  value={this.state.question}
+                  type="question"
+                />
+                <Box display="flex" direction="row" paddingY={2}>
+                <Button onClick={this.capturePicture} text="Snap" />
+                <Button onClick={this.startRecording} text="Ask" color="blue"/>
+                <Button onClick={this.stopRecording}  text="Stop" color="red"/>
+                </Box>
+              </Card>
+            </Box>
+          </Box>
+        </Column>
+        <Column span={4}>
+          <Box color="watermelon" padding={4}>
+            <Pulsar />
+          </Box>
+        </Column>
+      </Box>
+    </Box>
     )
   }
 }
