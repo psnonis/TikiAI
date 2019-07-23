@@ -1,0 +1,34 @@
+version: "3.3"
+
+services:
+  
+  meteor:
+    container_name: meteor
+    networks:
+      - hostnet
+    ports:
+      - 3000:3000
+      - 80:80
+    build: 
+      context: ./meteor/
+
+  pythia:
+    container_name: pythia
+    networks:
+      - hostnet
+    ports:
+      - 5000:5000
+    image: psnonis/w251-final:pythia
+
+  interpreter:
+    container_name: interpreter
+    networks:
+      - hostnet
+    ports:
+      - 5001:5000
+    build: 
+      context: ./interpreter/
+    
+networks:
+  hostnet:
+    driver: bridge
