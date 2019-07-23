@@ -1,6 +1,7 @@
 import { Meteor        } from 'meteor/meteor'
 import { writeFileSync } from 'fs'
 import   superagent      from 'superagent'
+import { Sessions      } from '/imports/api/sessions'
 
 const PYTHIA = 'http://158.85.220.245:5000' // 'http://localhost:5000'
 
@@ -12,6 +13,13 @@ Meteor.startup(() =>
 
 Meteor.methods(
 {
+    addPicture : function (params)
+    {
+        console.log(`server > main > addPicture called : ${params.user}`)
+
+        Sessions.update({ _id : params.user }, { $set : { picture : params.picture } }, { upsert : true })
+    },
+
     apiDivine : async function (params)
     {
         console.log('server > main > apiDivine called')

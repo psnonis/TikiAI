@@ -72,6 +72,16 @@ export default class Session extends React.Component {
     this.setState( { value })
   }
 
+  triggerTesting = () =>
+  {
+    const picture  = this.webcam.getScreenshot()
+    const user     = Math.floor(Math.random() * Math.floor(3))
+
+    Meteor.call('addPicture', {user : user, picture : picture}, (err, res) =>
+    {
+    })
+  }
+
   render() {
 
     const videoConstraints = {
@@ -111,12 +121,12 @@ export default class Session extends React.Component {
                   onChange={this.handleChange}
                   placeholder="Question"
                   value={this.state.question}
-                  type="question"
+                  type="text"
                 />
                 <Box display="flex" direction="row" paddingY={2}>
                 <Button onClick={this.capturePicture} text="Snap" />
                 <Button onClick={this.startRecording} text="Ask" color="blue"/>
-                <Button onClick={this.stopRecording}  text="Stop" color="red"/>
+                <Button onClick={this.triggerTesting} text="Trigger" color="red"/>
                 </Box>
               </Card>
             </Box>

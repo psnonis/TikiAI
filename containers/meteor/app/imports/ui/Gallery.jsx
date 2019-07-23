@@ -31,6 +31,15 @@ class Picture extends React.PureComponent
   {
     const { data } = this.props
 
+    console.log('Picture.render')
+
+    return (
+      <Box padding={2} width={320}>
+        <Image src={data.picture} />
+      </Box>
+    )
+
+
     return (
 
       <Box
@@ -39,6 +48,7 @@ class Picture extends React.PureComponent
       color="navy"
       width={640}
       height={480}
+      maxWidth={640}
       >
         <Image
           src={data.picture}
@@ -57,14 +67,6 @@ class Gallery extends React.Component
   {
     super(props)
 
-    this.makePicture = this.makePicture.bind(this)
-    this.loadGallery = this.loadGallery.bind(this)
-    this.state       =
-    {
-      sessions : props.sessions,
-      pictures : props.pictures
-    }
-
     console.log(`Gallery.constructor : ${tos(props)}`)
   }
 
@@ -78,11 +80,7 @@ class Gallery extends React.Component
 
   render()
   {
-    const sessions = this.props.sessions.map(
-      session => this.makePicture(session)
-    )
-
-    console.log(`Gallery.render : ${sessions}`)
+    console.log(`Gallery.render : ${this.props.sessions}`)
 
     return (
       <Box color="navy">
@@ -101,7 +99,7 @@ class Gallery extends React.Component
           comp={Picture}
           flexible={true}
           virtualize={true}
-          items={this.state.pictures}
+          items={this.props.sessions}
           minCols={1}
           scrollContainer={this._getScroll}
         />
@@ -109,48 +107,14 @@ class Gallery extends React.Component
       </Box>
     )
   }
-
-  onClick()
-  {
-    console.log('Gallery.onClick')
-  }
-
-  loadGallery()
-  {
-    console.log(`Gallery.loadGallery`)
-
-    const items = [
-                    { _id : 1, picture : img },
-                    { _id : 2, picture : img },
-                    { _id : 3, picture : img },
-                  ]
-
-    this.setState({items})
-  }
-
-  makePicture(data, itemIdx, isMeasuring)
-  {
-    
-    console.log(`Gallery.makePicture : ${itemIdx} : ${tos(data)}`)
-
-    return (
-        <Image
-          src={img}
-          alt="picture"
-          naturalWidth={320}
-          naturalHeight={180}
-        />
-
-    )
-  }
 }
 
 export default GalleryContainer = withTracker(() => {
 
   const pictures = [
-    { _id : 1, picture : img },
+/*  { _id : 1, picture : img },
     { _id : 2, picture : img },
-    { _id : 3, picture : img },
+    { _id : 3, picture : img },*/
   ]
 
   var sessions = Sessions.find().fetch()
