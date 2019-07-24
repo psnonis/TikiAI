@@ -21,10 +21,6 @@ import
   Session Gallery
 */
 
-const img = 'http://www.cartoondistrict.com/wp-content/uploads/2017/03/Cute-Girl-Cartoon-Characters.jpg'
-
-const tos = (o) => JSON.stringify(o)
-
 class Picture extends React.PureComponent
 {
   render()
@@ -38,26 +34,6 @@ class Picture extends React.PureComponent
         <Image src={data.picture} />
       </Box>
     )
-
-
-    return (
-
-      <Box
-      margin={2}
-      padding={2}
-      color="navy"
-      width={640}
-      height={480}
-      maxWidth={640}
-      >
-        <Image
-          src={data.picture}
-          alt="picture"
-          naturalWidth={640}
-          naturalHeight={480}          
-        />
-      </Box>
-    )
   }
 }
 
@@ -67,7 +43,7 @@ class Gallery extends React.Component
   {
     super(props)
 
-    console.log(`Gallery.constructor : ${tos(props)}`)
+    console.log(`Gallery.constructor : ${JSON.stringify(props)}`)
   }
 
   _setScroll = (scroll) => {
@@ -111,18 +87,11 @@ class Gallery extends React.Component
 
 export default GalleryContainer = withTracker(() => {
 
-  const pictures = [
-/*  { _id : 1, picture : img },
-    { _id : 2, picture : img },
-    { _id : 3, picture : img },*/
-  ]
-
   var sessions = Sessions.find().fetch()
 
   console.log(`GalleryContainer : ${JSON.stringify(sessions)}`)
 
   return {
-    sessions: sessions,
-    pictures: pictures
+    sessions: sessions
   }
 })(Gallery)

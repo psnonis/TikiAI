@@ -3,15 +3,14 @@ import Webcam from 'react-webcam'
 
 import
 {
-  ReactMicPlus
-} from 'react-mic-plus'
+  ReactMic
+} from 'react-mic'
 
 import
 {
   Avatar,
   Column,
   Box,
-  Button,
   Card,
   Heading,
   Spinner,
@@ -20,60 +19,42 @@ import
   TextField
 } from 'gestalt'
 
-export default class Session extends React.Component {
-  constructor(props) {
+import
+{
+  Button
+} from 'grommet'
+
+export default class Session extends React.Component
+{
+  constructor(props)
+  {
     super(props)
 
     this.handleChange = this.handleChange.bind(this)
+    
+    this.state =
+    {
+      record   : false,
+      question : 'who is this person ?'
+    }
 
-    this.state = {
-      record: false,
-      question: 'who is this person ?'
+    this.videoConstraints =
+    {
+      width      : 1280,
+      height     : 720,
+      facingMode : 'user'
     }
   }
  
-  setRef = webcam => {
+  setRef = (webcam) =>
+  {
     this.webcam = webcam
   }
 
-  capturePicture = () => {
-
-    const picture  = this.webcam.getScreenshot()
-    var   question = 'who is this person ?'
-
-    console.log('callin apiDivine')
-
-    Meteor.call('apiDivine', {question: question, snapshot: picture}, (err, res) =>
-    {
-      console.log('Returned')
-      console.log(res)
-      console.log(err)
-    })
-  }
-
-  startRecording = () => {
-    this.setState({
-      record: true
-    })
-  }
- 
-  stopRecording = () => {
-    this.setState({
-      record: false
-    })
-  }
- 
-  onStop(recordedBlob) {
-    console.log('recordedBlob is: ', recordedBlob);
-  }
-
-  handleChange({ value })
+  takeSnapshot = () =>
   {
-    this.setState( { value })
-  }
+    console.log(`session > takeSnapshot`)
 
-  triggerTesting = () =>
-  {
     const picture  = this.webcam.getScreenshot()
     const user     = Math.floor(Math.random() * Math.floor(3))
 
@@ -82,13 +63,64 @@ export default class Session extends React.Component {
     })
   }
 
-  render() {
+  getAnswers = () =>
+  {
+    console.log(`session > getAnswers`)
 
-    const videoConstraints = {
-      width: 1280,
-      height: 720,
-      facingMode: "user"
+    const picture  = this.webcam.getScreenshot()
+    var   question = 'who is this person ?'
+
+    console.log('callin apiDivine')
+
+    Meteor.call('apiDivine', { query : question, image : picture }, (err, res) =>
+    {
+      console.log('return apiDivine')
+      console.log(res)
+      console.log(err || 'No Error')
+    })
+  }
+ 
+  getQuestion = (recording) =>
+  {
+    console.log(`session > getQuestion`)
+    console.log(recording.blob)
+
+    let reader = new FileReader()
+    reader.onload = (e) =>
+    {
+      let audio = reader.result
+      console.log(audio)
+      console.log('callin apiInterpret')
+  
+      Meteor.call('apiInterpret', { audio : audio }, (err, res) =>
+      {
+        console.log('return apiInterpret')
+        console.log(res || 'No Response')
+        console.log(err || 'No Error')
+      })
     }
+    reader.readAsDataURL(recording.blob)
+  }
+
+  startAudioRecording = () =>
+  {
+    console.log(`session > startAudioRecording`)
+    this.setState({ record : true })
+  }
+ 
+  stopAudioRecording = () =>
+  {
+    console.log(`session > stopAudioRecording`)
+    this.setState({ record : false })
+  }
+
+  handleChange = ({ value }) =>
+  {
+    this.setState( { value })
+  }
+
+  render = () =>
+  {
 
     return (
     <Box>
@@ -97,7 +129,7 @@ export default class Session extends React.Component {
       </Box>
       <Box display="flex" direction="row" paddingY={2}>
         <Column span={8}>
-          <Box color="navy">
+          <Box color="blue">
             <Box maxWidth={640}>
               <Card>
                 <Webcam
@@ -106,12 +138,13 @@ export default class Session extends React.Component {
                   height={360}
                   ref={this.setRef}
                   screenshotFormat="image/jpeg"
-                  videoConstraints={videoConstraints}
+                  videoConstraints={this.videoConstraints}
                 />
-                <ReactMicPlus
+                <ReactMic
                   record={this.state.record}
                   className="sound-wave"
-                  onStop={this.onStop}
+                  mimeType="audio/wav;codecs=MS_PCM"
+                  onStop={this.getQuestion}
                   strokeColor="#000000"
                   backgroundColor="#FF4081"
                   nonstop={true}
@@ -124,9 +157,10 @@ export default class Session extends React.Component {
                   type="text"
                 />
                 <Box display="flex" direction="row" paddingY={2}>
-                <Button onClick={this.capturePicture} text="Snap" />
-                <Button onClick={this.startRecording} text="Ask" color="blue"/>
-                <Button onClick={this.triggerTesting} text="Trigger" color="red"/>
+                <Button onClick={this.takeSnapshot} label="Snapshot"/>
+                <Button onMouseDown={this.startAudioRecording}
+                        onMouseUp={this.stopAudioRecording} label="Ask Question"/>
+                <Button onClick={this.getAnswers} label="Get Answers" />
                 </Box>
               </Card>
             </Box>

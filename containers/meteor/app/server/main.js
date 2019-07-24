@@ -4,6 +4,7 @@ import   superagent      from 'superagent'
 import { Sessions      } from '/imports/api/sessions'
 
 const PYTHIA = 'http://158.85.220.245:5000' // 'http://localhost:5000'
+const INTERP = 'http://158.85.220.245:5001' // 'http://localhost:5000'
 
 console.log('server > main')
 
@@ -23,22 +24,38 @@ Meteor.methods(
     apiDivine : async function (params)
     {
         console.log('server > main > apiDivine called')
-
         console.log(params)
 
-        var question = params.question
-        var snapshot = Buffer.from(params.snapshot.split(',')[1], 'base64')
-
-        writeFileSync('snapshot.jpg', snapshot)
-
-        console.log(snapshot)
+        var tempo = '/tmp/image.jpg'
+        var image = Buffer.from(params.image.split(',')[1], 'base64')
+        writeFileSync(tempo, image) // save image to file
+        console.log(image)
 
         let response  = await superagent
         .post(`${PYTHIA}/api/divine`)
-        .query({question: question})
-        .attach('image',  'snapshot.jpg')
+        .query({question: params.query})
+        .attach('image',  tempo) // attach image from file
 
-        console.log(`divine return : ${response.text}`)
+        console.log(`server > main > apiDivine return : ${response.text}`)
+
+        return response.body
+    },
+
+    apiInterpret : async function (params)
+    {
+        console.log('server > main > apiInterpret called')
+        console.log(params)
+
+        var tempo = '/tmp/audio.wav'
+        var audio = Buffer.from(params.audio.split(',')[1], 'base64')
+        writeFileSync(tempo, audio) // save audio to file
+        console.log(audio)
+
+        let response  = await superagent
+        .post(`${INTERP}/api/interpret`)
+        .attach('audio',  tempo) // attach audio from file
+
+        console.log(`server > main > apiInterpret return : ${response.text}`)
 
         return response.body
     }
