@@ -10,7 +10,6 @@ services:
     environment: 
       - VIRTUAL_HOST=www.tiki.systems
       - LETSENCRYPT_HOST=www.tiki.systems
-      - VIRTUAL_PORT=3000
     networks:
       - hostnet
     ports:
@@ -24,9 +23,8 @@ services:
       - nginx-proxy
       - nginx-proxy-letsencrypt
     environment: 
-      - VIRTUAL_HOST=pythia.tiki.systems
-      - LETSENCRYPT_HOST=pythia.tiki.systems
-      - VIRTUAL_PORT=5000
+      - VIRTUAL_HOST=www.tiki.systems
+      - LETSENCRYPT_HOST=www.tiki.systems
     networks:
       - hostnet
     ports:
@@ -39,9 +37,8 @@ services:
       - nginx-proxy
       - nginx-proxy-letsencrypt
     environment: 
-      - VIRTUAL_HOST=interpret.tiki.systems
-      - LETSENCRYPT_HOST=interpret.tiki.systems
-      - VIRTUAL_PORT=5001
+      - VIRTUAL_HOST=www.tiki.systems
+      - LETSENCRYPT_HOST=www.tiki.systems
     networks:
       - hostnet
     ports:
