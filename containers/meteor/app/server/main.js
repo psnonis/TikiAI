@@ -46,6 +46,7 @@ Meteor.methods(
         console.log('server > main > apiInterpret called')
         console.log(params)
 
+        var sampa = '../../../../../public/sample_audio.wav'
         var tempo = '/tmp/audio.wav'
         var audio = Buffer.from(params.audio.split(',')[1], 'base64')
         writeFileSync(tempo, audio) // save audio to file
@@ -53,7 +54,7 @@ Meteor.methods(
 
         let response  = await superagent
         .post(`${INTERP}/api/interpret`)
-        .attach('audio',  tempo) // attach audio from file
+        .attach('audio',  sampa) // attach audio from file
 
         console.log(`server > main > apiInterpret return : ${response.text}`)
 
