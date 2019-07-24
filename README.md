@@ -1,5 +1,12 @@
 # w251-final
+
+# [www.tiki.systems](www.tiki.systems)
+
 ## Quick Start Guide
+
+Setup on localhost with docker-compose.yml.backup.  To utilize this from a mobile device requires an https certificate.
+
+The HTTPS certificate uses NGINX and Lets Encrypt.
 
 ```
 cd w251-final/containers
@@ -25,3 +32,8 @@ curl -X POST -F "image=@africa.jpg" localhost:5000/api/divine?question='where%20
 ```
 127.0.0.1:3000
 ```
+
+##### NGINX Proxy
+
+For additional information on the utilization of NGINX for proxy and HTTPS certificates, please see this link:
+https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion
