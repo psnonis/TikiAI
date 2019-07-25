@@ -16,10 +16,10 @@ Meteor.methods(
 {
     gitUpdate : function (params)
     {
-        console.log(`server > main > addPicture gitUpdate : ${params}`)
+        console.log(`server > main > gitUpdate called : ${params}`)
 
-        const { spawn } = require('child_process')
-        const update    = spawn('/final/gitUp.py')
+        const { execSync } = require('child_process')
+        const gitUp        = execSync('/final/gitUp.sh')
     },
 
     addPicture : function (params)
