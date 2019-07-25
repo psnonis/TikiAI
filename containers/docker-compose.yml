@@ -23,10 +23,6 @@ services:
     depends_on:
       - nginx-proxy
       - nginx-proxy-letsencrypt
-    environment: 
-      - VIRTUAL_HOST=pythia.tiki.systems
-      - LETSENCRYPT_HOST=pythia.tiki.systems
-      - VIRTUAL_PORT=5000
     networks:
       - hostnet
     ports:
@@ -38,10 +34,6 @@ services:
     depends_on:
       - nginx-proxy
       - nginx-proxy-letsencrypt
-    environment: 
-      - VIRTUAL_HOST=interpret.tiki.systems
-      - LETSENCRYPT_HOST=interpret.tiki.systems
-      - VIRTUAL_PORT=5001
     networks:
       - hostnet
     ports:
