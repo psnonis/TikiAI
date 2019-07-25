@@ -1,8 +1,8 @@
 import { Meteor } from 'meteor/meteor'
 
-import React      from 'react'
-import Session    from './Session'
-import GalleryContainer    from './Gallery'
+import React            from 'react'
+import Session          from './Session'
+import GalleryContainer from './Gallery'
 
 import 'gestalt/dist/gestalt.css'
 import
@@ -18,23 +18,13 @@ import
   TextField
 } from 'gestalt'
 
-const Section = ({ children, title }) =>
-(
-  <Box padding={2}>
-    <Box marginBottom={1}>
-      <Heading size="xs">{title}</Heading>
-    </Box>
-    {children}
-  </Box>
-)
-
 const App = () =>
 (
   <Box>
     <Box alignContent="center" justifyContent="center" maxWidth={960}>
       <Session/>
       <GalleryContainer/>
-      <Button onLick={gitPull} text="Git Pull"/>
+      <Button onClick={gitUpdate} text="Git Pull"/>
     </Box>
   </Box>
 )
@@ -42,33 +32,15 @@ const App = () =>
 const snapshot = new ReactiveDict()
 const question = new ReactiveVar()
 
-function gitPull(e)
+function gitUpdate(e)
 {
-  console.log('Git Pulling')
-}
+  console.log('Git Updating')
 
-function callDivine(e)
-{
-  var snapshot = ''
-  var question = ''
-
-  Meteor.call('divine', {question: question, snapshot: snapshot}, (err, res) =>
+  Meteor.call('gitUpdate', {}, (err, res) =>
   {
-    console.log(res)
+    console.log(res || 'No Response')
+    console.log(err || 'No Error')
   })
-}
-
-function questionChanged(event)
-{
-  console.log(`questionChanged : ${event.value}`)
-//Session.set('QUESTION', event.value)
-  console.log(event)
-}
-
-function monitorClicked(e)
-{
-  console.log(`monitorClicked : ${event}`)
-  console.log(event)
 }
 
 export default App
