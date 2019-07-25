@@ -24,7 +24,7 @@ const App = () =>
     <Box alignContent="center" justifyContent="center" maxWidth={960}>
       <Session/>
       <GalleryContainer/>
-      <Button onClick={gitUpdate} text="Git Pull"/>
+      <Button onClick={gitUpdate} text="Git Update"/>
     </Box>
   </Box>
 )
