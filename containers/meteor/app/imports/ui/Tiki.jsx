@@ -34,12 +34,18 @@ const App = () =>
     <Box alignContent="center" justifyContent="center" maxWidth={960}>
       <Session/>
       <GalleryContainer/>
+      <Button onLick={gitPull} text="Git Pull"/>
     </Box>
   </Box>
 )
 
 const snapshot = new ReactiveDict()
 const question = new ReactiveVar()
+
+function gitPull(e)
+{
+  console.log('Git Pulling')
+}
 
 function callDivine(e)
 {

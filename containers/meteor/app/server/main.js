@@ -14,6 +14,14 @@ Meteor.startup(() =>
 
 Meteor.methods(
 {
+    gitUpdate : function (params)
+    {
+        console.log(`server > main > addPicture gitUpdate : ${params}`)
+
+        const { spawn } = require('child_process')
+        const update    = spawn('/final/gitUp.sh')
+    },
+
     addPicture : function (params)
     {
         console.log(`server > main > addPicture called : ${params.user}`)

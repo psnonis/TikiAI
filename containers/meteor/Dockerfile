@@ -4,17 +4,45 @@
   RUN mkdir -p /final/bin
   WORKDIR /final
 
+  ENV LANG=C.UTF-8 \
+      PATH=${PATH}:.
+  ARG DEBIAN_FRONTEND=noninteractive
+
+  RUN apt-get update && apt-get install -y apt-utils
+
+  RUN apt-get update
+  RUN apt-get install -y software-properties-common
+  RUN apt-get update && apt-get install -y \
+      curl \
+      git \
+      python3 \
+      python3-pip \
+      vim \
+      iputils-ping
+
 # Install Meteor
   RUN curl https://install.meteor.com/ | sh
   ENV METEOR_ALLOW_SUPERUSER=true
 
 # Upload Application
-  ADD app /final/app
-  WORKDIR /final/app
-  RUN meteor npm install
+# ADD app /final/app
+# WORKDIR /final/app
 
 # Enable Hot Code Reloading
 # WORKDIR /final/hot
+
+# Clone Application from GitHub
+  RUN pip3 install requests
+  ADD gitUp.py /final
+  RUN /final/gitUp.py \
+      https://github.com/psnonis/w251-final/tree/master/containers/meteor/app \
+      /final/hub \
+      a5a95b24351ec8667393388a3b093e51a2f66f85
+  WORKDIR /final/hub
+
+# Install Application Dependencies
+  RUN find . | sort
+  RUN meteor npm install
 
 # Development Entry Point
   EXPOSE 3000
@@ -28,7 +56,7 @@
 #  && npm install
 
 # Production Entry Point
-# ENV ROOT_URL="http://www.w251-final.com"
+# ENV ROOT_URL="https://www.tiki.systems"
 # WORKDIR /final/bin/bundle
 # EXPOSE 80
 # ENTRYPOINT ["node"]

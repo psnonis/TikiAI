@@ -7,7 +7,7 @@
     WORKDIR /final
 
     ENV LANG=C.UTF-8 \
-      PATH=${PATH}:.
+        PATH=${PATH}:.
     ARG DEBIAN_FRONTEND=noninteractive
 
     RUN apt-get update && apt-get install -y apt-utils
