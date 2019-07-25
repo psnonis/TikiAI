@@ -125,7 +125,7 @@ export default class Session extends React.Component
     return (
     <Box>
       <Box color="navy" shape="roundedTop">
-        <Heading color="white" margin={2}>Current Session</Heading>
+        <Heading color="white" margin={2}>Tiki Session</Heading>
       </Box>
       <Box display="flex" direction="row" paddingY={2}>
         <Column span={8}>
