@@ -3,9 +3,9 @@ import { Meteor } from 'meteor/meteor'
 import { render } from 'react-dom'
 
 import React      from 'react'
-import Tiki       from '/imports/ui/Tiki'
+import App        from '/imports/ui/App'
 
 Meteor.startup(() =>
 {
-  render(<Tiki />, document.getElementById('react-target'))
+  render(<App />, document.getElementById('react-target'))
 })

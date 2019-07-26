@@ -1,31 +1,94 @@
-import React  from 'react'
-import Webcam from 'react-webcam'
+import React          from 'react'
 
-import
-{
-  ReactMic
-} from 'react-mic'
+import Webcam         from 'react-webcam'
+import { ReactMic }   from 'react-mic'
 
-import
-{
-  Avatar,
-  Column,
-  Box,
-  Card,
-  Heading,
-  Spinner,
-  Text,
-  Pulsar,
-  TextField
-} from 'gestalt'
+import Container      from '@material-ui/core/Container'
+import Grid           from '@material-ui/core/Grid'
+import Box            from '@material-ui/core/Box'
+import Button         from '@material-ui/core/Button'
+import ButtonGroup    from '@material-ui/core/ButtonGroup'
+import Icon           from '@material-ui/core/Icon'
+import TextField      from '@material-ui/core/TextField'
 
-import
+import { makeStyles } from '@material-ui/core/styles'
+
+import Answers        from './Answers'
+
+const useStyles = makeStyles(theme => (
 {
-  Button
-} from 'grommet'
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+  },
+  dense: {
+    marginTop: theme.spacing(2),
+  },
+  menu: {
+    width: 200,
+  },
+}))
+
+const css =
+{
+  
+}
 
 export default class Session extends React.Component
 {
+  render = () =>
+  {
+    return (
+      <Grid container spacing={3}>
+        <Grid item xs={12} md={7}>
+          <Grid container spacing={1} direction="column" alignItems="center">
+            <Grid item xs={12}>
+              <Webcam audio={false}
+                      width={640}
+                      height={360}
+                      ref={this.setRef}
+                      screenshotFormat="image/jpeg"
+                      videoConstraints={this.videoConstraints} />
+              <ReactMic record={this.state.record}
+                        className="sound-wave"
+                        mimeType="audio/wav;codecs=MS_PCM"
+                        onStop={this.getQuestion}
+                        nonstop={true}
+                        duration={5} />
+              <TextField label="Question"
+                         style={{ margin: 8 }}
+                         placeholder="what is happening ?"
+                         helperText="Question to Ask Tiki"
+                         fullWidth
+                         margin="normal"
+                         variant="filled"
+                         InputLabelProps={{shrink: true,}} />
+
+            <Grid container justify="center">
+              <ButtonGroup variant="contained" color="secondary" size="large" fullWidth>
+                <Button onClick={this.takeSnapshot}>Take Snapshot<Icon style={{marginLeft:8}}>camera_alt</Icon></Button>
+                <Button onMouseDown={this.startAudioRecording}
+                        onMouseUp={this.stopAudioRecording}>Ask Question<Icon style={{marginLeft:8}}>microphone</Icon></Button>
+                <Button onClick={this.getAnswers}>Get Answers<Icon style={{marginLeft:8}}>question_answer</Icon></Button>
+              </ButtonGroup>
+            </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item xs={12} md={5}>
+          <Grid container spacing={1} direction="column" alignItems="center">
+            <img src="tiki.gif" height={360} />
+            <Answers/>
+          </Grid>
+        </Grid>
+      </Grid>
+    )
+  }
+
   constructor(props)
   {
     super(props)
@@ -35,7 +98,7 @@ export default class Session extends React.Component
     this.state =
     {
       record   : false,
-      question : 'who is this person ?'
+      question : 'what is happening ?'
     }
 
     this.videoConstraints =
@@ -119,60 +182,4 @@ export default class Session extends React.Component
     this.setState( { value })
   }
 
-  render = () =>
-  {
-
-    return (
-    <Box>
-      <Box color="navy" shape="roundedTop">
-        <Heading color="white" margin={2}>Tiki Session</Heading>
-      </Box>
-      <Box display="flex" direction="row" paddingY={2}>
-        <Column span={8}>
-          <Box color="blue">
-            <Box maxWidth={640}>
-              <Card>
-                <Webcam
-                  audio={false}
-                  width={640}
-                  height={360}
-                  ref={this.setRef}
-                  screenshotFormat="image/jpeg"
-                  videoConstraints={this.videoConstraints}
-                />
-                <ReactMic
-                  record={this.state.record}
-                  className="sound-wave"
-                  mimeType="audio/wav;codecs=MS_PCM"
-                  onStop={this.getQuestion}
-                  strokeColor="#000000"
-                  backgroundColor="#FF4081"
-                  nonstop={true}
-                  duration={5} />
-                <TextField
-                  id="question"
-                  onChange={this.handleChange}
-                  placeholder="Question"
-                  value={this.state.question}
-                  type="text"
-                />
-                <Box display="flex" direction="row" paddingY={2}>
-                <Button onClick={this.takeSnapshot} label="Snapshot"/>
-                <Button onMouseDown={this.startAudioRecording}
-                        onMouseUp={this.stopAudioRecording} label="Ask Question"/>
-                <Button onClick={this.getAnswers} label="Get Answers" />
-                </Box>
-              </Card>
-            </Box>
-          </Box>
-        </Column>
-        <Column span={4}>
-          <Box color="watermelon" padding={4}>
-            <Pulsar />
-          </Box>
-        </Column>
-      </Box>
-    </Box>
-    )
-  }
 }
