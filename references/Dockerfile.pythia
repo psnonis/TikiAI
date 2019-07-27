@@ -1,0 +1,90 @@
+# Dockerfile for Pythia
+# Brent Biseda
+# W251 Project
+
+FROM pytorch/pytorch:1.1.0-cuda10.0-cudnn7.5-devel
+#FROM nvcr.io/nvidia/tensorflow:19.05-py3
+RUN apt-get -y update
+
+# necessary to make add_user.sh work
+RUN apt-get install -y --fix-missing sudo
+
+# stuff opencv complains if they are not installed
+RUN apt-get install -y --fix-missing \
+    libsm6 \
+    libxext6 \
+    libxrender-dev \
+    libgtk2.0-dev \
+    libavcodec-dev \
+    libavformat-dev \
+    libswscale-dev \
+    wget \
+    curl \
+    mosquitto \
+    mosquitto-clients
+
+RUN pip install --upgrade pip
+
+RUN apt-get clean && rm -rf /tmp/* /var/tmp/*
+RUN apt-get install -y python3-pip
+RUN pip3 --no-cache-dir install \
+opencv-python \
+scikit-image
+
+RUN pip install jupyter
+RUN pip install seaborn
+RUN pip install nltk
+RUN pip install pandas
+RUN pip install scikit-learn
+RUN pip install tensorflow-gpu
+RUN pip install keras
+RUN pip install paho-mqtt
+RUN pip install ibm-cos-sdk
+
+RUN git clone https://github.com/NVIDIA/apex.git && cd apex && python setup.py install --cuda_ext --cpp_ext
+
+#Download models & necessary data
+WORKDIR /
+RUN mkdir content
+WORKDIR /content
+RUN mkdir model_data
+
+RUN wget -O /content/model_data/answers_vqa.txt https://dl.fbaipublicfiles.com/pythia/data/answers_vqa.txt
+RUN wget -O /content/model_data/vocabulary_100k.txt https://dl.fbaipublicfiles.com/pythia/data/vocabulary_100k.txt
+RUN wget -O /content/model_data/detectron_model.pth  https://dl.fbaipublicfiles.com/pythia/detectron_model/detectron_model.pth
+RUN wget -O /content/model_data/pythia.pth https://dl.fbaipublicfiles.com/pythia/pretrained_models/vqa2/pythia_train_val.pth
+RUN wget -O /content/model_data/pythia.yaml https://dl.fbaipublicfiles.com/pythia/pretrained_models/vqa2/pythia_train_val.yml
+RUN wget -O /content/model_data/detectron_model.yaml https://dl.fbaipublicfiles.com/pythia/detectron_model/detectron_model.yaml
+RUN wget -O /content/model_data/detectron_weights.tar.gz https://dl.fbaipublicfiles.com/pythia/data/detectron_weights.tar.gz
+RUN tar xf /content/model_data/detectron_weights.tar.gz
+
+#Install Dependencies
+RUN pip install ninja yacs cython matplotlib demjson
+RUN pip install git+https://github.com/cocodataset/cocoapi.git#subdirectory=PythonAPI
+
+#Install Fast Text
+ENV LANG C.UTF-8
+
+WORKDIR /content/
+RUN rm -rf fastText
+RUN git clone https://github.com/facebookresearch/fastText.git /content/fastText
+WORKDIR /content/fastText/
+RUN pip install -e .
+
+WORKDIR /content/
+
+RUN git clone https://github.com/facebookresearch/pythia /content/pythia
+WORKDIR /content/pythia/
+
+RUN python setup.py develop
+
+WORKDIR /content/
+
+RUN git clone https://gitlab.com/meetshah1995/vqa-maskrcnn-benchmark.git
+WORKDIR /content/vqa-maskrcnn-benchmark
+# Compile custom layers and build mask-rcnn backbone
+RUN python setup.py build
+RUN python setup.py develop
+ENV PATH=$PATH:/vqa-maskrcnn-benchmark
+
+
