@@ -1,23 +1,27 @@
-import { Meteor } from 'meteor/meteor'
+import React   from 'react'
 
-import React          from 'react'
+import TikiBar from './TikiBar'
+import Session from './Session'
+import Gallery from './Gallery'
+import Testing from './Testing'
 
-import NaviBar        from './NaviBar'
-import Session        from './Session'
-import Gallery        from './Gallery'
-import Testing        from './Testing'
+import Container from '@material-ui/core/Container'
 
-import Container      from '@material-ui/core/Container'
+const css =
+{
+  root :
+  {
+    padding : 0
+  }
+}
 
 const App = () =>
-{
-  return (
-    <Container root fixed>
-      <NaviBar/>
-      <Session/>
-      <Gallery/>
-    </Container>
-  )
-}
+(
+  <Container id="AppRoot" style={css.root}>
+    <TikiBar id="TikiBar" />
+    <Session id="Session" />
+    <Gallery id="Gallery"/>
+  </Container>
+)
 
 export default App

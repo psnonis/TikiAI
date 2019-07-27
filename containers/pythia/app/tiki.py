@@ -32,7 +32,7 @@ delays = \
     'InferTime' : 0.0
 }
 
-class Oracle:
+class Tiki:
 
     TARGET_IMAGE_SIZE = [448, 448]
     CHANNEL_MEAN      = [0.485, 0.456, 0.406]
@@ -40,7 +40,7 @@ class Oracle:
 
     def __init__(self, device_type = 'cpu'):
 
-        print(f'Oracle : Initializing : Device Type is {device_type}')
+        print(f'Tiki : Initializing : Device Type is {device_type}')
 
         start = time.time()
 
@@ -53,13 +53,13 @@ class Oracle:
         self.pythiaVQA_model = self.build_pythia_model() # https://github.com/facebookresearch/Pythia
 
         end = time.time()
-        print( f'Oracle : Initializing : Finished in {end-start:7.3f} Seconds\n')
+        print( f'Tiki : Initializing : Finished in {end-start:7.3f} Seconds\n')
 
         delays['BuildTime'] = end-start
 
     def build_processors(self):
 
-        print('Oracle : Initializing : Building - Text Processors')
+        print('Tiki : Initializing : Building - Text Processors')
 
         with open('/final/data/pythia.yaml') as f:
             config = yaml.load(f, Loader = yaml.FullLoader)
@@ -96,7 +96,7 @@ class Oracle:
 
             return new_sd
 
-        print('Oracle : Initializing : Building - PythiaVQA')
+        print('Tiki : Initializing : Building - PythiaVQA')
 
         state_dict = torch.load('/final/data/pythia.pth', map_location = self.device)
 
@@ -122,7 +122,7 @@ class Oracle:
     
     def build_resnet_model(self):
 
-        print('Oracle : Initializing : Building - ResNet152')
+        print('Tiki : Initializing : Building - ResNet152')
 
         self.data_transforms = transforms.Compose([
             transforms.Resize(self.TARGET_IMAGE_SIZE),
@@ -141,7 +141,7 @@ class Oracle:
 
     def build_detect_model(self):
 
-        print('Oracle : Initializing : Building - Detectron')
+        print('Tiki : Initializing : Building - Detectron')
 
         cfg.merge_from_file('/final/data/detectron_model.yaml')
         cfg.freeze()
@@ -227,7 +227,7 @@ class Oracle:
         features     = self.feature_extract(output, [scale], 'fc6', 0.2)
         end          = time.time()
 
-        print(f'Oracle : Getting Features : Detectron - Finished in {end-start:7.3f} Seconds')
+        print(f'Tiki : Getting Features : Detectron - Finished in {end-start:7.3f} Seconds')
 
         delays['Detectron'] = end-start
 
@@ -253,20 +253,20 @@ class Oracle:
         features = features.view(196, 2048)
         end      = time.time()
 
-        print(f'Oracle : Getting Features : ResNet152 - Finished in {end-start:7.3f} Seconds')
+        print(f'Tiki : Getting Features : ResNet152 - Finished in {end-start:7.3f} Seconds')
 
         delays['ResNet152'] = end-start
 
         return features
 
-    def divine(self, image, question, meta = None):
+    def getAnswers(self, image, question, meta = None):
 
         first = time.time()
         meta  = meta or str(image)
         image = Image.open(image).convert('RGB') if isinstance(image, str) else \
                 image.convert('RGB')
 
-        print(f'Oracle : Divining Answers : {meta}, {question}')
+        print(f'Tiki : Getting Answers : {meta}, {question}')
 
         with torch.no_grad():
 
@@ -298,18 +298,19 @@ class Oracle:
             top_indices = indices[0]
             top_scores  = actual[0]
 
-            probs   = []
             answers = []
 
-            for idx, score in enumerate(top_scores):
-                probs.append(score.item())
+            for rank, score in enumerate(top_scores):
                 answers.append(
-                    self.answer_processor.idx2word(top_indices[idx].item())
-                )
-            
-            end = time.time()
+                { 'rank'        : rank,
+                  'answer'      : self.answer_processor.idx2word(top_indices[rank].item()),
+                  'probability' : score.item()})
 
-        print(f'Oracle : Divining Answers : PythiaVQA - Finished in {end-start:7.3f} Seconds')
+            best = answers[0]['answer']
+
+            end  = time.time()
+
+        print(f'Tiki : Getting Answers : PythiaVQA - Finished in {end-start:7.3f} Seconds')
 
         delays['PythiaVQA'] = end-start
 
@@ -321,8 +322,8 @@ class Oracle:
 
         delays['InferTime'] = last-first
 
-        return probs, answers, delays
+        return best, answers, delays
 
-if  __name__ == '__main__' :
+if  __name__ == '__main__':
 
-    Oracle()
+    Tiki()

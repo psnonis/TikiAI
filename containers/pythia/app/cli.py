@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import click as     cli
-from  oracle import Oracle
+from    tiki import Tiki
 from    time import time
 
 @cli.command()
@@ -10,22 +10,22 @@ from    time import time
 @cli.option('--question', default = None)
 def main(device, image, question):
 
-    orc = Oracle(device)
+    tiki     = Tiki(device)
 
-    print(f'\nOracle : Command-line Interface\n')
+    print(f'\nTiki : Command-line Interface\n')
 
     start    = time()
-    probs,   \
+    best,    \
     answers, \
-    delays   = orc.divine(image, question)
+    delays   = tiki.getAnswers(image, question)
     end      = time()
 
-    print(f'Oracle : Divining Answers : End-2-End - Finished in {end-start:7.3f} Seconds')
-    print(f'Oracle : RANK | CONFIDENCE | ANSWER')
+    print(f'Tiki : Getting Answers : End-2-End - Finished in {end-start:7.3f} Seconds')
+    print(f'Tiki : RANK | CONFIDENCE | ANSWER')
 
-    for n, (p, a) in enumerate(zip(probs, answers), 1):
+    for a in answers :
 
-        print(f'       : {n:<4} | {p:07.3%}    | {a}')
+        print(f"       : {a['rank']:<4} | {a['probability']:07.3%}    | {a['answer']}")
 
 if  __name__ == '__main__':
     

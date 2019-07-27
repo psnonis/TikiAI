@@ -14,28 +14,83 @@ import TextField      from '@material-ui/core/TextField'
 import { makeStyles } from '@material-ui/core/styles'
 
 import Answers        from './Answers'
+import { spacing } from '@material-ui/system';
 
-const useStyles = makeStyles(theme => (
+const styles = makeStyles(theme => (
 {
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
+  container :
+  {
+    display  : 'flex',
+    flexWrap : 'wrap',
   },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
+  textField :
+  {
+    marginLeft  : theme.spacing(1),
+    marginRight : theme.spacing(1),
   },
-  dense: {
-    marginTop: theme.spacing(2),
+  dense :
+  {
+    marginTop : theme.spacing(2),
   },
-  menu: {
-    width: 200,
+  menu :
+  {
+    width : 200,
   },
 }))
 
 const css =
 {
-  
+  root :
+  {
+    marginTop  : 8,
+    background : 'magenta'
+  },
+  bag :
+  {
+    display  : 'flex',
+    flexFlow : 'row wrap'
+  },
+
+  cam :
+  {
+    display    : 'flex',
+
+    background : 'black',
+    width      : 359,
+    height     : 202,
+    shrink     : true
+  },
+  mic :
+  {
+    background : 'lime',
+    width      : 359,
+    height     : 101,
+    shrink     : true
+  }
+}
+
+const rows = [
+  { rank : 1, answer : 'A', probability : 20.0 },
+  { rank : 2, answer : 'B', probability : 20.0 },
+  { rank : 3, answer : 'C', probability : 20.0 },
+  { rank : 4, answer : 'D', probability : 20.0 },
+  { rank : 5, answer : 'E', probability : 20.0 },
+]
+
+function Tiki (props)
+{
+  const answers = props.answers
+
+  console.log(answers)
+
+  if (answers)
+  {
+    return <Answers answers={answers} />
+  }
+  else
+  {
+    return <Grid container item justify="center" style={{background:'blue'}} ><img style={{background:'red'}} src="tiki.gif" height={360} /></Grid>
+  }
 }
 
 export default class Session extends React.Component
@@ -43,34 +98,34 @@ export default class Session extends React.Component
   render = () =>
   {
     return (
-      <Grid container spacing={0}>
-        <Grid item spacing={0}>
-          <Grid container spacing={0} direction="column" alignItems="center">
-            <Grid item spacing={0}>
-              <Webcam audio={false}
-                      width={640}
-                      height={360}
+      <Grid container style={css.root}>
+        <Grid container item>
+          <Grid container item direction="column" alignItems="center">
+            <Grid item style={css.bag}>
+              <Webcam style={css.cam}
+                      audio={false}
+                      height={202}
                       ref={this.setRef}
                       screenshotFormat="image/jpeg"
                       videoConstraints={this.videoConstraints} />
-              <ReactMic record={this.state.record}
-                        className="sound-wave"
-                        mimeType="audio/wav;codecs=MS_PCM"
-                        onStop={this.getQuestion}
+              <ReactMic style={css.mic}
+                        className='mic'
+                        record={this.state.record}
+                        mimeType='audio/wav;codecs=MS_PCM'
+                        onStop={this.askQuestion}
                         nonstop={true}
-                        duration={5} />
-              <TextField label="Question"
-                         style={{ margin: 8 }}
-                         placeholder="what is happening ?"
-                         helperText="Question to Ask Tiki"
+                        duration={5}
+                        backgroundColor={'#3f51b5'}
+                        strokeColor={'white'}/>
+              <TextField label='Question'
                          fullWidth
-                         margin="normal"
                          variant="filled"
-                         InputLabelProps={{shrink: true,}} />
+                         InputLabelProps={{shrink: true,}}
+                         value={this.state.question}
+                         onChange={this.onChangeQuestion} />
 
-            <Grid spacing={0} container justify="center">
-              <ButtonGroup variant="contained" color="secondary" size="large" fullWidth>
-                <Button onClick={this.takeSnapshot}>Take Snapshot<Icon style={{marginLeft:8}}>camera_alt</Icon></Button>
+            <Grid container item justify="center">
+              <ButtonGroup variant="contained" color="primary" size="small" fullWidth>
                 <Button onMouseDown={this.startAudioRecording}
                         onMouseUp={this.stopAudioRecording}>Ask Question<Icon style={{marginLeft:8}}>microphone</Icon></Button>
                 <Button onClick={this.getAnswers}>Get Answers<Icon style={{marginLeft:8}}>question_answer</Icon></Button>
@@ -79,26 +134,24 @@ export default class Session extends React.Component
             </Grid>
           </Grid>
         </Grid>
-        <Grid item spacing={0}>
-          <Grid container spacing={0} direction="column" alignItems="center">
-            <img src="tiki.gif" height={360} />
-            <Answers/>
-          </Grid>
+        <Grid container item>
+          <Tiki answers={this.state.answers} />
         </Grid>
       </Grid>
     )
   }
 
-  constructor(props)
+  constructor (props)
   {
     super(props)
 
-    this.handleChange = this.handleChange.bind(this)
+    this.onChangeQuestion = this.onChangeQuestion.bind(this)
     
     this.state =
     {
       record   : false,
-      question : 'what is happening ?'
+      question : 'what is happening ?',
+      answers  : null
     }
 
     this.videoConstraints =
@@ -116,50 +169,67 @@ export default class Session extends React.Component
 
   takeSnapshot = () =>
   {
-    console.log(`session > takeSnapshot`)
+    console.log(`client > Session > takeSnapshot`)
 
     const picture  = this.webcam.getScreenshot()
     const user     = Math.floor(Math.random() * Math.floor(3))
 
-    Meteor.call('addPicture', {user : user, picture : picture}, (err, res) =>
+    Meteor.call('addPicture', { user : user, picture : picture }, (err, res) =>
     {
     })
   }
 
   getAnswers = () =>
   {
-    console.log(`session > getAnswers`)
-
+    console.log(`client > Session > getAnswers`)
+   
     const picture  = this.webcam.getScreenshot()
     var   question = 'who is this person ?'
 
-    console.log('callin apiDivine')
+    console.log('client > Session > getAnswers : callin apiDivine')
+
+    this.setState({ answers : null })
+    this.setState({ answers : { 'hello' : 'world' } })
 
     Meteor.call('apiDivine', { query : question, image : picture }, (err, res) =>
     {
-      console.log('return apiDivine')
+      console.log('client > Session > getAnswers : return apiDivine')
       console.log(res)
       console.log(err || 'No Error')
+
+      this.setState({ answers : res.image })
     })
   }
  
-  getQuestion = (recording) =>
+  askQuestion = (recording) =>
   {
-    console.log(`session > getQuestion`)
+    console.log(`client > Session > askQuestion`)
     console.log(recording.blob)
+
+    this.setState({ question : 'Interpreting Question, Please Wait...' })
 
     let reader = new FileReader()
     reader.onload = (e) =>
     {
       let audio = reader.result
       console.log(audio)
-      console.log('callin apiInterpret')
+
+      console.log('client > Session > askQuestion : callin apiInterpret')
   
       Meteor.call('apiInterpret', { audio : audio }, (err, res) =>
       {
-        console.log('return apiInterpret')
+        console.log('client > Session > askQuestion : return apiInterpret')
         console.log(res || 'No Response')
         console.log(err || 'No Error')
+
+        if (res)
+        {
+          this.setState({ question : res.audio.interpretation })
+        }
+        else
+        {
+          this.setState({ question : 'Something Went Wrong, Try Again...' })
+        }
       })
     }
     reader.readAsDataURL(recording.blob)
@@ -167,19 +237,19 @@ export default class Session extends React.Component
 
   startAudioRecording = () =>
   {
-    console.log(`session > startAudioRecording`)
+    console.log(`client > Session > startAudioRecording`)
     this.setState({ record : true })
   }
  
   stopAudioRecording = () =>
   {
-    console.log(`session > stopAudioRecording`)
+    console.log(`client > Session > stopAudioRecording`)
     this.setState({ record : false })
   }
 
-  handleChange = ({ value }) =>
+  onChangeQuestion = (e) =>
   {
-    this.setState( { value })
+    console.log(`client > Session > onChangeQuestion : ${e.target.value}`)
+    this.setState({ question : e.target.value })
   }
-
 }

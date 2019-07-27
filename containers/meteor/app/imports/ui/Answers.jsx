@@ -13,9 +13,8 @@ const styles = makeStyles(theme => (
 {
   root :
   {
-    width: '100%',
-    marginTop: theme.spacing(3),
-    overflowX: 'auto',
+    width     : '100%',
+    overflowX : 'auto',
   },
   table :
   {
@@ -30,8 +29,10 @@ const rows = [
   { rank : 5, answer : 'E', probability : 20.0 },
 ]
 
-export default function Answers() {
-  const cls = styles()
+export default function Answers (props)
+{
+  const answers = props.answers
+  const cls     = styles()
 
   return (
     <Paper className={cls.root}>

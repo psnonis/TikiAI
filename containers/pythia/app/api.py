@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import click as     cli
-from  oracle import Oracle
+from    tiki import Tiki
 from    time import time
 
 from PIL import Image
@@ -19,23 +19,23 @@ TXT='\x1B[38;5;190m'
 RST='\x1B[0m'
 EOL='\n'
 
-def orc(app):
+def tiki(app):
 
-    if  not orc.oracle:
-        orc.device = app.config['device']
-        orc.oracle = Oracle(orc.device)
+    if  not tiki.object:
+        tiki.device = app.config['device']
+        tiki.object = Tiki(tiki.device)
 
-    return orc.oracle
+    return tiki.object
 
-orc.device = None
-orc.oracle = None
+tiki.device = None
+tiki.object = None
 
 app = Flask(__name__)
 
-@app.route('/api/divine', methods = ['POST'])
-def api_divine():
+@app.route('/api/getAnswers', methods = ['POST'])
+def api_getAnswers():
 
-    print(f'{EOL}{SKY}{TXT}  HANDLER > api_divine [{time()}] {PAD}{RST}')
+    print(f'{EOL}{SKY}{TXT}  HANDLER > api_getAnswers [{time()}] {PAD}{RST}')
     request.get_data()
 
     question = request.args.get('question')
@@ -58,9 +58,9 @@ def api_divine():
             print(f'{PUR}{TXT} QUESTION > {question} {PAD}')
             print(f'{PUR}{TXT}    IMAGE > {meta    } {PAD}{RST}{EOL}')
 
-            response[name]['probabilities'], \
-            response[name]['answers'      ], \
-            response[name]['delay'        ]  = orc(app).divine(image, question, meta)
+            response[name]['best'   ], \
+            response[name]['answers'], \
+            response[name]['delay'  ]  = tiki(app).getAnswers(image, question, meta)
 
         return response
 
@@ -77,15 +77,17 @@ def index():
 
     return f'Pythia Flask Server Up and Running! : {time()}'
 
-@app.route('/africa')
+@app.route('/api/africa')
 def africa():
 
-    start          = time()
-    probs, answers = orc(app).divine('africa.jpg', 'where is this place ?')
-    end            = time()
+    start     = time()
+    best,
+    answers,
+    delays    = tiki(app).getAnswers('africa.jpg', 'where is this place ?')
+    end       = time()
 
-    print(f'Oracle : Divining Answers : End-2-End - Finished in {end-start:7.3f} Seconds')
-    print(f'Oracle : RANK | CONFIDENCE | ANSWER')
+    print(f'Tiki : Divining Answers : End-2-End - Finished in {end-start:7.3f} Seconds')
+    print(f'Tiki : RANK | CONFIDENCE | ANSWER')
 
     for n, (p, a) in enumerate(zip(probs, answers), 1):
 
@@ -97,11 +99,11 @@ def africa():
 @cli.option('--device',   default = 'cpu', type = cli.Choice(['cpu', 'cuda', 'mkldnn', 'opengl', 'opencl', 'ideep', 'hip', 'msnpu']))
 def main(device):
 
-    print(f'\nOracle : RESTful Application Programming Interface\n')
+    print(f'\nTiki : RESTful Application Programming Interface\n')
 
     app.config['device'] = device
 
-    orc(app)
+    tiki(app)
 
     app.run(host = '0.0.0.0', debug = False)
 
