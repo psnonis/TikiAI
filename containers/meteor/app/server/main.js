@@ -29,9 +29,9 @@ Meteor.methods(
         Sessions.update({ _id : params.user }, { $set : { picture : params.picture } }, { upsert : true })
     },
 
-    apiDivine : async function (params)
+    api_getAnswers : async function (params)
     {
-        console.log('server > main > apiDivine called')
+        console.log('server > main > api_getAnswers called')
         console.log(params)
 
         var sample    = '../../../../../public/sample_image.jpg'
@@ -41,18 +41,18 @@ Meteor.methods(
         writeFileSync(temporary, image) // save image to file
 
         let response  = await superagent
-        .post(`${PYTHIA}/api/divine`)
+        .post(`${PYTHIA}/api/getAnswers`)
         .query({question: params.query})
         .attach('image',  temporary) // attach image from file
 
-        console.log(`server > main > apiDivine return : ${response.text}`)
+        console.log(`server > main > api_getAnswers return : ${response.text}`)
 
         return response.body
     },
 
-    apiInterpret : async function (params)
+    api_askQuestion : async function (params)
     {
-        console.log('server > main > apiInterpret called')
+        console.log('server > main > api_askQuestion called')
         console.log(params)
 
         var sample    = '../../../../../public/sample_audio.wav'
@@ -65,7 +65,7 @@ Meteor.methods(
         .post(`${INTERP}/api/interpret`)
         .attach('audio',  sample) // attach audio from file
 
-        console.log(`server > main > apiInterpret return : ${response.text}`)
+        console.log(`server > main > api_askQuestion return : ${response.text}`)
 
         return response.body
     }

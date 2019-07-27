@@ -14,7 +14,6 @@ import TextField      from '@material-ui/core/TextField'
 import { makeStyles } from '@material-ui/core/styles'
 
 import Answers        from './Answers'
-import { spacing } from '@material-ui/system';
 
 const styles = makeStyles(theme => (
 {
@@ -186,14 +185,14 @@ export default class Session extends React.Component
     const picture  = this.webcam.getScreenshot()
     var   question = 'who is this person ?'
 
-    console.log('client > Session > getAnswers : callin apiDivine')
+    console.log('client > Session > getAnswers : callin api_getAnswers')
 
     this.setState({ answers : null })
     this.setState({ answers : { 'hello' : 'world' } })
 
-    Meteor.call('apiDivine', { query : question, image : picture }, (err, res) =>
+    Meteor.call('api_getAnswers', { query : question, image : picture }, (err, res) =>
     {
-      console.log('client > Session > getAnswers : return apiDivine')
+      console.log('client > Session > getAnswers : return api_getAnswers')
       console.log(res)
       console.log(err || 'No Error')
 
@@ -214,11 +213,11 @@ export default class Session extends React.Component
       let audio = reader.result
       console.log(audio)
 
-      console.log('client > Session > askQuestion : callin apiInterpret')
+      console.log('client > Session > askQuestion : callin api_askQuestion')
   
-      Meteor.call('apiInterpret', { audio : audio }, (err, res) =>
+      Meteor.call('api_askQuestion', { audio : audio }, (err, res) =>
       {
-        console.log('client > Session > askQuestion : return apiInterpret')
+        console.log('client > Session > askQuestion : return api_askQuestion')
         console.log(res || 'No Response')
         console.log(err || 'No Error')
 
