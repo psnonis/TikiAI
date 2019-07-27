@@ -12,7 +12,7 @@ import Container      from '@material-ui/core/Container'
 const App = () =>
 {
   return (
-    <Container>
+    <Container root fixed>
       <NaviBar/>
       <Session/>
       <Gallery/>

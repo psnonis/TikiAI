@@ -43,10 +43,10 @@ export default class Session extends React.Component
   render = () =>
   {
     return (
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={7}>
-          <Grid container spacing={1} direction="column" alignItems="center">
-            <Grid item xs={12}>
+      <Grid container spacing={0}>
+        <Grid item spacing={0}>
+          <Grid container spacing={0} direction="column" alignItems="center">
+            <Grid item spacing={0}>
               <Webcam audio={false}
                       width={640}
                       height={360}
@@ -68,7 +68,7 @@ export default class Session extends React.Component
                          variant="filled"
                          InputLabelProps={{shrink: true,}} />
 
-            <Grid container justify="center">
+            <Grid spacing={0} container justify="center">
               <ButtonGroup variant="contained" color="secondary" size="large" fullWidth>
                 <Button onClick={this.takeSnapshot}>Take Snapshot<Icon style={{marginLeft:8}}>camera_alt</Icon></Button>
                 <Button onMouseDown={this.startAudioRecording}
@@ -79,8 +79,8 @@ export default class Session extends React.Component
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={12} md={5}>
-          <Grid container spacing={1} direction="column" alignItems="center">
+        <Grid item spacing={0}>
+          <Grid container spacing={0} direction="column" alignItems="center">
             <img src="tiki.gif" height={360} />
             <Answers/>
           </Grid>
