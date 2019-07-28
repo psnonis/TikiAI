@@ -14,13 +14,6 @@ Meteor.startup(() =>
 
 Meteor.methods(
 {
-    gitUpdate : function (params)
-    {
-        console.log(`server > main > gitUpdate called : ${params}`)
-
-        const { execSync } = require('child_process')
-        const gitUp        = execSync('/final/gitUp.sh')
-    },
 
     addPicture : function (params)
     {
@@ -59,13 +52,36 @@ Meteor.methods(
 
         var sample    = '../../../../../public/sample_audio.wav'
         var temporary = 'audio.wav'
+        // var audio     = Buffer.from(params.audio.split(',')[1], 'base64')
+        
         var audio     = Buffer.from(params.audio.split(',')[1], 'base64')
+        var toWav = require('audiobuffer-to-wav')
+        var xhr = require('xhr')
+        var context = new AudioContext()
+        audioContext.decodeAudioData(resp, function (buffer) {
+            // encode AudioBuffer to WAV
+            var wav = toWav(audio)})
+        
+        // // request the MP3 as binary
+        // xhr({
+        // uri: audio,
+        // responseType: 'arraybuffer'
+        // }, function (err, body, resp) {
+        // if (err) throw err
+        // // decode the MP3 into an AudioBuffer
+        // audioContext.decodeAudioData(resp, function (buffer) {
+        //     // encode AudioBuffer to WAV
+        //     var wav = toWav(buffer)
+            
+        //     // do something with the WAV ArrayBuffer ...
+        // })
+        // })
 
         writeFileSync(temporary, audio) // save audio to file
 
         let response  = await superagent
         .post(`${INTERP}/api/interpret`)
-        .attach('audio',  sample) // attach audio from file
+        .attach('audio',  wav) // attach audio from file
 
         console.log(`server > main > api_askQuestion return : ${response.text}`)
 

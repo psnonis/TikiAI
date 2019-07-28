@@ -49,17 +49,8 @@ export default function TikiBar()
       <Toolbar>
           <IconButton edge="start" className={cls.menu} color="inherit" aria-label="menu"><MenuIcon /></IconButton>
           <Typography variant="h6" className={cls.title}>TIKI.ai</Typography>
-          <Button color="inherit" onClick={gitUpdate}>Update</Button>
       </Toolbar>
       </AppBar>
-      <Snackbar
-          open
-          autoHideDuration={4000}
-          ContentProps={{'aria-describedby' : 'snackbar-fab-message-id',}}
-          message={<span id="snackbar-fab-message-id">Updating from GitHub!</span>}
-          action={<Button color="inherit" size="small">OK</Button>}
-          className={cls.snackbar}
-        />
     </Grid>
     </React.Fragment>
   )
