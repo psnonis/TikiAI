@@ -149,7 +149,7 @@ export default class Session extends React.Component
     this.state =
     {
       record   : false,
-      question : 'what is happening ?',
+      question : 'What is happening?',
       answers  : null
     }
 
