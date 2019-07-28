@@ -183,7 +183,7 @@ export default class Session extends React.Component
     console.log(`client > Session > getAnswers`)
    
     const picture  = this.webcam.getScreenshot()
-    var   question = 'who is this person ?'
+    var   question = this.state.question
 
     console.log('client > Session > getAnswers : callin api_getAnswers')
 

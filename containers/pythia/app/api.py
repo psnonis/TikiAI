@@ -83,9 +83,8 @@ def africa():
     start      = time()
     image      = Image.open('africa.jpg')
     meta       = f'{image.format}, {image.size}, {image.mode}'
-    question,
-    answer,
-    answers = tiki(app).getAnswers('africa.jpg', 'where is this place ?', meta)
+       
+    question, answer, answers = tiki(app).getAnswers('africa.jpg', 'where is this place ?', meta)
 
     end        = time()
 

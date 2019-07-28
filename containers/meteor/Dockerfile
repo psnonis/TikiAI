@@ -25,18 +25,18 @@
   ENV METEOR_ALLOW_SUPERUSER=true
 
 # Upload Application
-# ADD app /final/app
-# WORKDIR /final/app
+  ADD app /final/app
+  WORKDIR /final/app
 
 # Enable Hot Code Reloading
 # WORKDIR /final/hot
 
 # Clone Application from GitHub
-  RUN pip3 install requests
-  ADD gitUp.sh /final
-  ADD gitUp.py /final
-  RUN /final/gitUp.sh
-  WORKDIR /final/hub
+  # RUN pip3 install requests
+  # ADD gitUp.sh /final
+  # ADD gitUp.py /final
+  # RUN /final/gitUp.sh
+  # WORKDIR /final/hub
 
 # Install Application Dependencies
   RUN find . | sort

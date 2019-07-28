@@ -15,9 +15,8 @@ services:
       - hostnet
     ports:
       - 3000:3000
-    image:  psnonis/w251-final:meteor
-    #build: 
-    #  context: ./meteor/
+    build: 
+      context: ./meteor/
 
   pythia:
     container_name: pythia
