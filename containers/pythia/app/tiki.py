@@ -322,7 +322,7 @@ class Tiki:
 
         delays['InferTime'] = last-first
 
-        return question, answer, answers, processing
+        return question, answer, answers
 
 if  __name__ == '__main__':
 

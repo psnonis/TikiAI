@@ -3,8 +3,8 @@ import { writeFileSync } from 'fs'
 import   superagent      from 'superagent'
 import { Sessions      } from '/imports/api/sessions'
 
-const PYTHIA = 'http://158.85.220.245:5000' // 'http://localhost:5000'
-const INTERP = 'http://158.85.220.245:5001' // 'http://localhost:5000'
+const PYTHIA = 'http://158.175.150.58:5000' // 'http://localhost:5000'
+const INTERP = 'http://158.175.150.58:5001' // 'http://localhost:5000'
 
 console.log('server > main')
 

@@ -16,10 +16,7 @@ def main(device, image, question):
 
     start      = time()
 
-    question,  
-    answer,    
-    answers,   
-    processing = tiki.getAnswers(image, question)
+    question, answer, answers = tiki.getAnswers(image, question)
 
     end        = time()
 
