@@ -1,6 +1,5 @@
-# FROM nvidia/cuda:10.1-devel-ubuntu18.04
-# FROM pytorch/pytorch:1.1.0-cuda10.0-cudnn7.5-devel
-  FROM pytorch/pytorch:nightly-devel-cuda10.0-cudnn7
+# Initial Container
+  FROM pytorch/pytorch:1.1.0-cuda10.0-cudnn7.5-devel
 
 # Setup Working Directory
   RUN mkdir -p /final/data \
@@ -13,12 +12,6 @@
   ARG DEBIAN_FRONTEND=noninteractive
   RUN apt update \
    && apt install -yq apt-utils wget curl git
-
-# Install Python3
-# RUN apt install -yq python3-pip python3-dev \
-#  && ln -s /usr/bin/python3 /usr/local/bin/python \
-#  && ln -s /usr/bin/pip3 /usr/local/bin/pip \
-#  && pip install --upgrade pip
 
 # Download Training Data
   RUN wget -qO /final/data/vocabulary_100k.txt      https://dl.fbaipublicfiles.com/pythia/data/vocabulary_100k.txt \
@@ -43,12 +36,10 @@
 
 # Nvidia PyTorch Mixed-Precision Extension
   RUN git clone https://github.com/NVIDIA/apex.git /final/pack/apex \
-#  && pip install -e /final/pack/apex --global-option="--cpp_ext" --global-option="--cuda_ext"
    && cd /final/pack/apex \
    && python setup.py install --cuda_ext --cpp_ext
 
 # Install PyTorch
-# RUN pip install torch \
   RUN pip install torchvision torchtext
 
 # Install Dependencies
@@ -64,11 +55,12 @@
    && pip install -e /final/pack/vqa-maskrcnn-benchmark
 
 # Install Pythia
-  RUN git clone https://github.com/facebookresearch/pythia.git /final/pack/pythia \
-   && sed -i '/torch/d' /final/pack/pythia/requirements.txt \
-   && pip install -e /final/pack/pythia
+  RUN git clone https://github.com/facebookresearch/pythia /final/pack/pythia
+  WORKDIR /final/pack/pythia
+  RUN python setup.py develop
 
 # Cache Model Weights
+  WORKDIR /final
   ADD cache.py .
   RUN cache.py
 
@@ -81,10 +73,11 @@
 # WORKDIR /final/hot
 
 # Sanity Check
-  RUN cli.py --device cpu  --image africa.jpg --question 'where is this place ?'
-# RUN cli.py --device cuda --image africa.jpg --question 'where is this place ?'
+  #RUN cli.py --device cpu  --image africa.jpg --question 'where is this place ?'
+  #RUN cli.py --device cuda --image africa.jpg --question 'where is this place ?'
+  RUN nvidia-smi
 
 # Entry Point
   EXPOSE 5000
   ENTRYPOINT ["api.py"]
-  CMD ["--device", "cpu"]
+  CMD ["--device", "cuda"]

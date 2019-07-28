@@ -27,7 +27,10 @@ services:
       - hostnet
     ports:
       - 5000:5000
-    image: psnonis/w251-final:pythia
+    #privileged: true
+    build: 
+      context: ./pythia/
+
 
   interpreter:
     container_name: interpreter
