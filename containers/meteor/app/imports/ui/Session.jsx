@@ -88,7 +88,10 @@ function Tiki (props)
   }
   else
   {
-    return <Grid container item justify="center" style={{background:'blue'}} ><img style={{background:'red'}} src="tiki.gif" height={360} /></Grid>
+    return  <Grid container item justify="center" style={{background:'white'}} >
+              {/* <img style={{background:'red'}} src="tiki.gif" height={360} />  */}
+              <iframe src="circle.html" width="500" height="360" frameBorder="0"/>
+            </Grid>
   }
 }
 
@@ -149,7 +152,7 @@ export default class Session extends React.Component
     this.state =
     {
       record   : false,
-      question : 'What is happening?',
+      question : 'What objects are in the image?',
       answers  : null
     }
 
