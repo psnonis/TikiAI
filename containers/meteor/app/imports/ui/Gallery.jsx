@@ -76,7 +76,7 @@ class GalleryComponent extends React.Component
   constructor(props)
   {
     super(props)
-    this.sessions = tileData
+    this.sessions = props.sessions
   }
 
   render = () =>

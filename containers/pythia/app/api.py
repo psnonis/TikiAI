@@ -91,9 +91,9 @@ def africa():
     print(f'Tiki : Divining Answers : End-2-End - Finished in {end-start:7.3f} Seconds')
     print(f'Tiki : RANK | CONFIDENCE | ANSWER')
 
-    for n, (p, a) in enumerate(zip(probs, answers), 1):
+    for a in answers :
 
-        print(f'       : {n:<4} | {p:07.3%}    | {a}')
+        print(f"       : {a['rank']:<4} | {a['probability']:07.3%}    | {a['answer']}")
 
     return f'{answers}'
 

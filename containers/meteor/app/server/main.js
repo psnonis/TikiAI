@@ -47,6 +47,8 @@ Meteor.methods(
 
         console.log(`server > main > api_getAnswers return : ${response.text}`)
 
+        Sessions.update({ _id : 'null'}, { $set : {question : params.query, answer : response.body.image.answer, picture : params.image} }, { upsert : true })
+
         return response.body
     },
 
