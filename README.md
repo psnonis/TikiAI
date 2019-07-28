@@ -25,7 +25,7 @@ curl -X POST -F "audio=@sample_audio.wav" localhost:5001/api/interpret
 #### PythiaVQA  
 ```
 cd w251-final/containers/pythia/app
-curl -X POST -F "image=@africa.jpg" localhost:5000/api/divine?question='where%20is%20this%20place%20%3F'
+curl -X POST -F "image=@africa.jpg" localhost:5000/api/getAnswers?question='where%20is%20this%20place%20%3F'
 ```
 
 #### Meteor
