@@ -73,8 +73,8 @@
 # WORKDIR /final/hot
 
 # Sanity Check
-  #RUN cli.py --device cpu  --image africa.jpg --question 'where is this place ?'
-  #RUN cli.py --device cuda --image africa.jpg --question 'where is this place ?'
+  RUN cli.py --device cpu  --image africa.jpg --question 'where is this place ?'
+  RUN cli.py --device cuda --image africa.jpg --question 'where is this place ?'
   RUN nvidia-smi
 
 # Entry Point

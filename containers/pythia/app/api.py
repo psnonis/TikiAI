@@ -60,8 +60,7 @@ def api_getAnswers():
 
             response[name]['question'  ], \
             response[name]['answer'    ], \
-            response[name]['answers'   ], \
-            response[name]['processing']  = tiki(app).getAnswers(image, question, meta)
+            response[name]['answers'   ]  = tiki(app).getAnswers(image, question, meta)
 
         return response
 
@@ -85,8 +84,7 @@ def africa():
 
     question,
     answer,
-    answers,
-    processing = tiki(app).getAnswers('africa.jpg', 'where is this place ?')
+    answers = tiki(app).getAnswers('africa.jpg', 'where is this place ?')
 
     end        = time()
 
