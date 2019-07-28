@@ -23,7 +23,7 @@ from pythia.models.pythia       import Pythia
 from pythia.common.registry     import registry
 from pythia.common.sample       import Sample, SampleList
 
-delays = \
+processing = \
 {
     'BuildTime' : 0.0,
     'Detectron' : 0.0,
@@ -55,7 +55,7 @@ class Tiki:
         end = time.time()
         print( f'Tiki : Initializing : Finished in {end-start:7.3f} Seconds\n')
 
-        delays['BuildTime'] = end-start
+        processing['BuildTime'] = end-start
 
     def build_processors(self):
 
@@ -229,7 +229,7 @@ class Tiki:
 
         print(f'Tiki : Getting Features : Detectron - Finished in {end-start:7.3f} Seconds')
 
-        delays['Detectron'] = end-start
+        processing['Detectron'] = end-start
 
         return features[0]
 
@@ -255,7 +255,7 @@ class Tiki:
 
         print(f'Tiki : Getting Features : ResNet152 - Finished in {end-start:7.3f} Seconds')
 
-        delays['ResNet152'] = end-start
+        processing['ResNet152'] = end-start
 
         return features
 
@@ -312,7 +312,7 @@ class Tiki:
 
         print(f'Tiki : Getting Answers : PythiaVQA - Finished in {end-start:7.3f} Seconds')
 
-        delays['PythiaVQA'] = end-start
+        processing['PythiaVQA'] = end-start
 
         gc.collect()
 
@@ -320,7 +320,7 @@ class Tiki:
 
         last = time.time()
 
-        delays['InferTime'] = last-first
+        processing['InferTime'] = last-first
 
         return question, answer, answers
 
