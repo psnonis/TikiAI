@@ -80,7 +80,7 @@ function Tiki (props)
 {
   const answers = props.answers
 
-  console.log(answers)
+  console.log(`Tiki > ${answers}`)
 
   if (answers)
   {
@@ -188,7 +188,6 @@ export default class Session extends React.Component
     console.log('client > Session > getAnswers : callin api_getAnswers')
 
     this.setState({ answers : null })
-    this.setState({ answers : { 'hello' : 'world' } })
 
     Meteor.call('api_getAnswers', { query : question, image : picture }, (err, res) =>
     {

@@ -306,9 +306,9 @@ class Tiki:
                   'answer'      : self.answer_processor.idx2word(top_indices[rank].item()),
                   'probability' : score.item()})
 
-            best = answers[0]['answer']
+            answer = answers[0]['answer']
 
-            end  = time.time()
+            end = time.time()
 
         print(f'Tiki : Getting Answers : PythiaVQA - Finished in {end-start:7.3f} Seconds')
 
@@ -322,7 +322,7 @@ class Tiki:
 
         delays['InferTime'] = last-first
 
-        return best, answers, delays
+        return question, answer, answers, processing
 
 if  __name__ == '__main__':
 

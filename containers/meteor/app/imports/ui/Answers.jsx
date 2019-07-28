@@ -31,8 +31,12 @@ const rows = [
 
 export default function Answers (props)
 {
-  const answers = props.answers
+  const answers = props.answers.answers
   const cls     = styles()
+
+  console.log('Answers')
+
+  console.log(answers)
 
   return (
     <Paper className={cls.root}>
@@ -45,11 +49,11 @@ export default function Answers (props)
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map(row => (
+          {answers.map(row => (
             <TableRow key={row.rank}>
               <TableCell component="th" scope="row">{row.rank}</TableCell>
               <TableCell component="th" scope="row">{row.answer}</TableCell>
-              <TableCell align="right">{row.probability}</TableCell>
+              <TableCell align="right">{`${(row.probability * 100).toFixed(2)} %`}</TableCell>
             </TableRow>
           ))}
         </TableBody>

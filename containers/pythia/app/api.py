@@ -58,9 +58,10 @@ def api_getAnswers():
             print(f'{PUR}{TXT} QUESTION > {question} {PAD}')
             print(f'{PUR}{TXT}    IMAGE > {meta    } {PAD}{RST}{EOL}')
 
-            response[name]['best'   ], \
-            response[name]['answers'], \
-            response[name]['delay'  ]  = tiki(app).getAnswers(image, question, meta)
+            response[name]['question'  ], \
+            response[name]['answer'    ], \
+            response[name]['answers'   ], \
+            response[name]['processing']  = tiki(app).getAnswers(image, question, meta)
 
         return response
 
@@ -80,11 +81,14 @@ def index():
 @app.route('/api/africa')
 def africa():
 
-    start     = time()
-    best,
+    start      = time()
+
+    question,
+    answer,
     answers,
-    delays    = tiki(app).getAnswers('africa.jpg', 'where is this place ?')
-    end       = time()
+    processing = tiki(app).getAnswers('africa.jpg', 'where is this place ?')
+
+    end        = time()
 
     print(f'Tiki : Divining Answers : End-2-End - Finished in {end-start:7.3f} Seconds')
     print(f'Tiki : RANK | CONFIDENCE | ANSWER')

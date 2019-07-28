@@ -10,15 +10,18 @@ from    time import time
 @cli.option('--question', default = None)
 def main(device, image, question):
 
-    tiki     = Tiki(device)
+    tiki = Tiki(device)
 
     print(f'\nTiki : Command-line Interface\n')
 
-    start    = time()
-    best,    \
-    answers, \
-    delays   = tiki.getAnswers(image, question)
-    end      = time()
+    start      = time()
+
+    question,  
+    answer,    
+    answers,   
+    processing = tiki.getAnswers(image, question)
+
+    end        = time()
 
     print(f'Tiki : Getting Answers : End-2-End - Finished in {end-start:7.3f} Seconds')
     print(f'Tiki : RANK | CONFIDENCE | ANSWER')
