@@ -152,6 +152,7 @@ export default class Session extends React.Component
     this.state =
     {
       record   : false,
+      ready    : true,
       question : 'What objects are in the image?',
       answers  : null
     }
@@ -183,23 +184,37 @@ export default class Session extends React.Component
 
   getAnswers = () =>
   {
-    console.log(`client > Session > getAnswers`)
-   
-    const picture  = this.webcam.getScreenshot()
-    var   question = this.state.question
 
-    console.log('client > Session > getAnswers : callin api_getAnswers')
 
-    this.setState({ answers : null })
-
-    Meteor.call('api_getAnswers', { query : question, image : picture }, (err, res) =>
+    if (!this.state.ready)
     {
-      console.log('client > Session > getAnswers : return api_getAnswers')
-      console.log(res)
-      console.log(err || 'No Error')
+      console.log("Tiki Not Ready")
+    }
+    else
+    {
+      this.setState({ ready : false })
+      console.log(`client > Session > getAnswers`)
+   
+      const picture  = this.webcam.getScreenshot()
+      var   question = this.state.question
+  
+      console.log('client > Session > getAnswers : callin api_getAnswers')
+  
+      this.setState({ answers : null })
 
-      this.setState({ answers : res.image })
-    })
+      Meteor.call('api_getAnswers', { query : question, image : picture }, (err, res) =>
+      {
+        console.log('client > Session > getAnswers : return api_getAnswers')
+        console.log(res)
+        console.log(err || 'No Error')
+
+        this.setState({ answers : res.image })
+        this.setState({ ready : true })
+      })
+
+    }
+
+    
   }
  
   askQuestion = (recording) =>
