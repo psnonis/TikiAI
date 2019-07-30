@@ -15,27 +15,6 @@ import StarBorderIcon  from '@material-ui/icons/StarBorder'
 
 import { makeStyles }  from '@material-ui/core/styles'
 
-const tileData = [
-  {
-    _id      : '1',
-    picture  : 'sample_image.jpg',
-    question : 'where is this ?',
-    answer   : 'africa'
-  },
-  {
-    _id      : '2',
-    picture  : 'sample_image.jpg',
-    question : 'where is this ?',
-    answer   : 'africa'
-  },
-  {
-    _id      : '3',
-    picture  : 'sample_image.jpg',
-    question : 'where is this ?',
-    answer   : 'africa'
-  }
-]
-
 const css = {
   top :
   {
@@ -76,11 +55,13 @@ class GalleryComponent extends React.Component
   constructor(props)
   {
     super(props)
-    this.sessions = props.sessions
+    this.sessions = props.sessions // Initial State
   }
 
   render = () =>
   {
+    this.sessions = sessions
+
     return (
       <Paper style={css.top}>
         <Grid style={css.root}>
@@ -100,10 +81,8 @@ class GalleryComponent extends React.Component
 
 export default Gallery = withTracker(() =>
 {
-  var sessions = Sessions.find().fetch()
-
+  sessions = Sessions.find().fetch()
   console.log(`Gallery : ${JSON.stringify(sessions)}`)
-
-  return { sessions: sessions }
+  return { sessions: sessions } 
 
 })(GalleryComponent)

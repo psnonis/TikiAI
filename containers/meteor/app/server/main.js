@@ -3,8 +3,8 @@ import { writeFileSync } from 'fs'
 import   superagent      from 'superagent'
 import { Sessions      } from '/imports/api/sessions'
 
-const PYTHIA = 'http://158.175.150.58:5000' // 'http://localhost:5000'
-const INTERP = 'http://158.175.150.58:5001' // 'http://localhost:5000'
+const PYTHIA = 'http://158.175.150.58:5000'
+const INTERP = 'http://158.175.150.58:5001'
 
 console.log('server > main')
 
@@ -40,7 +40,7 @@ Meteor.methods(
 
         console.log(`server > main > api_getAnswers return : ${response.text}`)
 
-        Sessions.update({ _id : 'null'}, { $set : {question : params.query, answer : response.body.image.answer, picture : params.image} }, { upsert : true })
+        Sessions.update({ _id : params.user }, { $set : {question : params.query, answer : response.body.image.answer, picture : params.image} }, { upsert : true })
 
         return response.body
     },

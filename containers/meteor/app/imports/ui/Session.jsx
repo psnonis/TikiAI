@@ -42,7 +42,7 @@ const css =
   root :
   {
     marginTop  : 8,
-    background : 'magenta'
+    background : '#3f51b5'
   },
   bag :
   {
@@ -89,8 +89,8 @@ function Tiki (props)
   else
   {
     return  <Grid container item justify="center" style={{background:'white'}} >
-              {/* <img style={{background:'red'}} src="tiki.gif" height={360} />  */}
-              <iframe src="circle.html" width="500" height="360" frameBorder="0"/>
+              {/* <img style={{background:'white'}} src="tiki.gif" height={295} />  */}
+              <iframe src="circle.html" width="500" height="295" frameBorder="0"/>
             </Grid>
   }
 }
@@ -129,8 +129,8 @@ export default class Session extends React.Component
             <Grid container item justify="center">
               <ButtonGroup variant="contained" color="primary" size="small" fullWidth>
                 <Button onMouseDown={this.startAudioRecording}
-                        onMouseUp={this.stopAudioRecording}>Ask Question<Icon style={{marginLeft:8}}>microphone</Icon></Button>
-                <Button onClick={this.getAnswers}>Get Answers<Icon style={{marginLeft:8}}>question_answer</Icon></Button>
+                        onMouseUp={this.stopAudioRecording}>Microphone<Icon style={{marginLeft:8}}>microphone</Icon></Button>
+                <Button onClick={this.getAnswers}>Ask Tiki!<Icon style={{marginLeft:8}}>question_answer</Icon></Button>
               </ButtonGroup>
             </Grid>
             </Grid>
@@ -139,7 +139,7 @@ export default class Session extends React.Component
         <Grid container item>
           <Tiki answers={this.state.answers} />
         </Grid>
-      </Grid>
+        </Grid>
     )
   }
 
@@ -184,8 +184,6 @@ export default class Session extends React.Component
 
   getAnswers = () =>
   {
-
-
     if (!this.state.ready)
     {
       console.log("Tiki Not Ready")
@@ -211,10 +209,7 @@ export default class Session extends React.Component
         this.setState({ answers : res.image })
         this.setState({ ready : true })
       })
-
     }
-
-    
   }
  
   askQuestion = (recording) =>
