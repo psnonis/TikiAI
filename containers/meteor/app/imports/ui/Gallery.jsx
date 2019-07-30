@@ -81,8 +81,12 @@ class GalleryComponent extends React.Component
 
 export default Gallery = withTracker(() =>
 {
-  sessions = Sessions.find().fetch()
+  const options = { sort: { createdAt: -1 }, limit : 10 };  // Reverse Order and Limit 10
+  
+  sessions = Sessions.find({}, options).fetch()
+  
   console.log(`Gallery : ${JSON.stringify(sessions)}`)
+  
   return { sessions: sessions } 
 
 })(GalleryComponent)

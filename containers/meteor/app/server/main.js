@@ -40,7 +40,7 @@ Meteor.methods(
 
         console.log(`server > main > api_getAnswers return : ${response.text}`)
 
-        Sessions.update({ _id : params.user }, { $set : {question : params.query, answer : response.body.image.answer, picture : params.image} }, { upsert : true })
+        Sessions.update({ _id : params.user }, { $set : {question : params.query, answer : response.body.image.answer, picture : params.image, createdAt : + new Date()} }, { upsert : true })
 
         return response.body
     },
@@ -50,38 +50,18 @@ Meteor.methods(
         console.log('server > main > api_askQuestion called')
         console.log(params)
 
-        var sample    = '../../../../../public/sample_audio.wav'
+        var sample    = '../../../../../public/sample_audio.wav'  // The Birch Canoe
         var temporary = 'audio.wav'
+               
         // var audio     = Buffer.from(params.audio.split(',')[1], 'base64')
-        
-        var audio     = Buffer.from(params.audio.split(',')[1], 'base64')
-        var toWav = require('audiobuffer-to-wav')
-        var xhr = require('xhr')
-        var context = new AudioContext()
-        audioContext.decodeAudioData(resp, function (buffer) {
-            // encode AudioBuffer to WAV
-            var wav = toWav(audio)})
-        
-        // // request the MP3 as binary
-        // xhr({
-        // uri: audio,
-        // responseType: 'arraybuffer'
-        // }, function (err, body, resp) {
-        // if (err) throw err
-        // // decode the MP3 into an AudioBuffer
-        // audioContext.decodeAudioData(resp, function (buffer) {
-        //     // encode AudioBuffer to WAV
-        //     var wav = toWav(buffer)
-            
-        //     // do something with the WAV ArrayBuffer ...
-        // })
-        // })
+        var audio = params.audio
 
         writeFileSync(temporary, audio) // save audio to file
 
         let response  = await superagent
         .post(`${INTERP}/api/interpret`)
-        .attach('audio',  wav) // attach audio from file
+        .attach('audio',  temporary) // attach audio from file
+        // .attach('audio',  sample) // attach audio from file
 
         console.log(`server > main > api_askQuestion return : ${response.text}`)
 
