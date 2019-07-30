@@ -69,7 +69,7 @@ class GalleryComponent extends React.Component
             {this.sessions.map(tile => (
               <GridListTile key={tile._id} style={{height:360}}>
                 <img src={tile.picture} height={360}/>
-                <GridListTileBar style={css.title} title={tile.answer} subtitle={tile.question} actionIcon={<IconButton style={css.icon}><StarBorderIcon /></IconButton>} />
+                <GridListTileBar style={css.title} title={tile.answer} subtitle={tile.question} actionIcon={<IconButton style={css.icon}></IconButton>} />
               </GridListTile>
             ))}
           </GridList>
