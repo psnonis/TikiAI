@@ -1,5 +1,6 @@
 import { Meteor        } from 'meteor/meteor'
 import { writeFileSync } from 'fs'
+import { readFileSync } from 'fs'
 import   superagent      from 'superagent'
 import { Sessions      } from '/imports/api/sessions'
 
@@ -14,14 +15,6 @@ Meteor.startup(() =>
 
 Meteor.methods(
 {
-
-    addPicture : function (params)
-    {
-        console.log(`server > main > addPicture called : ${params.user}`)
-
-        Sessions.update({ _id : params.user }, { $set : { picture : params.picture } }, { upsert : true })
-    },
-
     api_getAnswers : async function (params)
     {
         console.log('server > main > api_getAnswers called')
@@ -53,16 +46,26 @@ Meteor.methods(
         var sample    = '../../../../../public/sample_audio.wav'  // The Birch Canoe
         var temporary = 'audio.wav'
                
-        // var audio     = Buffer.from(params.audio.split(',')[1], 'base64')
-        var audio = params.audio
+        let stringLength = params.audio.length
+        let newString = params.audio.slice(22, stringLength) // Remove 'data:audio/wav;base64,'
+        var audio     = Buffer.from(newString, 'base64') // CONFIRMED WORKING
 
         writeFileSync(temporary, audio) // save audio to file
 
-        let response  = await superagent
-        .post(`${INTERP}/api/interpret`)
-        .attach('audio',  temporary) // attach audio from file
-        // .attach('audio',  sample) // attach audio from file
+        var sampleAudio = readFileSync(sample)
+        console.log(sampleAudio)
 
+        var writtenAudio = readFileSync(temporary)
+        console.log(writtenAudio)
+
+        // let response  = await superagent  // Test Works Correctly for sample_audio.wav
+        // .post(`${INTERP}/api/interpret`)
+        // .attach('audio',  sample)
+
+        let response = await superagent  // Works Correctly
+        .post(`${INTERP}/api/interpret`)
+        .attach('audio',  temporary)
+      
         console.log(`server > main > api_askQuestion return : ${response.text}`)
 
         return response.body

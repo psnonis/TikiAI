@@ -1,7 +1,7 @@
 import React          from 'react'
 
 import Webcam         from 'react-webcam'
-import { ReactMic }   from 'react-mic'
+import { ReactMic }   from 'react-mic-plus'
 
 import Container      from '@material-ui/core/Container'
 import Grid           from '@material-ui/core/Grid'
@@ -113,7 +113,6 @@ export default class Session extends React.Component
               <ReactMic style={css.mic}
                         className='mic'
                         record={this.state.record}
-                        mimeType='audio/wav;codecs=MS_PCM'
                         onStop={this.askQuestion}
                         nonstop={true}
                         duration={5}
@@ -168,18 +167,6 @@ export default class Session extends React.Component
   setRef = (webcam) =>
   {
     this.webcam = webcam
-  }
-
-  takeSnapshot = () =>
-  {
-    console.log(`client > Session > takeSnapshot`)
-
-    const picture  = this.webcam.getScreenshot()
-    const user     = Math.floor(Math.random() * Math.floor(3))
-
-    Meteor.call('addPicture', { user : user, picture : picture }, (err, res) =>
-    {
-    })
   }
 
   getAnswers = () =>
