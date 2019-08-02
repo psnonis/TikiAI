@@ -8,6 +8,7 @@
     "visualize": "meteor --production --extra-packages bundle-visualizer"
   },
   "dependencies": {
+    "react-mic-plus": "git+https://77148a59b613318ded5322aacd20722e8c4724b4:x-oauth-basic@github.com/brentbiseda/my-react-mic-plus.git",
     "@babel/runtime": "^7.5.5",
     "@material-ui/core": "^4.2.1",
     "@material-ui/icons": "^4.2.1",
@@ -15,7 +16,7 @@
     "meteor-node-stubs": "^0.4.1",
     "react": "^16.5.0",
     "react-dom": "^16.5.0",
-    "react-mic": "^12.4.1",
+    "react-router-dom": "latest",
     "react-speech-recognition": "^2.0.4",
     "react-webcam": "^1.1.1",
     "socket.io": "^2.2.0",
