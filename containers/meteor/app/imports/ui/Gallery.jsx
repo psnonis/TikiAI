@@ -1,5 +1,5 @@
 import { withTracker } from 'meteor/react-meteor-data'
-import { Sessions    } from '/imports/api/sessions'
+import { Captures    } from '/imports/api/captures'
 
 import React           from 'react'
 
@@ -55,18 +55,18 @@ class GalleryComponent extends React.Component
   constructor(props)
   {
     super(props)
-    this.sessions = props.sessions // Initial State
+    this.captures = props.captures // Initial State
   }
 
   render = () =>
   {
-    this.sessions = sessions
+    this.captures = captures
 
     return (
       <Paper style={css.top}>
         <Grid style={css.root}>
           <GridList style={css.list} cols={2.5}>
-            {this.sessions.map(tile => (
+            {this.captures.map(tile => (
               <GridListTile key={tile._id} style={{height:360}}>
                 <img src={tile.picture} height={360}/>
                 <GridListTileBar style={css.title} title={tile.answer} subtitle={tile.question} actionIcon={<IconButton style={css.icon}></IconButton>} />
@@ -83,10 +83,10 @@ export default Gallery = withTracker(() =>
 {
   const options = { sort: { createdAt: -1 }, limit : 10 };  // Reverse Order and Limit 10
   
-  sessions = Sessions.find({}, options).fetch()
+  captures = Captures.find({}, options).fetch()
   
-  console.log(`Gallery : ${JSON.stringify(sessions)}`)
+  console.log(`Gallery : ${JSON.stringify(captures)}`)
   
-  return { sessions: sessions } 
+  return { captures : captures } 
 
 })(GalleryComponent)

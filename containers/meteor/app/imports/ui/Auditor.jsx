@@ -74,7 +74,7 @@ function Tiki (props)
   }
 }
 
-export default class Filter extends React.Component
+export default class Auditor extends React.Component
 {
   render = () =>
   {
@@ -130,17 +130,17 @@ export default class Filter extends React.Component
     else
     {
       this.setState({ ready : false })
-      console.log(`client > Session > getAnswers`)
+      console.log(`client > Auditor > getAnswers`)
    
       var   question = this.state.question
   
-      console.log('client > Session > getAnswers : callin api_getAnswers')
+      console.log('client > Auditor > getAnswers : callin api_getAnswers')
   
       this.setState({ answers : null })
 
       Meteor.call('api_getAnswers', { query : question, image : picture }, (err, res) =>
       {
-        console.log('client > Session > getAnswers : return api_getAnswers')
+        console.log('client > Auditor > getAnswers : return api_getAnswers')
         console.log(res)
         console.log(err || 'No Error')
 
@@ -152,7 +152,7 @@ export default class Filter extends React.Component
 
   onChangeQuestion = (e) =>
   {
-    console.log(`client > Session > onChangeQuestion : ${e.target.value}`)
+    console.log(`client > Auditor > onChangeQuestion : ${e.target.value}`)
     this.setState({ question : e.target.value })
   }
 }

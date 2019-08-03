@@ -13,8 +13,6 @@ import TextField      from '@material-ui/core/TextField'
 
 import { makeStyles } from '@material-ui/core/styles'
 
-import Answers        from './Answers'
-
 const styles = makeStyles(theme => (
 {
   container :
@@ -68,34 +66,7 @@ const css =
   }
 }
 
-const rows = [
-  { rank : 1, answer : 'A', probability : 20.0 },
-  { rank : 2, answer : 'B', probability : 20.0 },
-  { rank : 3, answer : 'C', probability : 20.0 },
-  { rank : 4, answer : 'D', probability : 20.0 },
-  { rank : 5, answer : 'E', probability : 20.0 },
-]
-
-function Tiki (props)
-{
-  const answers = props.answers
-
-  console.log(`Tiki > ${answers}`)
-
-  if (answers)
-  {
-    return <Answers answers={answers} />
-  }
-  else
-  {
-    return  <Grid container item justify="center" style={{background:'white'}} >
-              {/* <img style={{background:'white'}} src="tiki.gif" height={295} />  */}
-              <iframe src="circle.html" width="500" height="295" frameBorder="0"/>
-            </Grid>
-  }
-}
-
-export default class Session extends React.Component
+export default class Capture extends React.Component
 {
   render = () =>
   {
@@ -135,10 +106,7 @@ export default class Session extends React.Component
             </Grid>
           </Grid>
         </Grid>
-        <Grid container item>
-          <Tiki answers={this.state.answers} />
-        </Grid>
-        </Grid>
+      </Grid>
     )
   }
 
@@ -178,30 +146,32 @@ export default class Session extends React.Component
     else
     {
       this.setState({ ready : false })
-      console.log(`client > Session > getAnswers`)
+      console.log(`client > Capture > getAnswers`)
    
       const picture  = this.webcam.getScreenshot()
       var   question = this.state.question
   
-      console.log('client > Session > getAnswers : callin api_getAnswers')
+      console.log('client > Capture > getAnswers : callin api_getAnswers')
   
       this.setState({ answers : null })
 
       Meteor.call('api_getAnswers', { query : question, image : picture }, (err, res) =>
       {
-        console.log('client > Session > getAnswers : return api_getAnswers')
+        console.log('client > Capture > getAnswers : return api_getAnswers')
         console.log(res)
         console.log(err || 'No Error')
 
         this.setState({ answers : res.image })
-        this.setState({ ready : true })
+        this.setState({ ready   : true      })
+
+        Session.set( 'ANSWERS', res.image )
       })
     }
   }
  
   askQuestion = (recording) =>
   {
-    console.log(`client > Session > askQuestion`)
+    console.log(`client > Capture > askQuestion`)
     console.log(recording.blob)
 
     this.setState({ question : 'Interpreting Question, Please Wait...' })
@@ -212,11 +182,11 @@ export default class Session extends React.Component
       let audio = reader.result
       console.log(audio)
 
-      console.log('client > Session > askQuestion : callin api_askQuestion')
+      console.log('client > Capture > askQuestion : callin api_askQuestion')
   
       Meteor.call('api_askQuestion', { audio : audio }, (err, res) =>
       {
-        console.log('client > Session > askQuestion : return api_askQuestion')
+        console.log('client > Capture > askQuestion : return api_askQuestion')
         console.log(res || 'No Response')
         console.log(err || 'No Error')
 
@@ -235,19 +205,19 @@ export default class Session extends React.Component
 
   startAudioRecording = () =>
   {
-    console.log(`client > Session > startAudioRecording`)
+    console.log(`client > Capture > startAudioRecording`)
     this.setState({ record : true })
   }
  
   stopAudioRecording = () =>
   {
-    console.log(`client > Session > stopAudioRecording`)
+    console.log(`client > Capture > stopAudioRecording`)
     this.setState({ record : false })
   }
 
   onChangeQuestion = (e) =>
   {
-    console.log(`client > Session > onChangeQuestion : ${e.target.value}`)
+    console.log(`client > Capture > onChangeQuestion : ${e.target.value}`)
     this.setState({ question : e.target.value })
   }
 }

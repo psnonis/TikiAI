@@ -1,8 +1,8 @@
 import { Meteor        } from 'meteor/meteor'
-import { writeFileSync } from 'fs'
-import { readFileSync } from 'fs'
+import { writeFileSync,
+         readFileSync  } from 'fs'
 import   superagent      from 'superagent'
-import { Sessions      } from '/imports/api/sessions'
+import { Captures      } from '/imports/api/captures'
 
 const PYTHIA = 'http://158.175.150.58:5000'
 const INTERP = 'http://158.175.150.58:5001'
@@ -33,7 +33,7 @@ Meteor.methods(
 
         console.log(`server > main > api_getAnswers return : ${response.text}`)
 
-        Sessions.update({ _id : params.user }, { $set : {question : params.query, answer : response.body.image.answer, picture : params.image, createdAt : + new Date()} }, { upsert : true })
+        Captures.update({ _id : params.user }, { $set : {question : params.query, answer : response.body.image.answer, picture : params.image, createdAt : + new Date()} }, { upsert : true })
 
         return response.body
     },
@@ -56,7 +56,7 @@ Meteor.methods(
 
         console.log(`server > main > api_getAnswers return : ${response.text}`)
 
-        Sessions.update({ _id : params.user }, { $set : {question : params.query, answer : response.body.image.answer, picture : params.image, createdAt : + new Date()} }, { upsert : true })
+        Captures.update({ _id : params.user }, { $set : {question : params.query, answer : response.body.image.answer, picture : params.image, createdAt : + new Date()} }, { upsert : true })
 
         return response.body
     },

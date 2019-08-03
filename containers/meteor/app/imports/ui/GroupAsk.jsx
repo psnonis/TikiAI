@@ -1,7 +1,7 @@
 import React   from 'react'
 
 import TikiBar from './TikiBar'
-import Filter  from './Filter'
+import Auditor from './Auditor'
 import Gallery from './Gallery'
 import Testing from './Testing'
 
@@ -19,8 +19,8 @@ const GroupAsk = () =>
 (
   <Container id="AppRoot" style={css.root}>
     <TikiBar id="TikiBar" />
-    <Filter  id="Filter"  />
-    {/* <Gallery id="Gallery"/> */}
+    <Auditor id="Auditor" />
+    <Gallery id="Gallery" />
   </Container>
 )
 
