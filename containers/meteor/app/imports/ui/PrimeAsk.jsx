@@ -1,7 +1,7 @@
 import React   from 'react'
 
 import TikiBar from './TikiBar'
-import Filter from './Filter'
+import Session from './Session'
 import Gallery from './Gallery'
 import Testing from './Testing'
 
@@ -15,13 +15,13 @@ const css =
   }
 }
 
-const GlobalAsk = () =>
+const PrimeAsk = () =>
 (
-  <Container id="GlobalRoot" style={css.root}>
+  <Container id="AskRoot" style={css.root}>
     <TikiBar id="TikiBar" />
-    <Filter id="Filter" />
-    {/* <Gallery id="Gallery"/> */}
+    <Session id="Session" />
+    <Gallery id="Gallery"/>
   </Container>
 )
 
-export default GlobalAsk
+export default PrimeAsk

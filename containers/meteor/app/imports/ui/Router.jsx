@@ -1,15 +1,17 @@
-import React from "react"
+import React from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import App from "./App"
-import NotFound from "./NotFound"
-import GlobalAsk from "./GlobalAsk"
+
+import PrimeAsk from './PrimeAsk'
+import GroupAsk from './GroupAsk'
+
+import NotFound from './NotFound'
 
 const Router = () => (
     <BrowserRouter>
         <Switch>
-            <Route exact path="/" component={App}/>
-            <Route exact path="/GlobalAsk/" component={GlobalAsk}/>
-            <Route component={NotFound} />
+            <Route exact path='/'          component={PrimeAsk}/>
+            <Route exact path='/GroupAsk/' component={GroupAsk}/>
+            <Route                         component={NotFound} />
         </Switch>
     </BrowserRouter>
 )

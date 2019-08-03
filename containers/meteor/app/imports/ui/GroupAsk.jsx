@@ -1,7 +1,7 @@
 import React   from 'react'
 
 import TikiBar from './TikiBar'
-import Session from './Session'
+import Filter  from './Filter'
 import Gallery from './Gallery'
 import Testing from './Testing'
 
@@ -15,13 +15,13 @@ const css =
   }
 }
 
-const App = () =>
+const GroupAsk = () =>
 (
   <Container id="AppRoot" style={css.root}>
     <TikiBar id="TikiBar" />
-    <Session id="Session" />
-    <Gallery id="Gallery"/>
+    <Filter  id="Filter"  />
+    {/* <Gallery id="Gallery"/> */}
   </Container>
 )
 
-export default App
+export default GroupAsk
