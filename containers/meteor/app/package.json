@@ -17,6 +17,7 @@
     "react-dom": "^16.5.0",
     "react-mic-plus": "git+https://77148a59b613318ded5322aacd20722e8c4724b4:x-oauth-basic@github.com/brentbiseda/my-react-mic-plus.git",
     "react-router-dom": "^5.0.1",
+    "react-say": "^1.2.0",
     "react-speech-recognition": "^2.0.4",
     "react-webcam": "^1.1.1",
     "socket.io": "^2.2.0",

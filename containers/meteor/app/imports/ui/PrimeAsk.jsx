@@ -1,7 +1,7 @@
 import React   from 'react'
 
 import TikiBar from './TikiBar'
-import TikiAni from './TikiAni'
+import TikiSay from './TikiSay'
 import Capture from './Capture'
 import Answers from './Answers'
 import Gallery from './Gallery'
@@ -22,7 +22,7 @@ const PrimeAsk = () =>
   <Container id="AskRoot" style={css.root}>
     <TikiBar id="TikiBar" />
     <Capture id="Capture" />
-    <TikiAni id="TikiAni" />
+    <TikiSay id="TikiSay" />
     <Gallery id="Gallery"/>
   </Container>
 )

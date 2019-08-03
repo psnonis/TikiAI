@@ -21,7 +21,7 @@ const styles = makeStyles(theme => (
   },
 }))
 
-const rows = [
+const fake = [
   { rank : 1, answer : 'A', probability : 20.0 },
   { rank : 2, answer : 'B', probability : 20.0 },
   { rank : 3, answer : 'C', probability : 20.0 },
@@ -31,7 +31,7 @@ const rows = [
 
 export default function Answers (props)
 {
-  const answers = props.answers.answers
+  const answers = props.answers
   const cls     = styles()
 
   console.log('Answers')

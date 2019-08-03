@@ -21,6 +21,12 @@ const useStyles = makeStyles(theme => (
   {
     flexGrow : 1,
   },
+
+  bar :
+  {
+    backgroundColor : '#643916'
+  },
+
   menu :
   {
     marginRight : theme.spacing(2),
@@ -45,11 +51,11 @@ export default function TikiBar()
   return (
     <React.Fragment>
     <Grid id="TikiBarRoot" className={cls.root}>
-      <AppBar position="static">
-      <Toolbar>
-          <IconButton edge="start" className={cls.menu} color="inherit" aria-label="menu"><MenuIcon /></IconButton>
-          <Typography variant="h6" className={cls.title}>TIKI.ai</Typography>
-      </Toolbar>
+      <AppBar position="static" className={cls.bar} color="secondary">
+        <Toolbar>
+            <IconButton edge="start" className={cls.menu} color="inherit" aria-label="menu"><MenuIcon /></IconButton>
+            <Typography variant="h6" className={cls.title}>TIKI.ai</Typography>
+        </Toolbar>
       </AppBar>
     </Grid>
     </React.Fragment>

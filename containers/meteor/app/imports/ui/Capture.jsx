@@ -1,17 +1,18 @@
-import React          from 'react'
+import React           from 'react'
 
-import Webcam         from 'react-webcam'
-import { ReactMic }   from 'react-mic-plus'
+import Webcam          from 'react-webcam'
+import { ReactMic }    from 'react-mic-plus'
 
-import Container      from '@material-ui/core/Container'
-import Grid           from '@material-ui/core/Grid'
-import Box            from '@material-ui/core/Box'
-import Button         from '@material-ui/core/Button'
-import ButtonGroup    from '@material-ui/core/ButtonGroup'
-import Icon           from '@material-ui/core/Icon'
-import TextField      from '@material-ui/core/TextField'
+import Container       from '@material-ui/core/Container'
+import Grid            from '@material-ui/core/Grid'
+import Box             from '@material-ui/core/Box'
+import Button          from '@material-ui/core/Button'
+import ButtonGroup     from '@material-ui/core/ButtonGroup'
+import Icon            from '@material-ui/core/Icon'
+import TextField       from '@material-ui/core/TextField'
 
-import { makeStyles } from '@material-ui/core/styles'
+import { Session     } from 'meteor/session'
+import { makeStyles  } from '@material-ui/core/styles'
 
 const styles = makeStyles(theme => (
 {
@@ -40,8 +41,9 @@ const css =
   root :
   {
     marginTop  : 8,
-    background : '#3f51b5'
+    background : 'black'
   },
+
   bag :
   {
     display  : 'flex',
@@ -57,12 +59,23 @@ const css =
     height     : 202,
     shrink     : true
   },
+
   mic :
   {
-    background : 'lime',
-    width      : 359,
-    height     : 101,
-    shrink     : true
+    backgroundColor : '#643916',
+    width           : 359,
+    height          : 101,
+    shrink          : true
+  },
+
+  ask :
+  {
+    backgroundColor : 'beige'
+  },
+
+  but :
+  {
+    backgroundColor : '#643916'
   }
 }
 
@@ -87,9 +100,11 @@ export default class Capture extends React.Component
                         onStop={this.askQuestion}
                         nonstop={true}
                         duration={5}
-                        backgroundColor={'#3f51b5'}
+                        backgroundColor={'#643916'}
                         strokeColor={'white'}/>
-              <TextField label='Question'
+              <TextField style={css.ask}
+                         className='ask'
+                         label='Question'
                          fullWidth
                          variant="filled"
                          InputLabelProps={{shrink: true,}}
@@ -98,9 +113,11 @@ export default class Capture extends React.Component
 
             <Grid container item justify="center">
               <ButtonGroup variant="contained" color="primary" size="small" fullWidth>
-                <Button onMouseDown={this.startAudioRecording}
+                <Button style={css.but}
+                        onMouseDown={this.startAudioRecording}
                         onMouseUp={this.stopAudioRecording}>Microphone<Icon style={{marginLeft:8}}>microphone</Icon></Button>
-                <Button onClick={this.getAnswers}>Ask Tiki!<Icon style={{marginLeft:8}}>question_answer</Icon></Button>
+                <Button style={css.but}
+                        onClick={this.getAnswers}>Ask Tiki!<Icon style={{marginLeft:8}}>question_answer</Icon></Button>
               </ButtonGroup>
             </Grid>
             </Grid>
@@ -139,21 +156,26 @@ export default class Capture extends React.Component
 
   getAnswers = () =>
   {
+    console.log(`client > Capture > getAnswers`)
+
     if (!this.state.ready)
     {
-      console.log("Tiki Not Ready")
+      console.log(`client > Capture > getAnswers : Not Ready`)
     }
     else
     {
       this.setState({ ready : false })
-      console.log(`client > Capture > getAnswers`)
    
       const picture  = this.webcam.getScreenshot()
       var   question = this.state.question
+
+
   
       console.log('client > Capture > getAnswers : callin api_getAnswers')
   
       this.setState({ answers : null })
+
+      Session.set('ANSWERS', null)
 
       Meteor.call('api_getAnswers', { query : question, image : picture }, (err, res) =>
       {
@@ -164,7 +186,7 @@ export default class Capture extends React.Component
         this.setState({ answers : res.image })
         this.setState({ ready   : true      })
 
-        Session.set( 'ANSWERS', res.image )
+        Session.set('ANSWERS', res.image)
       })
     }
   }
