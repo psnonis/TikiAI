@@ -134,6 +134,7 @@ class TikiSayComponent extends React.Component
               ))}
             </TableBody>
           </Table>
+          <Say speak={results.answer} />
         </Paper>
       )
     }
@@ -143,7 +144,6 @@ class TikiSayComponent extends React.Component
         <Paper style={css.top}>
           <Grid container item justify="center" style={css.root}>
             <img style={css.spin} src="tiki.gif" height={295} />
-            <Say speak={this.state.speak} />
           </Grid>
           <Button style={{backgroundColor : 'sienna'}} onClick={this.onSay}>SAY</Button>
         </Paper>
