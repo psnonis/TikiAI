@@ -14,6 +14,14 @@ import TextField       from '@material-ui/core/TextField'
 import { Session     } from 'meteor/session'
 import { makeStyles  } from '@material-ui/core/styles'
 
+const fake = [
+  { rank : 1, answer : 'A', probability : 20.0 },
+  { rank : 2, answer : 'B', probability : 20.0 },
+  { rank : 3, answer : 'C', probability : 20.0 },
+  { rank : 4, answer : 'D', probability : 20.0 },
+  { rank : 5, answer : 'E', probability : 20.0 },
+]
+
 const styles = makeStyles(theme => (
 {
   container :
@@ -132,7 +140,8 @@ export default class Capture extends React.Component
     super(props)
 
     this.onChangeQuestion = this.onChangeQuestion.bind(this)
-    
+    this.getAnswers       = this.getAnswers.bind(this)
+
     this.state =
     {
       record   : false,
@@ -169,13 +178,10 @@ export default class Capture extends React.Component
       const picture  = this.webcam.getScreenshot()
       var   question = this.state.question
 
-
-  
       console.log('client > Capture > getAnswers : callin api_getAnswers')
   
-      this.setState({ answers : null })
-
-      Session.set('ANSWERS', null)
+      this.props.context.results = null
+      Session.set(      'RESULTS', null)
 
       Meteor.call('api_getAnswers', { query : question, image : picture }, (err, res) =>
       {
@@ -186,7 +192,8 @@ export default class Capture extends React.Component
         this.setState({ answers : res.image })
         this.setState({ ready   : true      })
 
-        Session.set('ANSWERS', res.image)
+        this.props.context.results = res.image
+        Session.set(      'RESULTS', res.image)
       })
     }
   }

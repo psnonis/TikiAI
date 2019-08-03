@@ -1,5 +1,5 @@
 import React           from 'react'
-import Say             from 'react-say'
+import Say, { SayButton }             from 'react-say'
 
 
 import Card            from '@material-ui/core/Card'
@@ -59,6 +59,11 @@ const css =
     background     : 'beige'
   },
 
+  spin :
+  {
+
+  },
+
   table :
   {
   },  
@@ -69,15 +74,45 @@ class TikiSayComponent extends React.Component
   constructor(props)
   {
     super(props)
-    this.answers = props.answers // Initial State
-    Session.set('ANSWERS', fake)
+
+    console.log(`client > TikiSay > constr : ${this.props.context.hello}`)
+
+    this.onSay = this.onSay.bind(this)
+
+    this.state = 
+    {
+      speak : ''
+    }
+  }
+
+  onSay = () =>
+  {
+    if (this.state.speak)
+    {
+      console.log(`client > TikiSay > onSay : clearing`)
+      this.setState({ speak : '' })
+    }
+    else
+    {
+      console.log(`client > TikiSay > onSay : setting hello world`)
+      this.setState({ speak : 'hello world' })
+    }
+    
   }
 
   render = () =>
   {
-    console.log(`client > TikiSay > render : Answers = ${JSON.stringify(this.answers)}`)
+    console.log(`client > TikiSay > render :   Props = ${JSON.stringify(this.props, null, '\t')}`)
 
-    if (this.answers)
+    const context = this.props.context.results
+    const session = Session.get('RESULTS')
+    const tracker = this.props.tracker
+
+    const results = context
+
+    console.log(`client > TikiSay > render : Answers = ${JSON.stringify(results)}`)
+
+    if (results && results.answers)
     {
       return (
         <Paper style={css.top}>
@@ -90,7 +125,7 @@ class TikiSayComponent extends React.Component
               </TableRow>
             </TableHead>
             <TableBody>
-              {this.answers.map(row => (
+              {results.answers.map(row => (
                 <TableRow key={row.rank}>
                   <TableCell component="th" scope="row">{row.rank}</TableCell>
                   <TableCell component="th" scope="row">{row.answer}</TableCell>
@@ -107,8 +142,10 @@ class TikiSayComponent extends React.Component
       return (
         <Paper style={css.top}>
           <Grid container item justify="center" style={css.root}>
-            <img style={{background:'white'}} src="tiki.gif" height={295} />
+            <img style={css.spin} src="tiki.gif" height={295} />
+            <Say speak={this.state.speak} />
           </Grid>
+          <Button style={{backgroundColor : 'sienna'}} onClick={this.onSay}>SAY</Button>
         </Paper>
       )
     }
@@ -117,10 +154,10 @@ class TikiSayComponent extends React.Component
 
 export default TikiSay = withTracker(() =>
 {
-  let answers = Session.get('ANSWERS')
+  let results = Session.get('RESULTS')
   
-  console.log(`client > TikiSay > trackr : Answers = ${JSON.stringify(answers)}`)
-  
-  return { answers : answers } 
+  console.log(`client > TikiSay > trackr : RESULTS = ${JSON.stringify(results)}`)
+
+  return { tracker : results }
 
 })(TikiSayComponent)

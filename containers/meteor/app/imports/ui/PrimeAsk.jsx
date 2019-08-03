@@ -1,11 +1,11 @@
-import React   from 'react'
+import React     from 'react'
 
-import TikiBar from './TikiBar'
-import TikiSay from './TikiSay'
-import Capture from './Capture'
-import Answers from './Answers'
-import Gallery from './Gallery'
-import Testing from './Testing'
+import PrimeCTX  from './Contexts'
+
+import TikiBar   from './TikiBar'
+import TikiSay   from './TikiSay'
+import Capture   from './Capture'
+import Gallery   from './Gallery'
 
 import Container from '@material-ui/core/Container'
 
@@ -17,13 +17,19 @@ const css =
   }
 }
 
+var context =
+{
+  hello   : 'world',
+  results : null
+}
+
 const PrimeAsk = () =>
 (
   <Container id="AskRoot" style={css.root}>
-    <TikiBar id="TikiBar" />
-    <Capture id="Capture" />
-    <TikiSay id="TikiSay" />
-    <Gallery id="Gallery"/>
+      <TikiBar id="TikiBar" context={context}/>
+      <Capture id="Capture" context={context}/>
+      <TikiSay id="TikiSay" context={context}/>
+      <Gallery id="Gallery" context={context}/>
   </Container>
 )
 
