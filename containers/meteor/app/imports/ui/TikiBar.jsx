@@ -1,19 +1,21 @@
-import { Meteor }     from 'meteor/meteor'
+import { Meteor }      from 'meteor/meteor'
 
-import React          from 'react'
+import React           from 'react'
 
-import Container      from '@material-ui/core/Container'
-import Grid           from '@material-ui/core/Grid'
-import Box            from '@material-ui/core/Box'
-import AppBar         from '@material-ui/core/AppBar'
-import Toolbar        from '@material-ui/core/Toolbar'
-import Typography     from '@material-ui/core/Typography'
-import Button         from '@material-ui/core/Button'
-import IconButton     from '@material-ui/core/IconButton'
-import MenuIcon       from '@material-ui/icons/Menu'
-import Snackbar       from '@material-ui/core/Snackbar'
+import Container       from '@material-ui/core/Container'
+import Grid            from '@material-ui/core/Grid'
+import Box             from '@material-ui/core/Box'
+import AppBar          from '@material-ui/core/AppBar'
+import Toolbar         from '@material-ui/core/Toolbar'
+import Typography      from '@material-ui/core/Typography'
+import Button          from '@material-ui/core/Button'
+import IconButton      from '@material-ui/core/IconButton'
+import MenuIcon        from '@material-ui/icons/Menu'
+import Snackbar        from '@material-ui/core/Snackbar'
 
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles  } from '@material-ui/core/styles'
+import { primary,
+         secondary   } from './Themes'
 
 const useStyles = makeStyles(theme => (
 {
@@ -24,7 +26,7 @@ const useStyles = makeStyles(theme => (
 
   bar :
   {
-    backgroundColor : '#643916'
+    backgroundColor : primary
   },
 
   menu :

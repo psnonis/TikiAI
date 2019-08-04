@@ -13,6 +13,8 @@ import TextField       from '@material-ui/core/TextField'
 
 import { Session     } from 'meteor/session'
 import { makeStyles  } from '@material-ui/core/styles'
+import { primary,
+         secondary   } from './Themes'
 
 const fake = [
   { rank : 1, answer : 'A', probability : 20.0 },
@@ -70,7 +72,7 @@ const css =
 
   mic :
   {
-    backgroundColor : '#643916',
+    backgroundColor : primary,
     width           : 359,
     height          : 101,
     shrink          : true
@@ -78,12 +80,12 @@ const css =
 
   ask :
   {
-    backgroundColor : 'beige'
+    backgroundColor : secondary
   },
 
   but :
   {
-    backgroundColor : '#643916'
+    backgroundColor : primary
   }
 }
 
@@ -109,7 +111,7 @@ export default class Capture extends React.Component
                         onStop={this.askQuestion}
                         nonstop={true}
                         duration={5}
-                        backgroundColor={'#643916'}
+                        backgroundColor={primary}
                         strokeColor={'white'}/>
               <TextField style={css.ask}
                          className='ask'

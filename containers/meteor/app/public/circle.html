@@ -15,10 +15,10 @@
     </div>
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script>
-      var svg    = d3.select("svg"),
+      var svg    =   d3.select("svg"),
           width  = +svg.attr("width"),
           height = +svg.attr("height"),
-          angles = d3.range(0, 2 * Math.PI, Math.PI / 200);
+          angles =   d3.range(0, 2 * Math.PI, Math.PI / 200);
       
       var path = svg.append("g")
           .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
@@ -26,7 +26,7 @@
           .attr("stroke-width", 10)
           .attr("stroke-linejoin", "round")
           .selectAll("path")
-          .data(["cyan", "magenta", "yellow"])
+          .data(["#2d2a95", "#fae924", "#d05d09", "#b5117e"])
           .enter().append("path")
           .attr("stroke", function(d) { return d; })
           .style("mix-blend-mode", "darken")
