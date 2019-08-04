@@ -101,15 +101,14 @@ class TikiSayComponent extends React.Component
 
   render = () =>
   {
-    console.log(`client > TikiSay > render :   Props = ${JSON.stringify(this.props, null, '\t')}`)
+  //console.log(`client > TikiSay > render :   Props = ${JSON.stringify(this.props, null, '\t')}`)
 
-    const context = this.props.context.results
-    const session = Session.get('RESULTS')
+  //const context = this.props.context.results
+  //const session = Session.get('RESULTS')
     const tracker = this.props.tracker
+    const results = tracker
 
-    const results = context
-
-    console.log(`client > TikiSay > render : Answers = ${JSON.stringify(results)}`)
+    console.log(`client > TikiSay > render : Answers = ${results}`)
 
     if (results && results.answers)
     {
@@ -133,7 +132,7 @@ class TikiSayComponent extends React.Component
               ))}
             </TableBody>
           </Table>
-          <Say speak={`tiki says ${results.answer}`} />
+          <Say speak={`tiki say ${results.answer}`} />
         </Paper>
       )
     }
@@ -156,6 +155,7 @@ class TikiSayComponent extends React.Component
             <Grid container item justify="center" style={css.root}>
               <img style={css.spin} src="tiki.gif" height={295} />
             </Grid>
+            <Say speak={`tiki ask`} />
           </Paper>
         )
       }
@@ -167,7 +167,7 @@ export default TikiSay = withTracker(() =>
 {
   let results = Session.get('RESULTS')
   
-  console.log(`client > TikiSay > trackr : RESULTS = ${JSON.stringify(results)}`)
+  console.log(`client > TikiSay > trackr : RESULTS = ${results}`)
 
   return { tracker : results }
 
