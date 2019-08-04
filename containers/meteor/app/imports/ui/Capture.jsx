@@ -49,7 +49,7 @@ const css =
   root :
   {
     marginTop  : 8,
-    background : 'black'
+    background : 'lime'
   },
 
   bag :
@@ -63,8 +63,8 @@ const css =
     display    : 'flex',
 
     background : 'black',
-    width      : 359,
-    height     : 202,
+    minWidth   : 345,
+    maxWidth   : 359,
     shrink     : true
   },
 

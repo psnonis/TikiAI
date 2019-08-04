@@ -1,44 +1,50 @@
-<HTML>
-<head>
-  <script src="https://d3js.org/d3.v4.min.js"></script>
-  <script>
-    var svg = d3.select("svg"),
-        width = +svg.attr("width"),
-        height = +svg.attr("height"),
-        angles = d3.range(0, 2 * Math.PI, Math.PI / 200);
-    
-    var path = svg.append("g")
-        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
-        .attr("fill", "none")
-        .attr("stroke-width", 10)
-        .attr("stroke-linejoin", "round")
-        .selectAll("path")
-        .data(["cyan", "magenta", "yellow"])
-        .enter().append("path")
-        .attr("stroke", function(d) { return d; })
-        .style("mix-blend-mode", "darken")
-        .datum(function(d, i) {
-          return d3.radialLine()
-              .curve(d3.curveLinearClosed)
-              .angle(function(a) { return a; })
-              .radius(function(a) {
-                var t = d3.now() / 1000;
-                return 90 + Math.cos(a * 8 - i * 2 * Math.PI / 3 + t) * Math.pow((1 + Math.cos(a - t)) / 2, 3) * 24;
-          });
-        });
-    
-    d3.timer(function() {
-      path.attr("d", function(d) {
-        return d(angles);
-      });
-    });
-  </script>
-</head>
-
-<body>
+<html>
+  <head>
+    <style>
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: auto;
+      }
+    </style>
+  </head>
+  <body>
     <div>
-      <svg width="265" height="265"></svg>
-      <img src="tiki.gif" />
+      <svg height="279" width="279"></svg>
     </div>
-</body>
-</HTML>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script>
+      var svg    = d3.select("svg"),
+          width  = +svg.attr("width"),
+          height = +svg.attr("height"),
+          angles = d3.range(0, 2 * Math.PI, Math.PI / 200);
+      
+      var path = svg.append("g")
+          .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
+          .attr("fill", "none")
+          .attr("stroke-width", 10)
+          .attr("stroke-linejoin", "round")
+          .selectAll("path")
+          .data(["cyan", "magenta", "yellow"])
+          .enter().append("path")
+          .attr("stroke", function(d) { return d; })
+          .style("mix-blend-mode", "darken")
+          .datum(function(d, i) {
+            return d3.radialLine()
+                .curve(d3.curveLinearClosed)
+                .angle(function(a) { return a; })
+                .radius(function(a) {
+                  var t = d3.now() / 1000;
+                  return 90 + Math.cos(a * 8 - i * 2 * Math.PI / 3 + t) * Math.pow((1 + Math.cos(a - t)) / 2, 3) * 24;
+            });
+          });
+      
+      d3.timer(function() {
+        path.attr("d", function(d) {
+          return d(angles);
+        });
+      });
+    </script>  
+  </body>
+</html>
