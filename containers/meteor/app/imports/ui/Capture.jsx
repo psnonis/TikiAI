@@ -101,6 +101,7 @@ export default class Capture extends React.Component
                       height={202}
                       ref={this.setRef}
                       screenshotFormat="image/jpeg"
+                      onClik={()=>console.log('CLICK')}
                       videoConstraints={this.videoConstraints} />
               <ReactMic style={css.mic}
                         className='mic'
@@ -144,16 +145,18 @@ export default class Capture extends React.Component
 
     this.state =
     {
-      record   : false,
-      ready    : true,
-      question : 'What objects are in the image?',
-      answers  : null
+      record     : false,
+      ready      : true,
+      question   : 'What objects are in the image?',
+      answers    : null,
+      facingMode : 'user'
     }
 
     this.videoConstraints =
     {
       width      : 1280,
       height     : 720,
+//    facingMode : { exact : 'environment' }
       facingMode : 'user'
     }
   }
@@ -167,14 +170,14 @@ export default class Capture extends React.Component
   {
     console.log(`client > Capture > getAnswers`)
 
+    this.props.context.first = false
+
     if (!this.state.ready)
     {
       console.log(`client > Capture > getAnswers : Not Ready`)
     }
     else
     {
-      this.setState({ ready : false })
-   
       const picture  = this.webcam.getScreenshot()
       var   question = this.state.question
 

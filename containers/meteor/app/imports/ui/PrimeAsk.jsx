@@ -19,7 +19,7 @@ const css =
 
 var context =
 {
-  hello   : 'world',
+  first   : true,
   results : null
 }
 

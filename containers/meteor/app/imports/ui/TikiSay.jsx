@@ -78,7 +78,6 @@ class TikiSayComponent extends React.Component
     console.log(`client > TikiSay > constr : ${this.props.context.hello}`)
 
     this.onSay = this.onSay.bind(this)
-
     this.state = 
     {
       speak : ''
@@ -134,20 +133,32 @@ class TikiSayComponent extends React.Component
               ))}
             </TableBody>
           </Table>
-          <Say speak={results.answer} />
+          <Say speak={`tiki says ${results.answer}`} />
         </Paper>
       )
     }
     else
     {
-      return (
-        <Paper style={css.top}>
-          <Grid container item justify="center" style={css.root}>
-            <img style={css.spin} src="tiki.gif" height={295} />
-          </Grid>
-          <Button style={{backgroundColor : 'sienna'}} onClick={this.onSay}>SAY</Button>
-        </Paper>
-      )
+      if (this.props.context.first)
+      {
+        return (
+          <Paper style={css.top}>
+            <Grid container item justify="center" style={css.root}>
+              <iframe src="circle.html" width="500" height="295" frameBorder="0" />
+            </Grid>
+          </Paper>
+        )
+      }
+      else
+      {
+        return (
+          <Paper style={css.top}>
+            <Grid container item justify="center" style={css.root}>
+              <img style={css.spin} src="tiki.gif" height={295} />
+            </Grid>
+          </Paper>
+        )
+      }
     }
   }
 }
