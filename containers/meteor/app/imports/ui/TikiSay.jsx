@@ -46,27 +46,16 @@ const css =
   {
     width           : '100%',
     marginTop       : 8,
-//  overflowX       : 'auto',
     backgroundColor : 'beige'
   },
 
   tab :
   {
-    display        : 'flex',
-    flexWrap       : 'wrap',
-    justifyContent : 'space-around',
-    overflow       : 'hidden',
-    background     : 'beige'
   },
 
-  spin :
+  gif :
   {
-
   },
-
-  table :
-  {
-  },  
 }
 
 class TikiSayComponent extends React.Component
@@ -101,12 +90,12 @@ class TikiSayComponent extends React.Component
 
   render = () =>
   {
-  //console.log(`client > TikiSay > render :   Props = ${JSON.stringify(this.props, null, '\t')}`)
+    console.log(`client > TikiSay > render`)
 
-  //const context = this.props.context.results
-  //const session = Session.get('RESULTS')
-    const tracker = this.props.tracker
-    const results = tracker
+  //const results = this.props.context.results // this does not work
+  //const results = Session.get('RESULTS')     // this does not work without withTracker
+    const results = this.props.results
+    const first   = this.props.first
 
     console.log(`client > TikiSay > render : Answers = ${results}`)
 
@@ -125,8 +114,8 @@ class TikiSayComponent extends React.Component
             <TableBody>
               {results.answers.map(row => (
                 <TableRow key={row.rank}>
-                  <TableCell component="th" scope="row">{row.rank}</TableCell>
-                  <TableCell component="th" scope="row">{row.answer}</TableCell>
+                  <TableCell              >{row.rank}</TableCell>
+                  <TableCell              >{row.answer}</TableCell>
                   <TableCell align="right">{`${(row.probability * 100).toFixed(2)} %`}</TableCell>
                 </TableRow>
               ))}
@@ -138,13 +127,14 @@ class TikiSayComponent extends React.Component
     }
     else
     {
-      if (this.props.context.first)
+      if (first)
       {
         return (
           <Paper style={css.roo}>
-            <Grid container item justify="center" style={css.root}>
-              <iframe src="circle.html" width="500" height="261" frameBorder="0" />
+            <Grid container item justify="center" style={css.roo}>
+              <iframe src="circle.html" height={261} frameBorder="0" />
             </Grid>
+            <Say speak={`Welcome, how can Tiki help ?`} />
           </Paper>
         )
       }
@@ -152,8 +142,8 @@ class TikiSayComponent extends React.Component
       {
         return (
           <Paper style={css.roo}>
-            <Grid container item justify="center" style={css.root}>
-              <img style={css.spin} src="tiki.gif" height={295} />
+            <Grid container item justify="center" style={css.roo}>
+              <img style={css.gif} src="tiki.gif" height={261} />
             </Grid>
             <Say speak={`tiki ask`} />
           </Paper>
@@ -166,9 +156,10 @@ class TikiSayComponent extends React.Component
 export default TikiSay = withTracker(() =>
 {
   let results = Session.get('RESULTS')
+  let first   = Session.get('FIRST'  )
   
-  console.log(`client > TikiSay > trackr : RESULTS = ${results}`)
+  console.log(`client > TikiSay > trackr : RESULTS = ${results}, FIRST = ${first}`)
 
-  return { tracker : results }
+  return { results : results, first : first }
 
 })(TikiSayComponent)

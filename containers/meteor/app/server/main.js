@@ -37,7 +37,7 @@ Meteor.methods(
     api_getAnswers_prime : async function (params)
     {
         console.log('server > main > api_getAnswers_prime called')
-        console.log(params)
+      //console.log(params)
 
         if (params.image && params.query)
         {
@@ -55,7 +55,7 @@ Meteor.methods(
 
             Captures.update({ _id : params.user }, { $set : { question : params.query, answer : response.body.image.answer, picture : params.image, createdAt : new Date() } }, { upsert : true })
 
-            console.log(`server > main > api_getAnswers_prime return : ${response.text}`)
+            console.log(`server > main > api_getAnswers_prime return : ${JSON.stringify(response.body, null, 2)}`)
 
             return response.body
         }
@@ -66,7 +66,7 @@ Meteor.methods(
     api_getAnswers_group : async function (params) // Need To Write This Function
     {
         console.log('server > main > api_getAnswers_group called')
-        console.log(params)
+      //console.log(params)
 
         if (params.query)
         {
@@ -84,7 +84,7 @@ Meteor.methods(
     api_getInterpretation : async function (params)
     {
         console.log('server > main > api_askQuestion called')
-        console.log(params)
+      //console.log(params)
 
         var uri       = GetAPIEndpoint('speech', 'interpret') // TODO: rename interpret to speech and getInterpretation
         var sample    = '../../../../../public/sample_audio.wav' // The Birch Canoe

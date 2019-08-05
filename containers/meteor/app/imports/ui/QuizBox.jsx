@@ -60,11 +60,11 @@ export default function QuizBox(props, hey) {
 
   return (
     <Paper        className={cls.roo}>
-      <IconButton className={cls.cam} onClick={() => props.onClickCam()}><CameraAltIcon /></IconButton>
-      <InputBase  className={cls.txt} placeholder="Ask a Question" value={props.context.question} />
-      <IconButton className={cls.mic} onClick={() => props.onClickMic()}><MicIcon       /></IconButton>
+      <IconButton className={cls.cam}  onClick={(e) => props.onClickCam(e)}><CameraAltIcon /></IconButton>
+      <InputBase  className={cls.txt} onChange={(e) => props.onTypeText(e)} placeholder="Ask a Question" value={props.question} />
+      <IconButton className={cls.mic}  onClick={(e) => props.onClickMic(e)}><MicIcon       /></IconButton>
       <Divider    className={cls.sep} />
-      <IconButton className={cls.ask} onClick={() => props.onClickAsk()}><MessageIcon   /></IconButton>
+      <IconButton className={cls.ask}  onClick={(e) => props.onClickAsk(e)}><MessageIcon   /></IconButton>
     </Paper>
   )
 }

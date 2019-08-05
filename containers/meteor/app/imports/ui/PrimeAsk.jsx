@@ -17,10 +17,6 @@ const styling =
 
 const context =
 {
-  ready    : true,
-  first    : true,
-  results  : null,
-  question : 'Whats objects are there ?',
 }
 
 const PrimeAsk = () =>

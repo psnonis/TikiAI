@@ -119,6 +119,8 @@ export default class Capture extends React.Component
         </Paper>
         <QuizBox style={css.box}
                   context={this.props.context}
+                  question={this.state.question}
+                  onTypeText={this.onTypeText}
                   onClickAsk={this.onClickAsk}
                   onClickCam={this.onClickCam}
                   onClickMic={this.onClickMic} />
@@ -137,10 +139,12 @@ export default class Capture extends React.Component
     this.onClickCam        = this.onClickCam.bind(this)
     this.onClickMic        = this.onClickMic.bind(this)        
 
+    this.ready = true
     this.state = 
     {
-      record : false,
-      vidCon :
+      question : 'What objects are there ?',
+      record   : false,
+      vidCon   :
       {
         facingMode : 'environment',
         height     : 240,
@@ -156,23 +160,23 @@ export default class Capture extends React.Component
 
   getAnswers_prime = () =>
   {
-    if (!this.props.context.ready)
+    if (!this.ready)
     {
       console.log(`client > Capture > getAnswers : Not Ready`)
     }
     else
     {
-      this.props.context.ready = false
-      this.props.context.first = false
+      this.ready = false
 
       console.log(`client > Capture > getAnswers`)
 
       const picture  = this.webcam.getScreenshot()
-      var   question = this.props.context.question
+      var   question = this.state.question
 
       console.log('client > Capture > getAnswers : callin api_getAnswers_prime')
   
-      this.props.context.results = null
+      Session.set(  'FIRST', false)
+      Session.set('RESULTS',  null)
 
       Meteor.call('api_getAnswers_prime', { query : question, image : picture }, (err, res) =>
       {
@@ -181,57 +185,71 @@ export default class Capture extends React.Component
         if (err) console.log(`ERR => ${err}`)
       //if (res) console.log(`RES => ${res}`)
 
-        this.props.context.results = res ? res.image : null
-        this.props.context.ready   = true
+        Session.set('RESULTS', res ? res.image : null)
+
+        this.ready = true
       })
     }
   }
 
   getInterpretation = (recording) =>
   {
-    console.log(`client > Capture > askQuestion`)
-    console.log(recording.blob)
-
-    this.setState({ question : 'Interpreting Question, Please Wait...' })
-
-    let reader = new FileReader()
-    reader.onload = (e) =>
+    if (!this.ready)
     {
-      let audio = reader.result
-      console.log(audio)
-
-      console.log('client > Capture > askQuestion : callin api_getInterpretation')
-  
-      Meteor.call('api_getInterpretation', { audio : audio }, (err, res) =>
-      {
-        console.log('client > Capture > askQuestion : return api_getInterpretation')
-
-        if (err) console.log(`ERR => ${err}`)
-      //if (res) console.log(`RES => ${res}`)
-
-        if (res)
-        {
-          this.setState({ question : res.audio.interpretation })
-        }
-        else
-        {
-          this.setState({ question : 'Something Went Wrong, Try Again...' })
-        }
-      })
+      console.log(`client > Capture > getInterpretation : Not Ready`)
     }
-    reader.readAsDataURL(recording.blob)
+    else
+    {
+      this.ready = false
+
+      console.log(`client > Capture > getInterpretation`)
+      console.log(recording.blob)
+  
+      this.setState({ question : 'Interpreting Question, Please Wait...' })
+  
+      let reader = new FileReader()
+  
+      reader.onload = (e) =>
+      {
+        let audio = reader.result
+      //console.log(audio)
+  
+        console.log('client > Capture > getInterpretation : callin api_getInterpretation')
+    
+        Meteor.call('api_getInterpretation', { audio : audio }, (err, res) =>
+        {
+          console.log('client > Capture > getInterpretation : return api_getInterpretation')
+  
+          if (err) console.log(`ERR => ${err}`)
+        //if (res) console.log(`RES => ${res}`)
+  
+          if (res && res.audio)
+          {
+            this.setState({ question : res.audio.interpretation })
+          }
+          else
+          {
+            this.setState({ question : 'Something Went Wrong, Try Again...' })
+          }
+
+          this.ready = true
+        })
+      }
+
+      reader.readAsDataURL(recording.blob)
+    }
   }
 
   onClickAsk = (e) =>
   {
-    console.log(`client > Capture > onClickAsk : record = ${this.state.ready}`)
+    console.log(`client > Capture > onClickAsk`)
 
     this.getAnswers_prime()
   }
 
   onClickCam = (e) =>
   {
-    console.log(`client > Capture > onClickCam : record = ${this.state.record}`)
+    console.log(`client > Capture > onClickCam`)
 
     var vidCon        = this.state.vidCon
     vidCon.facingMode = {'user' : 'environment', 'environment' : 'user'}[vidCon.facingMode]
@@ -241,8 +259,15 @@ export default class Capture extends React.Component
 
   onClickMic = (e) =>
   {
-    console.log(`client > Capture > onClickMic : record = ${this.state.record}`)
+    console.log(`client > Capture > onClickMic`)
 
     this.setState({ record : !this.state.record })
+  }
+
+  onTypeText = (e) =>
+  {
+    console.log(`client > Capture > onTypeText`)
+
+    this.setState({ question : e.target.value })
   }
 }
