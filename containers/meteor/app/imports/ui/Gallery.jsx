@@ -15,13 +15,14 @@ import StarBorderIcon  from '@material-ui/icons/StarBorder'
 
 import { makeStyles }  from '@material-ui/core/styles'
 
-const css = {
+const css =
+{
   top :
   {
     width      : '100%',
     marginTop  : 8,
     overflowX  : 'auto',
-    background : 'transparent'
+    background : 'beige'
   },
 
   root :

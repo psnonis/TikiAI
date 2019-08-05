@@ -4,6 +4,7 @@ import Webcam          from 'react-webcam'
 import { ReactMic }    from 'react-mic-plus'
 
 import Container       from '@material-ui/core/Container'
+import Paper           from '@material-ui/core/Paper'
 import Grid            from '@material-ui/core/Grid'
 import Box             from '@material-ui/core/Box'
 
@@ -12,14 +13,6 @@ import QuizBox         from './QuizBox'
 import { makeStyles  } from '@material-ui/core/styles'
 import { primary,
          secondary   } from './Themes'
-
-const fake = [
-  { rank : 1, answer : 'A', probability : 20.0 },
-  { rank : 2, answer : 'B', probability : 20.0 },
-  { rank : 3, answer : 'C', probability : 20.0 },
-  { rank : 4, answer : 'D', probability : 20.0 },
-  { rank : 5, answer : 'E', probability : 20.0 },
-]
 
 const styles = makeStyles(theme => (
 {
@@ -45,42 +38,56 @@ const styles = makeStyles(theme => (
 
 const css =
 {
-  root :
+  roo :
   {
-    marginTop  : 8,
-    background : 'transparent'
+    padding    : 0,
+//  marginTop  : 8,
+    background : 'transparent',
   },
 
-  bag :
+  pac :
   {
-    display  : 'flex',
-    flexFlow : 'row wrap'
+    display    : 'flex',
+    width      : '100%',
+    marginTop  : 8,
+    alignItems : 'center',
+    background : 'magenta',
   },
 
   cam :
   {
-    display    : 'flex',
+    display      : 'flex',
+    background   : 'black',
+    width        : '100%',
+    borderRadius : 4
+  },
 
-    background : 'black',
-    minWidth   : 345,
-    maxWidth   : 359,
-    shrink     : true,
-    borderTopLeftRadius  : 4,
-    borderTopRightRadius : 4,    
+  pam :
+  {
+    display    : 'flex',
+    width      : '100%',
+    marginTop  : 8,
+    alignItems : 'center',
+    background : 'magenta',
+
+/*  width      : '100%',
+    marginTop  : 8,
+    overflowX  : 'auto',
+    background : 'magenta'
+*/    
   },
 
   mic :
   {
-    backgroundColor : primary,
-    width           : 359,
-    height          : 101,
-    shrink          : true,
-    borderRadius    : 4
+    display      : 'block',
+    width        : '100%',
+    background   : primary,
+    borderRadius : 4
   },
 
   box :
   {
-    marginTop       : 8,
+    marginTop   : 8,
   }
 }
 
@@ -88,37 +95,34 @@ export default class Capture extends React.Component
 {
   render = () =>
   {
-
-    console.log(`client > Capture > render : videoConstraints = ${JSON.stringify(this.props.context)}`)
+    console.log(`client > Capture > render`)
 
     return (
-      <Grid container style={css.root}>
-        <Grid container item>
-          <Grid container item direction="column" alignItems="center">
-            <Grid item style={css.bag} >
-              <Webcam style={css.cam}
-                      audio={false}
-                      height={202}
-                      ref={this.setRef}
-                      screenshotFormat="image/jpeg"
-                      videoConstraints={this.state.vidCon} />
-              <ReactMic style={css.mic}
-                        className="mic"
-                        record={this.state.record}
-                        onStop={this.getInterpretation}
-                        nonstop={false}
-                        duration={5}
-                        backgroundColor={primary}
-                        strokeColor={'white'} />
-              <QuizBox style={css.box}
-                       context={this.props.context}
-                       onClickAsk={this.onClickAsk}
-                       onClickCam={this.onClickCam}
-                       onClickMic={this.onClickMic} />
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
+      <Container style={css.roo}>
+        <Paper style={css.pac}>
+          <Webcam style={css.cam}
+                  audio={false}
+                  height={202}
+                  ref={this.setRef}
+                  screenshotFormat="image/jpeg"
+                  videoConstraints={this.state.vidCon} />
+        </Paper>
+        <Paper style={css.pam}>
+          <ReactMic style={css.mic}
+                    className="mic"
+                    record={this.state.record}
+                    onStop={this.getInterpretation}
+                    nonstop={false}
+                    duration={5}
+                    backgroundColor={primary}
+                    strokeColor={'white'} />
+        </Paper>
+        <QuizBox style={css.box}
+                  context={this.props.context}
+                  onClickAsk={this.onClickAsk}
+                  onClickCam={this.onClickCam}
+                  onClickMic={this.onClickMic} />
+      </Container>
     )
   }
 
@@ -138,7 +142,9 @@ export default class Capture extends React.Component
       record : false,
       vidCon :
       {
-        facingMode : 'environment'
+        facingMode : 'environment',
+        height     : 240,
+        width      : 360,
       }
     }
   }

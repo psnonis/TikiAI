@@ -17,12 +17,11 @@ const useStyles = makeStyles(
 {
   roo :
   {
-    padding         : '2px 4px',
     display         : 'flex',
-    alignItems      : 'center',
-    width           : 351,
+    width           : '100%',
     marginTop       : 8,
-    backgroundColor : 'beige'
+    alignItems      : 'center',
+    backgroundColor : 'beige',
   },
 
   txt :

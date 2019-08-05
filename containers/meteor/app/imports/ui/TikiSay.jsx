@@ -42,15 +42,15 @@ const fake = [
 
 const css =
 {
-  top :
+  roo :
   {
-    width      : '100%',
-    marginTop  : 8,
-    overflowX  : 'auto',
-    background : 'magenta'
+    width           : '100%',
+    marginTop       : 8,
+//  overflowX       : 'auto',
+    backgroundColor : 'beige'
   },
 
-  root :
+  tab :
   {
     display        : 'flex',
     flexWrap       : 'wrap',
@@ -113,8 +113,8 @@ class TikiSayComponent extends React.Component
     if (results && results.answers)
     {
       return (
-        <Paper style={css.top}>
-          <Table style={css.root}>
+        <Paper style={css.roo}>
+          <Table style={css.tab}>
             <TableHead>
               <TableRow>
                 <TableCell>Rank</TableCell>
@@ -141,9 +141,9 @@ class TikiSayComponent extends React.Component
       if (this.props.context.first)
       {
         return (
-          <Paper style={css.top}>
+          <Paper style={css.roo}>
             <Grid container item justify="center" style={css.root}>
-              <iframe src="circle.html" width="500" height="295" frameBorder="0" />
+              <iframe src="circle.html" width="500" height="261" frameBorder="0" />
             </Grid>
           </Paper>
         )
@@ -151,7 +151,7 @@ class TikiSayComponent extends React.Component
       else
       {
         return (
-          <Paper style={css.top}>
+          <Paper style={css.roo}>
             <Grid container item justify="center" style={css.root}>
               <img style={css.spin} src="tiki.gif" height={295} />
             </Grid>

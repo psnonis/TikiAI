@@ -9,7 +9,7 @@ import Container from '@material-ui/core/Container'
 
 const styling =
 {
-  root :
+  roo :
   {
     padding : 0
   }
@@ -25,7 +25,7 @@ const context =
 
 const PrimeAsk = () =>
 (
-  <Container   id="AskRoot"   style={styling.root}>
+  <Container   id="AskRoot"   style={styling.roo}>
       <TikiBar id="TikiBar" context={context}/>
       <Capture id="Capture" context={context}/>
       <TikiSay id="TikiSay" context={context}/>
