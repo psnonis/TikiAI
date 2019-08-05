@@ -55,7 +55,8 @@ services:
       - vhost.d:/etc/nginx/vhost.d
       - html:/usr/share/nginx/html
       - /var/run/docker.sock:/tmp/docker.sock:ro
-    image: jwilder/nginx-proxy
+    build: 
+      context: ./nginx/
   
   nginx-proxy-letsencrypt:
     container_name: nginx-proxy-letsencrypt
