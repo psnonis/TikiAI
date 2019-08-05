@@ -1,13 +1,12 @@
-import React   from 'react'
+import React     from 'react'
 
-import TikiBar from './TikiBar'
-import Auditor from './Auditor'
-import Gallery from './Gallery'
-import Testing from './Testing'
+import TikiBar   from './TikiBar'
+import Auditor   from './Auditor'
+import Gallery   from './Gallery'
 
 import Container from '@material-ui/core/Container'
 
-const css =
+const styling =
 {
   root :
   {
@@ -15,12 +14,18 @@ const css =
   }
 }
 
+const context =
+{
+  first   : true,
+  results : null
+}
+
 const GroupAsk = () =>
 (
-  <Container id="AppRoot" style={css.root}>
-    <TikiBar id="TikiBar" />
-    <Auditor id="Auditor" />
-    <Gallery id="Gallery" />
+  <Container   id="AskRoot"   style={styling.root}>
+      <TikiBar id="TikiBar" context={context}/>
+      <Auditor id="Auditor" context={context}/>
+      <Gallery id="Gallery" context={context}/>
   </Container>
 )
 

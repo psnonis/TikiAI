@@ -103,19 +103,19 @@ export default class Capture extends React.Component
                       height={202}
                       ref={this.setRef}
                       screenshotFormat="image/jpeg"
-                      onClik={()=>console.log('CLICK')}
-                      videoConstraints={this.videoConstraints} />
+                      onClik={(e) => console.log('CLICK')}
+                      videoConstraints={this.state.videoConstraints} />
               <ReactMic style={css.mic}
-                        className='mic'
-                        record={this.state.record}
-                        onStop={this.askQuestion}
+                        className="mic"
+                        record={this.state.audioRecord}
+                        onStop={this.getInterpretation}
                         nonstop={true}
                         duration={5}
                         backgroundColor={primary}
                         strokeColor={'white'}/>
               <TextField style={css.ask}
-                         className='ask'
-                         label='Question'
+                         className="ask"
+                         label="Question"
                          fullWidth
                          variant="filled"
                          InputLabelProps={{shrink: true,}}
@@ -128,7 +128,7 @@ export default class Capture extends React.Component
                         onMouseDown={this.startAudioRecording}
                         onMouseUp={this.stopAudioRecording}>Microphone<Icon style={{marginLeft:8}}>microphone</Icon></Button>
                 <Button style={css.but}
-                        onClick={this.getAnswers}>Ask Tiki!<Icon style={{marginLeft:8}}>question_answer</Icon></Button>
+                        onClick={this.getAnswers_prime}>Ask Tiki!<Icon style={{marginLeft:8}}>question_answer</Icon></Button>
               </ButtonGroup>
             </Grid>
             </Grid>
@@ -142,24 +142,21 @@ export default class Capture extends React.Component
   {
     super(props)
 
-    this.onChangeQuestion = this.onChangeQuestion.bind(this)
-    this.getAnswers       = this.getAnswers.bind(this)
+    this.onChangeQuestion  = this.onChangeQuestion.bind(this)
+    this.getAnswers_prime  = this.getAnswers_prime.bind(this)
+    this.getInterpretation = this.getInterpretation.bind(this)
 
     this.state =
     {
-      record     : false,
-      ready      : true,
-      question   : 'What objects are in the image?',
-      answers    : null,
-      facingMode : 'user'
-    }
-
-    this.videoConstraints =
-    {
-      width      : 1280,
-      height     : 720,
-//    facingMode : { exact : 'environment' }
-      facingMode : 'user'
+      ready            : true,
+      question         : 'What objects are in the image?',
+      audioRecord      : false,
+      videoConstraints :
+      {
+        width      : 1280,
+        height     : 720,
+        facingMode : 'user',
+      }
     }
   }
  
@@ -168,7 +165,7 @@ export default class Capture extends React.Component
     this.webcam = webcam
   }
 
-  getAnswers = () =>
+  getAnswers_prime = () =>
   {
     console.log(`client > Capture > getAnswers`)
 
@@ -183,27 +180,33 @@ export default class Capture extends React.Component
       const picture  = this.webcam.getScreenshot()
       var   question = this.state.question
 
-      console.log('client > Capture > getAnswers : callin api_getAnswers')
+      console.log('client > Capture > getAnswers : callin api_getAnswers_prime')
   
       this.props.context.results = null
-      Session.set(      'RESULTS', null)
+    //Session.set(      'RESULTS', null)
 
-      Meteor.call('api_getAnswers', { query : question, image : picture }, (err, res) =>
+      Meteor.call('api_getAnswers_prime', { query : question, image : picture }, (err, res) =>
       {
-        console.log('client > Capture > getAnswers : return api_getAnswers')
-        console.log(res)
-        console.log(err || 'No Error')
+        console.log('client > Capture > getAnswers : return api_getAnswers_prime')
 
-        this.setState({ answers : res.image })
+        if (err) console.log(`ERR => ${err}`)
+      //if (res) console.log(`RES => ${res}`)
+
+        if (res)
+        {
+          this.props.context.results = res.image
+          //Session.set(      'RESULTS', res.image)
+        }
+        else
+        {
+        }
+
         this.setState({ ready   : true      })
-
-        this.props.context.results = res.image
-        Session.set(      'RESULTS', res.image)
       })
     }
   }
  
-  askQuestion = (recording) =>
+  getInterpretation = (recording) =>
   {
     console.log(`client > Capture > askQuestion`)
     console.log(recording.blob)
@@ -216,13 +219,14 @@ export default class Capture extends React.Component
       let audio = reader.result
       console.log(audio)
 
-      console.log('client > Capture > askQuestion : callin api_askQuestion')
+      console.log('client > Capture > askQuestion : callin api_getInterpretation')
   
-      Meteor.call('api_askQuestion', { audio : audio }, (err, res) =>
+      Meteor.call('api_getInterpretation', { audio : audio }, (err, res) =>
       {
-        console.log('client > Capture > askQuestion : return api_askQuestion')
-        console.log(res || 'No Response')
-        console.log(err || 'No Error')
+        console.log('client > Capture > askQuestion : return api_getInterpretation')
+
+        if (err) console.log(`ERR => ${err}`)
+      //if (res) console.log(`RES => ${res}`)
 
         if (res)
         {
@@ -237,13 +241,13 @@ export default class Capture extends React.Component
     reader.readAsDataURL(recording.blob)
   }
 
-  startAudioRecording = () =>
+  startAudioRecording = (e) =>
   {
     console.log(`client > Capture > startAudioRecording`)
     this.setState({ record : true })
   }
  
-  stopAudioRecording = () =>
+  stopAudioRecording = (e) =>
   {
     console.log(`client > Capture > stopAudioRecording`)
     this.setState({ record : false })

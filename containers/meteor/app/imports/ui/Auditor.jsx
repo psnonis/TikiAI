@@ -1,16 +1,16 @@
-import React          from 'react'
+import React           from 'react'
 
-import Container      from '@material-ui/core/Container'
-import Grid           from '@material-ui/core/Grid'
-import Box            from '@material-ui/core/Box'
-import Button         from '@material-ui/core/Button'
-import ButtonGroup    from '@material-ui/core/ButtonGroup'
-import Icon           from '@material-ui/core/Icon'
-import TextField      from '@material-ui/core/TextField'
+import Container       from '@material-ui/core/Container'
+import Grid            from '@material-ui/core/Grid'
+import Box             from '@material-ui/core/Box'
+import Button          from '@material-ui/core/Button'
+import ButtonGroup     from '@material-ui/core/ButtonGroup'
+import Icon            from '@material-ui/core/Icon'
+import TextField       from '@material-ui/core/TextField'
 
-import { makeStyles } from '@material-ui/core/styles'
-
-import Answers        from './Answers'
+import { makeStyles  } from '@material-ui/core/styles'
+import { primary,
+         secondary   } from './Themes'
 
 const styles = makeStyles(theme => (
 {
@@ -48,32 +48,6 @@ const css =
   },
 }
 
-const rows = [
-  { rank : 1, answer : 'A', probability : 20.0 },
-  { rank : 2, answer : 'B', probability : 20.0 },
-  { rank : 3, answer : 'C', probability : 20.0 },
-  { rank : 4, answer : 'D', probability : 20.0 },
-  { rank : 5, answer : 'E', probability : 20.0 },
-]
-
-function Tiki (props)
-{
-  const answers = props.answers
-
-  console.log(`Tiki > ${answers}`)
-
-  if (answers)
-  {
-    return <Answers answers={answers} />
-  }
-  else
-  {
-    return  <Grid container item justify="center" style={{background:'white'}} >
-              <iframe src="circle.html" width="500" height="295" frameBorder="0"/>
-            </Grid>
-  }
-}
-
 export default class Auditor extends React.Component
 {
   render = () =>
@@ -83,9 +57,9 @@ export default class Auditor extends React.Component
         <Grid container item>
           <Grid container item direction="column" alignItems="center">
             <Grid item style={css.bag}>
-               <TextField label='Question'
+               <TextField label='General Question with YES|NO answer'
                          fullWidth
-                         variant="filled"
+
                          InputLabelProps={{shrink: true,}}
                          value={this.state.question}
                          onChange={this.onChangeQuestion} />
@@ -98,9 +72,6 @@ export default class Auditor extends React.Component
             </Grid>
           </Grid>
         </Grid>
-        <Grid container item>
-          <Tiki answers={this.state.answers} />
-        </Grid>
         </Grid>
     )
   }
@@ -110,41 +81,37 @@ export default class Auditor extends React.Component
     super(props)
 
     this.onChangeQuestion = this.onChangeQuestion.bind(this)
-    
+    this.getAllAnswers    = this.getAllAnswers.bind(this)
+
     this.state =
     {
-      record   : false,
       ready    : true,
-      question : 'What objects are in the image?',
-      answers  : null
+      question : 'who is smiling ?'
     }
-
   }
  
-  getAllAnswers = () => // Need to Write This Function
+  getAllAnswers = (e) =>
   {
     if (!this.state.ready)
     {
-      console.log("Tiki Not Ready")
+      console.log(`Tiki Not Ready`)
     }
     else
     {
       this.setState({ ready : false })
+
       console.log(`client > Auditor > getAnswers`)
    
       var   question = this.state.question
   
-      console.log('client > Auditor > getAnswers : callin api_getAnswers')
+      console.log('client > Auditor > getAnswers : callin api_getAllAnswers')
   
-      this.setState({ answers : null })
-
-      Meteor.call('api_getAnswers', { query : question, image : picture }, (err, res) =>
+      Meteor.call('api_getAllAnswers', { query : question }, (err, res) =>
       {
-        console.log('client > Auditor > getAnswers : return api_getAnswers')
+        console.log('client > Auditor > getAnswers : return api_getAllAnswers')
         console.log(res)
         console.log(err || 'No Error')
 
-        this.setState({ answers : res.image })
         this.setState({ ready : true })
       })
     }

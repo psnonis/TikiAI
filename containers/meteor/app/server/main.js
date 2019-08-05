@@ -4,81 +4,95 @@ import { writeFileSync,
 import   superagent      from 'superagent'
 import { Captures      } from '/imports/api/captures'
 
-const PYTHIA = 'http://158.175.150.58:5000'
-const INTERP = 'http://158.175.150.58:5001'
-
-console.log('server > main')
-
 Meteor.startup(() =>
 {
+    console.log('server > main > startup')
 })
+
+GetAPIEndpoint = (type, resource) =>
+{
+    const servers =
+    [
+        { _id : '158.175.150.58', pythia : true, speech : true },
+    ]
+
+    if (type == 'pythia')
+    {
+        var server  = servers[0]._id
+        var port    = '5000'
+
+        return `http://${server}:${port}/api/${resource}`
+    }
+    else
+    {
+        var server  = servers[0]._id
+        var port    = '5001'
+
+        return `http://${server}:${port}/api/${resource}`
+    }
+}
 
 Meteor.methods(
 {
-    api_getAnswers : async function (params)
+    api_getAnswers_prime : async function (params)
     {
-        console.log('server > main > api_getAnswers called')
+        console.log('server > main > api_getAnswers_prime called')
         console.log(params)
 
-        if (params.image)
+        if (params.image && params.query)
         {
+            var uri       = GetAPIEndpoint('pythia', 'getAnswers')
+
             var sample    = '../../../../../public/sample_image.jpg'
             var temporary = 'image.jpg'
             var image     = Buffer.from(params.image.split(',')[1], 'base64')
 
-            writeFileSync(temporary, image) // save image to file
+            writeFileSync(temporary, image)
 
-            let response  = await superagent
-            .post(`${PYTHIA}/api/getAnswers`)
-            .query({question: params.query})
-            .attach('image',  temporary) // attach image from file
+            let response  = await superagent.post(uri)
+            .query({ question : params.query})
+            .attach(  'image' , temporary)
 
-            console.log(`server > main > api_getAnswers return : ${response.text}`)
+            Captures.update({ _id : params.user }, { $set : { question : params.query, answer : response.body.image.answer, picture : params.image, createdAt : new Date() } }, { upsert : true })
 
-            Captures.update({ _id : params.user }, { $set : {question : params.query, answer : response.body.image.answer, picture : params.image, createdAt : + new Date()} }, { upsert : true })
+            console.log(`server > main > api_getAnswers_prime return : ${response.text}`)
 
             return response.body
         }
 
-      // throw new Meteor.Error(500, 'Error 500 : Invalid Image', 'Corrupted Base64 Image Data.')
-
-        return 'ERROR'
+        throw new Meteor.Error(501, 'Error 501 : Invalid API Params', 'Invalid API Params')
     },
 
-    api_getAllAnswers : async function (params) // Need To Write This Function
+    api_getAnswers_group : async function (params) // Need To Write This Function
     {
-        console.log('server > main > api_getAllAnswers called')
+        console.log('server > main > api_getAnswers_group called')
         console.log(params)
 
-        var sample    = '../../../../../public/sample_image.jpg'
-        var temporary = 'image.jpg'
-        var image     = Buffer.from(params.image.split(',')[1], 'base64')
+        if (params.query)
+        {
+            var uri       = GetAPIEndpoint('pythia', 'getAnswers')
 
-        writeFileSync(temporary, image) // save image to file
 
-        let response  = await superagent
-        .post(`${PYTHIA}/api/getAnswers`)
-        .query({question: params.query})
-        .attach('image',  temporary) // attach image from file
+            console.log(`server > main > api_getAnswers_group return : ${response.text}`)
 
-        console.log(`server > main > api_getAnswers return : ${response.text}`)
+            return response.body
+        }
 
-        Captures.update({ _id : params.user }, { $set : {question : params.query, answer : response.body.image.answer, picture : params.image, createdAt : + new Date()} }, { upsert : true })
-
-        return response.body
+        throw new Meteor.Error(501, 'Error 501 : Invalid API Params', 'Invalid API Params')
     },
 
-    api_askQuestion : async function (params)
+    api_getInterpretation : async function (params)
     {
         console.log('server > main > api_askQuestion called')
         console.log(params)
 
-        var sample    = '../../../../../public/sample_audio.wav'  // The Birch Canoe
+        var uri       = GetAPIEndpoint('speech', 'interpret') // TODO: rename interpret to speech and getInterpretation
+        var sample    = '../../../../../public/sample_audio.wav' // The Birch Canoe
         var temporary = 'audio.wav'
                
         let stringLength = params.audio.length
-        let newString = params.audio.slice(22, stringLength) // Remove 'data:audio/wav;base64,'
-        var audio     = Buffer.from(newString, 'base64') // CONFIRMED WORKING
+        let newString    = params.audio.slice(22, stringLength) // Remove 'data:audio/wav;base64,'
+        var audio        = Buffer.from(newString, 'base64') // CONFIRMED WORKING
 
         writeFileSync(temporary, audio) // save audio to file
 
@@ -88,12 +102,10 @@ Meteor.methods(
         var writtenAudio = readFileSync(temporary)
         console.log(writtenAudio)
 
-        // let response  = await superagent  // Test Works Correctly for sample_audio.wav
-        // .post(`${INTERP}/api/interpret`)
+        // let response  = await superagent.post(url)
         // .attach('audio',  sample)
 
-        let response = await superagent  // Works Correctly
-        .post(`${INTERP}/api/interpret`)
+        let response = await superagent.post(uri)
         .attach('audio',  temporary)
       
         console.log(`server > main > api_askQuestion return : ${response.text}`)
