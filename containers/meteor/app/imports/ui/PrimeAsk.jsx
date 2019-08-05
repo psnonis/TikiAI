@@ -15,10 +15,12 @@ const styling =
   }
 }
 
-var context =
+const context =
 {
-  first   : true,
-  results : null
+  ready    : true,
+  first    : true,
+  results  : null,
+  question : 'Whats objects are there ?',
 }
 
 const PrimeAsk = () =>

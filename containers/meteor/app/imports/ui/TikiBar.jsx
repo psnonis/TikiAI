@@ -21,12 +21,14 @@ const useStyles = makeStyles(theme => (
 {
   root :
   {
-    flexGrow : 1,
+    flexGrow     : 1,
+    borderRadius : 4,
   },
 
   bar :
   {
-    backgroundColor : primary
+    backgroundColor : primary,
+    borderRadius : 4,
   },
 
   menu :
@@ -37,6 +39,7 @@ const useStyles = makeStyles(theme => (
   {
     flexGrow : 1,
   },
+
   snackbar :
   {
     [theme.breakpoints.down('xs')] :

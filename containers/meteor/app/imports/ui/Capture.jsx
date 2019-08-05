@@ -6,12 +6,9 @@ import { ReactMic }    from 'react-mic-plus'
 import Container       from '@material-ui/core/Container'
 import Grid            from '@material-ui/core/Grid'
 import Box             from '@material-ui/core/Box'
-import Button          from '@material-ui/core/Button'
-import ButtonGroup     from '@material-ui/core/ButtonGroup'
-import Icon            from '@material-ui/core/Icon'
-import TextField       from '@material-ui/core/TextField'
 
-import { Session     } from 'meteor/session'
+import QuizBox         from './QuizBox'
+
 import { makeStyles  } from '@material-ui/core/styles'
 import { primary,
          secondary   } from './Themes'
@@ -51,7 +48,7 @@ const css =
   root :
   {
     marginTop  : 8,
-    background : 'lime'
+    background : 'transparent'
   },
 
   bag :
@@ -67,7 +64,9 @@ const css =
     background : 'black',
     minWidth   : 345,
     maxWidth   : 359,
-    shrink     : true
+    shrink     : true,
+    borderTopLeftRadius  : 4,
+    borderTopRightRadius : 4,    
   },
 
   mic :
@@ -75,17 +74,13 @@ const css =
     backgroundColor : primary,
     width           : 359,
     height          : 101,
-    shrink          : true
+    shrink          : true,
+    borderRadius    : 4
   },
 
-  ask :
+  box :
   {
-    backgroundColor : secondary
-  },
-
-  but :
-  {
-    backgroundColor : primary
+    marginTop       : 8,
   }
 }
 
@@ -93,44 +88,33 @@ export default class Capture extends React.Component
 {
   render = () =>
   {
+
+    console.log(`client > Capture > render : videoConstraints = ${JSON.stringify(this.props.context)}`)
+
     return (
       <Grid container style={css.root}>
         <Grid container item>
           <Grid container item direction="column" alignItems="center">
-            <Grid item style={css.bag}>
+            <Grid item style={css.bag} >
               <Webcam style={css.cam}
                       audio={false}
                       height={202}
                       ref={this.setRef}
                       screenshotFormat="image/jpeg"
-                      onClik={(e) => console.log('CLICK')}
-                      videoConstraints={this.state.videoConstraints} />
+                      videoConstraints={this.state.vidCon} />
               <ReactMic style={css.mic}
                         className="mic"
-                        record={this.state.audioRecord}
+                        record={this.state.record}
                         onStop={this.getInterpretation}
-                        nonstop={true}
+                        nonstop={false}
                         duration={5}
                         backgroundColor={primary}
-                        strokeColor={'white'}/>
-              <TextField style={css.ask}
-                         className="ask"
-                         label="Question"
-                         fullWidth
-                         variant="filled"
-                         InputLabelProps={{shrink: true,}}
-                         value={this.state.question}
-                         onChange={this.onChangeQuestion} />
-
-            <Grid container item justify="center">
-              <ButtonGroup variant="contained" color="primary" size="small" fullWidth>
-                <Button style={css.but}
-                        onMouseDown={this.startAudioRecording}
-                        onMouseUp={this.stopAudioRecording}>Microphone<Icon style={{marginLeft:8}}>microphone</Icon></Button>
-                <Button style={css.but}
-                        onClick={this.getAnswers_prime}>Ask Tiki!<Icon style={{marginLeft:8}}>question_answer</Icon></Button>
-              </ButtonGroup>
-            </Grid>
+                        strokeColor={'white'} />
+              <QuizBox style={css.box}
+                       context={this.props.context}
+                       onClickAsk={this.onClickAsk}
+                       onClickCam={this.onClickCam}
+                       onClickMic={this.onClickMic} />
             </Grid>
           </Grid>
         </Grid>
@@ -142,20 +126,19 @@ export default class Capture extends React.Component
   {
     super(props)
 
-    this.onChangeQuestion  = this.onChangeQuestion.bind(this)
     this.getAnswers_prime  = this.getAnswers_prime.bind(this)
     this.getInterpretation = this.getInterpretation.bind(this)
 
-    this.state =
+    this.onClickAsk        = this.onClickAsk.bind(this)
+    this.onClickCam        = this.onClickCam.bind(this)
+    this.onClickMic        = this.onClickMic.bind(this)        
+
+    this.state = 
     {
-      ready            : true,
-      question         : 'What objects are in the image?',
-      audioRecord      : false,
-      videoConstraints :
+      record : false,
+      vidCon :
       {
-        width      : 1280,
-        height     : 720,
-        facingMode : 'user',
+        facingMode : 'environment'
       }
     }
   }
@@ -167,23 +150,23 @@ export default class Capture extends React.Component
 
   getAnswers_prime = () =>
   {
-    console.log(`client > Capture > getAnswers`)
-
-    this.props.context.first = false
-
-    if (!this.state.ready)
+    if (!this.props.context.ready)
     {
       console.log(`client > Capture > getAnswers : Not Ready`)
     }
     else
     {
+      this.props.context.ready = false
+      this.props.context.first = false
+
+      console.log(`client > Capture > getAnswers`)
+
       const picture  = this.webcam.getScreenshot()
-      var   question = this.state.question
+      var   question = this.props.context.question
 
       console.log('client > Capture > getAnswers : callin api_getAnswers_prime')
   
       this.props.context.results = null
-    //Session.set(      'RESULTS', null)
 
       Meteor.call('api_getAnswers_prime', { query : question, image : picture }, (err, res) =>
       {
@@ -192,20 +175,12 @@ export default class Capture extends React.Component
         if (err) console.log(`ERR => ${err}`)
       //if (res) console.log(`RES => ${res}`)
 
-        if (res)
-        {
-          this.props.context.results = res.image
-          //Session.set(      'RESULTS', res.image)
-        }
-        else
-        {
-        }
-
-        this.setState({ ready   : true      })
+        this.props.context.results = res ? res.image : null
+        this.props.context.ready   = true
       })
     }
   }
- 
+
   getInterpretation = (recording) =>
   {
     console.log(`client > Capture > askQuestion`)
@@ -241,21 +216,27 @@ export default class Capture extends React.Component
     reader.readAsDataURL(recording.blob)
   }
 
-  startAudioRecording = (e) =>
+  onClickAsk = (e) =>
   {
-    console.log(`client > Capture > startAudioRecording`)
-    this.setState({ record : true })
-  }
- 
-  stopAudioRecording = (e) =>
-  {
-    console.log(`client > Capture > stopAudioRecording`)
-    this.setState({ record : false })
+    console.log(`client > Capture > onClickAsk : record = ${this.state.ready}`)
+
+    this.getAnswers_prime()
   }
 
-  onChangeQuestion = (e) =>
+  onClickCam = (e) =>
   {
-    console.log(`client > Capture > onChangeQuestion : ${e.target.value}`)
-    this.setState({ question : e.target.value })
+    console.log(`client > Capture > onClickCam : record = ${this.state.record}`)
+
+    var vidCon        = this.state.vidCon
+    vidCon.facingMode = {'user' : 'environment', 'environment' : 'user'}[vidCon.facingMode]
+
+    this.setState({ vidCon : vidCon })
+  }
+
+  onClickMic = (e) =>
+  {
+    console.log(`client > Capture > onClickMic : record = ${this.state.record}`)
+
+    this.setState({ record : !this.state.record })
   }
 }
