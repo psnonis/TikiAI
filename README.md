@@ -1,7 +1,5 @@
 # TikiAI
 
-# [www.tiki.systems](https://www.tiki.systems)
-
 ## Pythia Service Architecture
 
 ![](assets/pythia.png)
