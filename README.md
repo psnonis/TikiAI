@@ -2,6 +2,14 @@
 
 # [www.tiki.systems](https://www.tiki.systems)
 
+## Pythia Service Architecture
+
+![](assets/pythia.png)
+
+## Pythia Service in Action
+
+![](assets/divine.png)
+
 ## Quick Start Guide
 
 Setup on localhost with docker-compose.yml.backup.  To utilize this from a mobile device requires an https certificate.
