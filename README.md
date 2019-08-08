@@ -71,3 +71,7 @@ curl -X POST -F "image=@africa.jpg" localhost:5000/api/getAnswers?question='wher
 
 For additional information on the utilization of NGINX for proxy and HTTPS certificates, please see this link:
 https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion
+
+#### References
+  - Towards VQA Models That Can Read. Singh, Amanpreet and Natarajan, Vivek and Shah, Meet and Jiang, Yu and Chen, Xinlei and Batra, Dhruv and Parikh, Devi and Rohrbach, Marcus. Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. 2019. [https://github.com/facebookresearch/pythia]
+
