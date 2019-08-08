@@ -30,7 +30,7 @@ Do I need to get my baby from crib?
 
 ## Conclusion
 
-Tiki 
+Visual question answering (VQA) is a new field that combines both computer vision and NLP to provide answers to simple questions using common human syntax.  This project is an implementation of a state-of-the-art VQA model (Pythia) in a web app.  Over time, this type of service will become more common throughout all smart devices such as Alexa, Siri, and others.  Tiki demonstrates the potential for this rollout to be imminent.
 
 ## Pythia Service in Action
 
