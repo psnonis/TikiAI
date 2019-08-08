@@ -1,8 +1,36 @@
 # TikiAI
 
-## Pythia Service Architecture
+Tiki was developed for MIDS W251 Final Project by Brent Biseda, Vincio De Sola, Pri Nonis, and Kevin Stone.  Tiki makes any video stream queryable via text or voice.  Users can use natural language to query the image:
+
+ - “What objects are in the image?”  
+ - “Which # is taking a shot?”  
+ - “What is the weather outside?”  
+
+Tiki works with any browser and requires no installation of software.  
+
+![](images/phone.png)
+
+## Architecture
+
+A conceptual architecture of the webapp is shown below.  
+
+![](images/architecture.png)
 
 ![](assets/pythia.png)
+
+## Examples
+
+Is Tiki an optimist or pessimist?  
+
+![](images/example_1.png)
+
+Do I need to get my baby from crib?  
+
+![](images/example_2.png)
+
+## Conclusion
+
+Tiki 
 
 ## Pythia Service in Action
 
