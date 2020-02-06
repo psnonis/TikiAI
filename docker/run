@@ -15,7 +15,7 @@ RST=$'\x1B[0m'
 EOL=$'\n'
 
   clean="docker rm -f ${context}"
-command="docker run -t -p ${expose}:${expose} --rm --name ${context} ${repository}:${context} ${extra}"
+command="docker run -t -p ${expose}:${expose} --gpus all --rm --name ${context} ${repository}:${context} ${extra}"
  header="Container : ${repository}:${context} ${PAD}${EOL}   Command : ${command}"
 
 clear

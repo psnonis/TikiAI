@@ -15,7 +15,7 @@
     "meteor-node-stubs": "^0.4.1",
     "react": "^16.5.0",
     "react-dom": "^16.5.0",
-    "react-mic-plus": "git+https://77148a59b613318ded5322aacd20722e8c4724b4:x-oauth-basic@github.com/brentbiseda/my-react-mic-plus.git",
+    "react-mic-plus": "git+https://4443a314225eb0664985564302c2c4f37a0e7122:x-oauth-basic@github.com/brentbiseda/my-react-mic-plus.git",
     "react-router-dom": "^5.0.1",
     "react-say": "^1.2.0",
     "react-speech-recognition": "^2.0.4",

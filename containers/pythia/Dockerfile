@@ -57,6 +57,7 @@
 # Install Pythia
   RUN git clone https://github.com/facebookresearch/pythia /final/pack/pythia
   WORKDIR /final/pack/pythia
+  RUN git checkout 4a01b76adc5269e5c5b3ffb58fc7fa173be09e9b
   RUN python setup.py develop
 
 # Cache Model Weights
