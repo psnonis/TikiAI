@@ -12,7 +12,7 @@
     "@material-ui/core": "^4.2.1",
     "@material-ui/icons": "^4.2.1",
     "grommet": "^2.7.4",
-    "meteor-node-stubs": "^0.4.1",
+    "meteor-node-stubs": "^1.2.24",
     "react": "^16.5.0",
     "react-dom": "^16.5.0",
     "react-mic-plus": "git+https://4443a314225eb0664985564302c2c4f37a0e7122:x-oauth-basic@github.com/brentbiseda/my-react-mic-plus.git",
